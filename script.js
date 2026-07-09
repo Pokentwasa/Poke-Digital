@@ -430,14 +430,32 @@
   const form = document.getElementById('contactForm');
   const status = document.getElementById('formStatus');
   if (form) {
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
       if (!form.name.value.trim() || !form.email.value.trim()) {
         status.textContent = 'Please fill in your name and email.';
         return;
       }
-      status.textContent = "Thanks — we'll be in touch shortly.";
-      form.reset();
+      const submitBtn = form.querySelector('button[type="submit"]');
+      submitBtn.textContent = 'Sending...';
+      submitBtn.disabled = true;
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          status.textContent = "Thanks — we'll be in touch shortly.";
+          form.reset();
+        } else {
+          status.textContent = 'Something went wrong. Try emailing us directly.';
+        }
+      } catch (err) {
+        status.textContent = 'Connection error. Try emailing us directly.';
+      }
+      submitBtn.textContent = 'Book a Discovery Call';
+      submitBtn.disabled = false;
     });
   }
 
