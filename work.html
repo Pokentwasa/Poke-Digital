@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Work — Poke Digital</title>
+<meta name="description" content="Selected digital work by Poke Digital. Case studies in web design, UI/UX, brand strategy, and development.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<canvas class="webgl-canvas" id="webglCanvas"></canvas>
+<div class="grain" aria-hidden="true"></div>
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+<div class="cursor-ring" id="cursorRing" aria-hidden="true"><span id="cursorLabel"></span></div>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo magnetic" data-cursor="">Poke Digital</a>
+    <nav class="nav-links" id="navLinks">
+      <a href="about.html" data-cursor="">About</a>
+      <a href="work.html" data-cursor="" class="nav-active">Work</a>
+      <a href="index.html#contact" data-cursor="">Contact</a>
+    </nav>
+    <a href="index.html#contact" class="btn btn-primary btn-small magnetic" data-cursor="">Start a Project</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="scroll-container" id="top">
+
+  <!-- HERO -->
+  <section class="section work-hero">
+    <div class="work-hero-inner">
+      <p class="eyebrow split-text"><span class="word">Selected work</span></p>
+      <h1 class="work-hero-title split-text">
+        <span class="line"><span class="word">Stuff we've built.</span></span>
+      </h1>
+      <p class="work-hero-sub fade-in">Every project is a digital experience — designed for reaction, built to last.</p>
+    </div>
+  </section>
+
+  <!-- CASE STUDIES GRID -->
+  <section class="section work-portfolio">
+    <div class="portfolio-grid">
+
+      <article class="portfolio-card fade-in" data-cursor="View" data-case="fame-estate">
+        <div class="portfolio-media">
+          <img src="assets/work/fame-estate.jpg" alt="Fame Estate" loading="lazy" data-fallback="luxury real estate">
+          <div class="portfolio-overlay">
+            <span class="portfolio-tag">UX/UI Design</span>
+            <span class="portfolio-tag">Website Development</span>
+          </div>
+        </div>
+        <div class="portfolio-info">
+          <h2>Fame Estate</h2>
+          <p>A digital presence for luxury property that moves as fast as the market.</p>
+        </div>
+      </article>
+
+      <article class="portfolio-card portfolio-card--wide fade-in" data-cursor="View" data-case="jesko-jets">
+        <div class="portfolio-media">
+          <img src="assets/work/jesko-jets.jpg" alt="Jesko Jets" loading="lazy" data-fallback="private jet aviation">
+          <div class="portfolio-overlay">
+            <span class="portfolio-tag">UX/UI Design</span>
+            <span class="portfolio-tag">Website Development</span>
+          </div>
+        </div>
+        <div class="portfolio-info">
+          <h2>Jesko Jets</h2>
+          <p>Private aviation, redesigned for a new generation of travellers.</p>
+        </div>
+      </article>
+
+      <article class="portfolio-card fade-in" data-cursor="View" data-case="face-to-face">
+        <div class="portfolio-media">
+          <img src="assets/work/face-to-face.jpg" alt="Face to Face" loading="lazy" data-fallback="portrait fashion editorial">
+          <div class="portfolio-overlay">
+            <span class="portfolio-tag">Brand Strategy</span>
+            <span class="portfolio-tag">Art Direction</span>
+          </div>
+        </div>
+        <div class="portfolio-info">
+          <h2>Face to Face</h2>
+          <p>Brand identity and creative direction for a bold portrait studio.</p>
+        </div>
+      </article>
+
+      <article class="portfolio-card fade-in" data-cursor="View" data-case="sami-marketing">
+        <div class="portfolio-media">
+          <img src="assets/work/sami.jpg" alt="SAMI Marketing" loading="lazy" data-fallback="marketing agency">
+          <div class="portfolio-overlay">
+            <span class="portfolio-tag">UX/UI Design</span>
+            <span class="portfolio-tag">Website Development</span>
+          </div>
+        </div>
+        <div class="portfolio-info">
+          <h2>SAMI Marketing</h2>
+          <p>A conversion-first website for a performance marketing agency.</p>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- CTA BAND -->
+  <section class="section work-cta">
+    <div class="work-cta-inner">
+      <h2 class="split-text"><span class="line"><span class="word">Got something worth building?</span></span></h2>
+      <a href="index.html#contact" class="btn btn-primary magnetic" data-cursor="">Start a Project <span class="arrow">→</span></a>
+    </div>
+  </section>
+
+</div>
+
+<!-- CASE STUDY DETAIL PANEL (expands over page) -->
+<div class="case-panel" id="casePanel">
+  <button class="case-close magnetic" id="caseClose" data-cursor="">✕ Close</button>
+  <div class="case-content" id="caseContent"></div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <p class="footer-logo">Poke Digital</p>
+    <nav class="footer-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="work.html">Work</a><a href="index.html#contact">Contact</a></nav>
+    <div class="footer-contact"><a href="mailto:hello@pokedigital.com">hello@pokedigital.com</a></div>
+  </div>
+  <div class="footer-bottom"><p>&copy; <span id="year"></span> Poke Digital. All rights reserved.</p><p>Digital experiences that drive growth.</p></div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="script.js"></script>
+<script>
+// ===== CASE STUDY DATA =====
+const caseData = {
+  'fame-estate': {
+    title: 'Fame Estate',
+    year: '2024',
+    services: 'UX/UI Design, Website Development',
+    brief: 'Fame Estate needed a digital presence that matched the calibre of their luxury property portfolio — something that felt premium without feeling slow.',
+    approach: 'We stripped back the typical real estate site formula and built an interface-led experience. Every listing page is its own micro-world: full-bleed imagery, minimal text, and interaction design that lets the property sell itself. Load times under 2 seconds across every page.',
+    result: 'A 40% increase in qualified enquiries within the first quarter after launch, with average session duration up 3x compared to the previous site.',
+    images: ['assets/work/fame-estate.jpg']
+  },
+  'jesko-jets': {
+    title: 'Jesko Jets',
+    year: '2024',
+    services: 'UX/UI Design, Website Development',
+    brief: 'Jesko Jets was expanding into charter services and needed a website that communicated exclusivity without being inaccessible.',
+    approach: 'We designed a dark, cinematic interface with smooth transitions between fleet pages. Each aircraft has its own responsive showcase — specs, interior gallery, and instant quote request — all flowing as one continuous scroll. The booking enquiry form sits right where the desire peaks.',
+    result: 'Charter enquiries doubled in the first two months. The site became a sales tool, not just a brochure.',
+    images: ['assets/work/jesko-jets.jpg']
+  },
+  'face-to-face': {
+    title: 'Face to Face',
+    year: '2023',
+    services: 'UX/UI Design, Brand Strategy, Art Direction',
+    brief: 'A portrait photography studio launching from scratch — no existing brand, no digital presence, just exceptional work that needed a stage.',
+    approach: 'We built the brand from name to final pixel. The identity is typographic and bold, designed to never compete with the photography it frames. The website is essentially a curated gallery with booking built in — images load progressively, grid layouts shift between editorial and grid views, and the whole thing feels like holding a printed lookbook.',
+    result: 'Fully booked within 6 weeks of launch, entirely through organic traffic and Instagram referrals back to the site.',
+    images: ['assets/work/face-to-face.jpg']
+  },
+  'sami-marketing': {
+    title: 'SAMI Marketing',
+    year: '2024',
+    services: 'UX/UI Design, Website Development',
+    brief: 'SAMI is a performance marketing agency that needed their own site to practice what they preach — high conversion, sharp positioning, zero fluff.',
+    approach: 'We built a site that functions like a landing page from top to bottom. Every section has a job: establish credibility, show results, make contact effortless. The design is intentionally restrained — black, white, data-forward — so the numbers do the talking. Form placement was A/B tested across three positions before launch.',
+    result: 'Inbound leads increased by 65%. Average time-to-contact dropped from 4 days to same-day.',
+    images: ['assets/work/sami.jpg']
+  }
+};
+
+// ===== CASE STUDY PANEL LOGIC =====
+const panel = document.getElementById('casePanel');
+const panelContent = document.getElementById('caseContent');
+const closeBtn = document.getElementById('caseClose');
+
+document.querySelectorAll('[data-case]').forEach((card) => {
+  card.addEventListener('click', () => {
+    const key = card.dataset.case;
+    const data = caseData[key];
+    if (!data) return;
+
+    panelContent.innerHTML = `
+      <div class="case-hero">
+        <img src="${data.images[0]}" alt="${data.title}" data-fallback="design agency work">
+      </div>
+      <div class="case-body">
+        <div class="case-header">
+          <h1>${data.title}</h1>
+          <div class="case-meta">
+            <span>${data.year}</span>
+            <span>${data.services}</span>
+          </div>
+        </div>
+        <div class="case-section">
+          <h3>The Brief</h3>
+          <p>${data.brief}</p>
+        </div>
+        <div class="case-section">
+          <h3>Our Approach</h3>
+          <p>${data.approach}</p>
+        </div>
+        <div class="case-section">
+          <h3>The Result</h3>
+          <p>${data.result}</p>
+        </div>
+        <div class="case-cta">
+          <a href="index.html#contact" class="btn btn-primary magnetic" data-cursor="">Start your project <span class="arrow">→</span></a>
+        </div>
+      </div>
+    `;
+
+    panel.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+
+    // Re-init fallback images inside panel
+    panelContent.querySelectorAll('img[data-fallback]').forEach((img) => {
+      let stage = 0;
+      img.addEventListener('error', () => {
+        stage++;
+        const kw = img.dataset.fallback.split(',')[0].trim().replace(/\\s+/g, '-');
+        if (stage === 1) img.src = 'https://loremflickr.com/1200/700/' + kw;
+        else if (stage === 2) img.src = 'https://picsum.photos/1200/700?grayscale';
+      });
+    });
+  });
+});
+
+closeBtn.addEventListener('click', () => {
+  panel.classList.remove('is-open');
+  document.body.style.overflow = '';
+});
+
+panel.addEventListener('click', (e) => {
+  if (e.target === panel) {
+    panel.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+});
+</script>
+</body>
+</html>

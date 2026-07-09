@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Poke Digital</title>
+<meta name="description" content="Poke Digital creates work that refuses to blend in. Built in Cape Town, we partner with ambitious brands that would rather be remembered than accepted.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<canvas class="webgl-canvas" id="webglCanvas"></canvas>
+<div class="grain" aria-hidden="true"></div>
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+<div class="cursor-ring" id="cursorRing" aria-hidden="true"><span id="cursorLabel"></span></div>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo magnetic" data-cursor="">Poke Digital</a>
+    <nav class="nav-links" id="navLinks">
+      <a href="about.html" data-cursor="" class="nav-active">About</a>
+      <a href="work.html" data-cursor="">Work</a>
+      <a href="index.html#contact" data-cursor="">Contact</a>
+    </nav>
+    <a href="index.html#contact" class="btn btn-primary btn-small magnetic" data-cursor="">Start a Project</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="scroll-container" id="top">
+
+  <!-- HERO -->
+  <section class="section about-hero">
+    <div class="about-hero-inner">
+      <p class="eyebrow split-text"><span class="word">About</span></p>
+      <h1 class="about-hero-title split-text">
+        <span class="line"><span class="word">Poke Digital creates</span></span>
+        <span class="line"><span class="word">work that refuses</span></span>
+        <span class="line"><span class="word">to blend in.</span></span>
+      </h1>
+      <p class="about-hero-sub fade-in">
+        Built in Cape Town, we partner with ambitious brands that would rather be remembered than accepted.
+      </p>
+    </div>
+  </section>
+
+  <!-- MANIFESTO -->
+  <section class="section about-manifesto">
+    <div class="manifesto-inner">
+      <div class="manifesto-block">
+        <h2 class="manifesto-headline split-text">
+          <span class="line"><span class="word">Most digital experiences</span></span>
+          <span class="line"><span class="word">are designed to be tolerated.</span></span>
+        </h2>
+        <h2 class="manifesto-headline manifesto-headline--accent split-text">
+          <span class="line"><span class="word">We design for reaction.</span></span>
+        </h2>
+      </div>
+
+      <div class="manifesto-body">
+        <p class="fade-in">Every decision has weight. Every screen has intent. Every interaction earns attention.</p>
+        <p class="fade-in">We aren't interested in trends, templates, or playing inside category expectations. The goal isn't to look like everyone else — it's to make everyone else look outdated.</p>
+      </div>
+
+      <div class="manifesto-closing fade-in">
+        <p>Bold ideas deserve bold execution.</p>
+        <p>That's where we live.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="section about-values">
+    <div class="values-inner">
+      <div class="values-grid">
+        <div class="value-card fade-in">
+          <span class="value-num">01</span>
+          <h3>Design-centric</h3>
+          <p>Every decision starts from how something looks, feels, and moves — not just how it functions.</p>
+        </div>
+        <div class="value-card fade-in">
+          <span class="value-num">02</span>
+          <h3>Experience-first</h3>
+          <p>We approach every project as a digital experience — not a website with polish added at the end.</p>
+        </div>
+        <div class="value-card fade-in">
+          <span class="value-num">03</span>
+          <h3>One focused mind</h3>
+          <p>No handoffs between departments, no dilution between the idea and what ships. Strategy, design, and build — same person, same vision.</p>
+        </div>
+        <div class="value-card fade-in">
+          <span class="value-num">04</span>
+          <h3>Craft over output</h3>
+          <p>We'd rather do one thing exceptionally than ten things adequately. Work that holds up when you look closely.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="section stats">
+    <div class="stats-inner">
+      <div class="stat fade-in"><p class="stat-number" data-count="12">0</p><p class="stat-label">Digital experiences shipped</p></div>
+      <div class="stat fade-in"><p class="stat-number" data-count="5">0</p><p class="stat-label">Years in the craft</p></div>
+      <div class="stat fade-in"><p class="stat-number" data-count="100" data-suffix="%">0</p><p class="stat-label">Client satisfaction</p></div>
+      <div class="stat fade-in"><p class="stat-number" data-count="1">0</p><p class="stat-label">Focused mind on every build</p></div>
+    </div>
+  </section>
+
+  <!-- BASED IN -->
+  <section class="section about-location">
+    <div class="location-inner">
+      <span class="sticker sticker--orange">Cape Town, South Africa</span>
+      <h2 class="split-text"><span class="line"><span class="word">Based in Cape Town.</span></span><span class="line"><span class="word">Working digitally, wherever</span></span><span class="line"><span class="word">the project takes us.</span></span></h2>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section about-cta">
+    <div class="about-cta-inner">
+      <h2 class="split-text"><span class="line"><span class="word">Ready for a digital presence</span></span><span class="line"><span class="word">with commercial pull?</span></span></h2>
+      <div class="about-cta-actions fade-in">
+        <a href="index.html#contact" class="btn btn-primary magnetic" data-cursor="">Start a Project <span class="arrow">→</span></a>
+        <a href="work.html" class="btn btn-ghost magnetic" data-cursor="">View Our Work</a>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <p class="footer-logo">Poke Digital</p>
+    <nav class="footer-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="work.html">Work</a><a href="index.html#contact">Contact</a></nav>
+    <div class="footer-contact"><a href="mailto:hello@pokedigital.com">hello@pokedigital.com</a></div>
+  </div>
+  <div class="footer-bottom"><p>&copy; <span id="year"></span> Poke Digital. All rights reserved.</p><p>Digital experiences that drive growth.</p></div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
