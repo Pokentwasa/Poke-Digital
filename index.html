@@ -5,24 +5,31 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Poke Digital — Premium Website and UI/UX Design</title>
 <meta name="description" content="Poke Digital designs high-performing websites and intuitive digital products for ambitious teams.">
-<meta property="og:title" content="Poke Digital — Premium Website and UI/UX Design">
-<meta property="og:description" content="Poke Digital designs high-performing websites and intuitive digital products for ambitious teams.">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<!-- page-load wipe -->
-<div class="loader" id="loader" aria-hidden="true"><span class="loader-logo">Poke Digital</span></div>
+<!-- WebGL canvas — sits behind all HTML content -->
+<canvas class="webgl-canvas" id="webglCanvas"></canvas>
 
-<!-- ambient texture + custom cursor -->
+<!-- Film grain overlay -->
 <div class="grain" aria-hidden="true"></div>
+
+<!-- Custom cursor -->
 <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
 <div class="cursor-ring" id="cursorRing" aria-hidden="true"><span id="cursorLabel"></span></div>
+
+<!-- Page loader -->
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader-bar" id="loaderBar"></div>
+  <span class="loader-logo">Poke Digital</span>
+  <span class="loader-pct" id="loaderPct">0%</span>
+</div>
 
 <!-- ============ NAV ============ -->
 <header class="nav" id="nav">
   <div class="nav-inner">
-    <a href="#top" class="nav-logo" data-cursor="">Poke Digital</a>
+    <a href="#top" class="nav-logo magnetic" data-cursor="">Poke Digital</a>
     <nav class="nav-links" id="navLinks">
       <a href="#about" data-cursor="">About</a>
       <a href="#work" data-cursor="">Work</a>
@@ -35,199 +42,131 @@
   </div>
 </header>
 
-<main id="top">
+<!-- ============ SCROLLABLE CONTENT ============ -->
+<div class="scroll-container" id="top">
 
-  <!-- ============ HERO (image bg, kinetic) ============ -->
-  <section class="hero hero--photo">
-    <div class="hero-bg" aria-hidden="true">
-      <img class="hero-photo" src="assets/hero-bg.jpg" alt="" data-fallback="dark abstract architecture">
-      <div class="hero-overlay"></div>
-    </div>
+  <!-- HERO -->
+  <section class="section hero" data-section="hero">
     <div class="hero-inner">
-      <span class="sticker sticker--orange reveal">We shape demand</span>
-      <h1 class="hero-title" id="heroTitle" aria-label="For brands that refuse to blend in">
-        <span class="line"><span class="word">For</span> <span class="word">brands</span> <span class="word">that</span></span>
-        <span class="line"><span class="word">refuse</span> <span class="word">to</span> <span class="word">blend</span> <span class="word">in</span></span>
+      <span class="sticker sticker--orange">We shape demand</span>
+      <h1 class="hero-title split-text">
+        <span class="line"><span class="word">For brands that</span></span>
+        <span class="line"><span class="word">refuse to blend in</span></span>
       </h1>
-      <div class="hero-ctas reveal">
+      <div class="hero-ctas">
         <a href="#contact" class="btn btn-primary magnetic" data-cursor="">Start a Project <span class="arrow">→</span></a>
-        <a href="#work" class="btn btn-ghost btn-ghost--light magnetic" data-cursor="">View Our Work</a>
+        <a href="#work" class="btn btn-ghost magnetic" data-cursor="">View Our Work</a>
       </div>
     </div>
-    <div class="hero-marquee" aria-hidden="true">
-      <div class="marquee-track">
-        <span>DESIGNED FOR REACTION —</span><span>DESIGNED FOR REACTION —</span>
-        <span>DESIGNED FOR REACTION —</span><span>DESIGNED FOR REACTION —</span>
-        <span>DESIGNED FOR REACTION —</span><span>DESIGNED FOR REACTION —</span>
-      </div>
+    <div class="scroll-indicator" aria-hidden="true">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
     </div>
   </section>
 
-  <!-- ============ FEATURES (dark) ============ -->
-  <section class="features" id="about">
+  <!-- ABOUT / FEATURES -->
+  <section class="section features" id="about" data-section="features">
     <div class="features-inner">
-      <span class="sticker sticker--lavender features-sticker reveal">UX/UI Design</span>
-      <p class="eyebrow reveal">Design as leverage</p>
-      <h2 class="features-title reveal">We make digital products impossible to ignore</h2>
-      <p class="features-sub reveal">
+      <span class="sticker sticker--lavender features-sticker">UX/UI Design</span>
+      <p class="eyebrow split-text"><span class="word">Design as leverage</span></p>
+      <h2 class="features-title split-text">
+        <span class="line"><span class="word">We make digital</span></span>
+        <span class="line"><span class="word">products impossible</span></span>
+        <span class="line"><span class="word">to ignore</span></span>
+      </h2>
+      <p class="features-sub fade-in">
         Poke Digital is a focused design partner for teams that need more than a clean website —
         they need a digital presence with taste, clarity, and commercial pull.
       </p>
       <div class="features-grid">
-        <div class="feature-item reveal">
-          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.9 3.1-7 7-7s7 3.1 7 7"/></svg>
+        <div class="feature-item fade-in">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.9 3.1-7 7-7s7 3.1 7 7"/></svg>
           <span>01</span>User Experience
         </div>
-        <div class="feature-item reveal">
-          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h7M9 8h3"/></svg>
+        <div class="feature-item fade-in">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h7M9 8h3"/></svg>
           <span>02</span>Conversion Logic
         </div>
-        <div class="feature-item reveal">
-          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.6" fill="currentColor"/></svg>
+        <div class="feature-item fade-in">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.6" fill="currentColor"/></svg>
           <span>03</span>Design Strategy
         </div>
-        <div class="feature-item reveal">
-          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2l1.8 5.4L19 9l-5.2 1.6L12 16l-1.8-5.4L5 9l5.2-1.6z"/></svg>
+        <div class="feature-item fade-in">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 2l1.8 5.4L19 9l-5.2 1.6L12 16l-1.8-5.4L5 9l5.2-1.6z"/></svg>
           <span>04</span>Brand Consistency
         </div>
       </div>
-      <span class="sticker sticker--yellow features-badge reveal">Not another template agency</span>
+      <span class="sticker sticker--yellow features-badge">Built to be noticed</span>
     </div>
   </section>
 
-  <!-- ============ WORK (light, cursor-reactive cards) ============ -->
-  <section class="work" id="work">
+  <!-- WORK -->
+  <section class="section work" id="work" data-section="work">
     <div class="section-head section-head--left">
-      <h2 class="section-title reveal">Selected digital work</h2>
-      <a href="#" class="view-all reveal" data-cursor="">↳ View all work</a>
+      <h2 class="section-title split-text"><span class="line"><span class="word">Selected digital work</span></span></h2>
+      <a href="#" class="view-all magnetic" data-cursor="">↳ View all work</a>
     </div>
     <div class="work-grid">
-      <article class="work-card reveal" data-cursor="View">
-        <div class="work-media work-media--a">
-          <img src="assets/work/fame-estate.jpg" alt="Fame Estate project" loading="lazy" data-fallback="real estate,architecture">
-        </div>
-        <div class="work-meta">
-          <h3>Fame estate</h3>
-          <p>UX/UI Design, Website Development</p>
-        </div>
+      <article class="work-card fade-in" data-cursor="View">
+        <div class="work-media work-media--a"><img src="assets/work/fame-estate.jpg" alt="Fame Estate" loading="lazy" data-fallback="real estate,architecture"></div>
+        <div class="work-meta"><h3>Fame estate</h3><p>UX/UI Design, Website Development</p></div>
       </article>
-      <article class="work-card reveal" data-cursor="View">
-        <div class="work-media work-media--b">
-          <img src="assets/work/jesko-jets.jpg" alt="Jesko Jets project" loading="lazy" data-fallback="private jet,aviation">
-          <span class="work-overlay">We are movement</span>
-        </div>
-        <div class="work-meta">
-          <h3>Jesko Jets</h3>
-          <p>UX/UI Design, Website Development</p>
-        </div>
+      <article class="work-card fade-in" data-cursor="View">
+        <div class="work-media work-media--b"><img src="assets/work/jesko-jets.jpg" alt="Jesko Jets" loading="lazy" data-fallback="private jet,aviation"><span class="work-overlay">We are movement</span></div>
+        <div class="work-meta"><h3>Jesko Jets</h3><p>UX/UI Design, Website Development</p></div>
       </article>
-      <article class="work-card reveal" data-cursor="View">
-        <div class="work-media work-media--c">
-          <img src="assets/work/face-to-face.jpg" alt="Face to Face project" loading="lazy" data-fallback="portrait,fashion">
-          <span class="work-overlay">FACE TO FACE</span>
-        </div>
-        <div class="work-meta">
-          <h3>Face to face</h3>
-          <p>UX/UI Design, Brand Strategy, Art Direction</p>
-        </div>
+      <article class="work-card fade-in" data-cursor="View">
+        <div class="work-media work-media--c"><img src="assets/work/face-to-face.jpg" alt="Face to Face" loading="lazy" data-fallback="portrait,fashion"><span class="work-overlay">FACE TO FACE</span></div>
+        <div class="work-meta"><h3>Face to face</h3><p>UX/UI Design, Brand Strategy, Art Direction</p></div>
       </article>
-      <article class="work-card reveal" data-cursor="View">
-        <div class="work-media work-media--d">
-          <img src="assets/work/sami.jpg" alt="SAMI marketing project" loading="lazy" data-fallback="marketing,office">
-          <span class="work-overlay">SAMI</span>
-        </div>
-        <div class="work-meta">
-          <h3>SAMI marketing</h3>
-          <p>UX/UI Design, Website Development</p>
-        </div>
+      <article class="work-card fade-in" data-cursor="View">
+        <div class="work-media work-media--d"><img src="assets/work/sami.jpg" alt="SAMI marketing" loading="lazy" data-fallback="marketing,office"><span class="work-overlay">SAMI</span></div>
+        <div class="work-meta"><h3>SAMI marketing</h3><p>UX/UI Design, Website Development</p></div>
       </article>
     </div>
   </section>
 
-  <!-- ============ STATS (dark, counted numbers) ============ -->
-  <section class="stats">
+  <!-- STATS -->
+  <section class="section stats" data-section="stats">
     <div class="stats-inner">
-      <div class="stat reveal">
-        <p class="stat-number" data-count="12">0</p>
-        <p class="stat-label">Digital experiences shipped</p>
-      </div>
-      <div class="stat reveal">
-        <p class="stat-number" data-count="5">0</p>
-        <p class="stat-label">Years in the craft</p>
-      </div>
-      <div class="stat reveal">
-        <p class="stat-number" data-count="100" data-suffix="%">0</p>
-        <p class="stat-label">Client satisfaction</p>
-      </div>
-      <div class="stat reveal">
-        <p class="stat-number" data-count="1">0</p>
-        <p class="stat-label">Focused mind on every build</p>
-      </div>
+      <div class="stat fade-in"><p class="stat-number" data-count="12">0</p><p class="stat-label">Digital experiences shipped</p></div>
+      <div class="stat fade-in"><p class="stat-number" data-count="5">0</p><p class="stat-label">Years in the craft</p></div>
+      <div class="stat fade-in"><p class="stat-number" data-count="100" data-suffix="%">0</p><p class="stat-label">Client satisfaction</p></div>
+      <div class="stat fade-in"><p class="stat-number" data-count="1">0</p><p class="stat-label">Focused mind on every build</p></div>
     </div>
   </section>
 
-  <!-- ============ PROCESS (light) ============ -->
-  <section class="process">
+  <!-- PROCESS -->
+  <section class="section process" data-section="process">
     <div class="process-inner">
       <div class="section-head section-head--left">
-        <h2 class="section-title reveal">A process shaped around progress</h2>
-        <p class="process-sub reveal">
-          From discovery to launch, every stage is designed to reduce uncertainty
-          and move the product closer to measurable impact.
-        </p>
+        <h2 class="section-title split-text"><span class="line"><span class="word">A process shaped</span></span><span class="line"><span class="word">around progress</span></span></h2>
+        <p class="process-sub fade-in">From discovery to launch, every stage reduces uncertainty and moves the product closer to measurable impact.</p>
       </div>
       <ol class="process-list">
-        <li class="process-item reveal">
-          <span class="process-num">01</span>
-          <div><h3>Discover</h3><p>Understand the business, audience, product context, and growth opportunities before design begins.</p></div>
-        </li>
-        <li class="process-item reveal">
-          <span class="process-num">02</span>
-          <div><h3>Strategy</h3><p>Define priorities, user journeys, conversion paths, and the creative system that will guide the build.</p></div>
-        </li>
-        <li class="process-item reveal">
-          <span class="process-num">03</span>
-          <div><h3>Design</h3><p>Create high-fidelity interfaces, responsive layouts, and a refined digital visual language.</p></div>
-        </li>
-        <li class="process-item reveal">
-          <span class="process-num">04</span>
-          <div><h3>Refine</h3><p>Test assumptions, polish interactions, and tighten the experience until it feels effortless.</p></div>
-        </li>
-        <li class="process-item reveal">
-          <span class="process-num">05</span>
-          <div><h3>Launch</h3><p>Ship with confidence and a site or product experience ready to support growth.</p></div>
-        </li>
+        <li class="process-item fade-in"><span class="process-num">01</span><div><h3>Discover</h3><p>Understand the business, audience, product context, and growth opportunities before design begins.</p></div></li>
+        <li class="process-item fade-in"><span class="process-num">02</span><div><h3>Strategy</h3><p>Define priorities, user journeys, conversion paths, and the creative system that will guide the build.</p></div></li>
+        <li class="process-item fade-in"><span class="process-num">03</span><div><h3>Design</h3><p>Create high-fidelity interfaces, responsive layouts, and a refined digital visual language.</p></div></li>
+        <li class="process-item fade-in"><span class="process-num">04</span><div><h3>Refine</h3><p>Test assumptions, polish interactions, and tighten the experience until it feels effortless.</p></div></li>
+        <li class="process-item fade-in"><span class="process-num">05</span><div><h3>Launch</h3><p>Ship with confidence and a site or product experience ready to support growth.</p></div></li>
       </ol>
     </div>
   </section>
 
-  <!-- ============ CONTACT (dark) ============ -->
-  <section class="contact" id="contact">
+  <!-- CONTACT -->
+  <section class="section contact" id="contact" data-section="contact">
     <div class="contact-inner">
       <div class="contact-copy">
-        <h2 class="reveal">Let's Build Something Remarkable</h2>
-        <p class="reveal">
-          Tell us what you're building, improving, or rethinking.
-          We'll respond with a clear next step for a discovery call.
-        </p>
-        <p class="contact-note reveal">Discovery calls for qualified projects</p>
+        <h2 class="split-text"><span class="line"><span class="word">Let's Build Something</span></span><span class="line"><span class="word">Remarkable</span></span></h2>
+        <p class="fade-in">Tell us what you're building, improving, or rethinking. We'll respond with a clear next step for a discovery call.</p>
+        <p class="contact-note fade-in">Discovery calls for qualified projects</p>
       </div>
-      <form class="contact-form reveal" id="contactForm">
+      <form class="contact-form fade-in" id="contactForm">
         <div class="form-row"><label for="name">Name</label><input type="text" id="name" name="name" required></div>
         <div class="form-row"><label for="company">Company</label><input type="text" id="company" name="company"></div>
         <div class="form-row"><label for="email">Email</label><input type="email" id="email" name="email" required></div>
-        <div class="form-row">
-          <label for="projectType">Project Type</label>
-          <select id="projectType" name="projectType">
-            <option>Website Design</option><option>UI/UX Design</option><option>Website + UX</option>
-          </select>
-        </div>
-        <div class="form-row">
-          <label for="budget">Budget</label>
-          <select id="budget" name="budget">
-            <option>$5k–$10k</option><option>$10k–$25k</option><option>$25k+</option>
-          </select>
-        </div>
+        <div class="form-row"><label for="projectType">Project Type</label><select id="projectType" name="projectType"><option>Website Design</option><option>UI/UX Design</option><option>Website + UX</option></select></div>
+        <div class="form-row"><label for="budget">Budget</label><select id="budget" name="budget"><option>$5k–$10k</option><option>$10k–$25k</option><option>$25k+</option></select></div>
         <div class="form-row"><label for="message">Message</label><textarea id="message" name="message" rows="4"></textarea></div>
         <button type="submit" class="btn btn-primary btn-full magnetic" data-cursor="">Book a Discovery Call</button>
         <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
@@ -235,29 +174,22 @@
     </div>
   </section>
 
-</main>
+</div>
 
-<!-- ============ FOOTER (dark) ============ -->
+<!-- FOOTER -->
 <footer class="footer">
   <div class="footer-inner">
     <p class="footer-logo">Poke Digital</p>
-    <nav class="footer-links">
-      <a href="#top" data-cursor="">Home</a>
-      <a href="#about" data-cursor="">About</a>
-      <a href="#work" data-cursor="">Work</a>
-      <a href="#contact" data-cursor="">Contact</a>
-    </nav>
-    <div class="footer-contact">
-      <a href="mailto:hello@pokedigital.com" data-cursor="">hello@pokedigital.com</a>
-      <a href="#contact" class="footer-cta" data-cursor="">Book a Discovery Call</a>
-    </div>
+    <nav class="footer-links"><a href="#top">Home</a><a href="#about">About</a><a href="#work">Work</a><a href="#contact">Contact</a></nav>
+    <div class="footer-contact"><a href="mailto:hello@pokedigital.com">hello@pokedigital.com</a><a href="#contact" class="footer-cta">Book a Discovery Call</a></div>
   </div>
-  <div class="footer-bottom">
-    <p>&copy; <span id="year"></span> Poke Digital. All rights reserved.</p>
-    <p>Digital experiences that drive growth.</p>
-  </div>
+  <div class="footer-bottom"><p>&copy; <span id="year"></span> Poke Digital. All rights reserved.</p><p>Digital experiences that drive growth.</p></div>
 </footer>
 
+<!-- CDN: Three.js r128 + GSAP + ScrollTrigger -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
