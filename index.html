@@ -9,10 +9,14 @@
 <meta property="og:description" content="Poke Digital designs high-performing websites and intuitive digital products for ambitious teams.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+<!-- page-load wipe -->
+<div class="loader" id="loader" aria-hidden="true"><span class="loader-logo">Poke Digital</span></div>
 
 <!-- ambient texture + custom cursor -->
 <div class="grain" aria-hidden="true"></div>
@@ -92,7 +96,9 @@
     </div>
     <div class="work-grid">
       <article class="work-card reveal" data-cursor="View">
-        <div class="work-media work-media--a"></div>
+        <div class="work-media work-media--a">
+          <img src="assets/work/fame-estate.jpg" alt="Fame Estate project" loading="lazy" onerror="this.src='https://picsum.photos/800/600?grayscale&random=1'">
+        </div>
         <div class="work-meta">
           <h3>Fame estate</h3>
           <p>UX/UI Design, Website Development</p>
@@ -100,6 +106,7 @@
       </article>
       <article class="work-card reveal" data-cursor="View">
         <div class="work-media work-media--b">
+          <img src="assets/work/jesko-jets.jpg" alt="Jesko Jets project" loading="lazy" onerror="this.src='https://picsum.photos/800/600?grayscale&random=2'">
           <span class="work-overlay">We are movement</span>
         </div>
         <div class="work-meta">
@@ -109,6 +116,7 @@
       </article>
       <article class="work-card reveal" data-cursor="View">
         <div class="work-media work-media--c">
+          <img src="assets/work/face-to-face.jpg" alt="Face to Face project" loading="lazy" onerror="this.src='https://picsum.photos/800/600?grayscale&random=3'">
           <span class="work-overlay">FACE TO FACE</span>
         </div>
         <div class="work-meta">
@@ -118,6 +126,7 @@
       </article>
       <article class="work-card reveal" data-cursor="View">
         <div class="work-media work-media--d">
+          <img src="assets/work/sami.jpg" alt="SAMI marketing project" loading="lazy" onerror="this.src='https://picsum.photos/800/600?grayscale&random=4'">
           <span class="work-overlay">SAMI</span>
         </div>
         <div class="work-meta">
