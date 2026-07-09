@@ -208,7 +208,7 @@ body.has-custom-cursor, body.has-custom-cursor a, body.has-custom-cursor button 
 .hero-title {
   font-family: var(--font-display);
   font-weight: 900;
-  font-size: clamp(56px, 9.5vw, 152px);
+  font-size: clamp(48px, 8vw, 128px);
   line-height: 0.96;
   letter-spacing: -0.03em;
   overflow: hidden;
