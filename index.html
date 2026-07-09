@@ -7,10 +7,6 @@
 <meta name="description" content="Poke Digital designs high-performing websites and intuitive digital products for ambitious teams.">
 <meta property="og:title" content="Poke Digital — Premium Website and UI/UX Design">
 <meta property="og:description" content="Poke Digital designs high-performing websites and intuitive digital products for ambitious teams.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -41,13 +37,14 @@
 
 <main id="top">
 
-  <!-- ============ HERO (light, kinetic) ============ -->
-  <section class="hero">
+  <!-- ============ HERO (image bg, kinetic) ============ -->
+  <section class="hero hero--photo">
     <div class="hero-bg" aria-hidden="true">
-      <div class="blob blob--a"></div>
-      <div class="blob blob--b"></div>
+      <img class="hero-photo" src="assets/hero-bg.jpg" alt="" data-fallback="dark abstract architecture">
+      <div class="hero-overlay"></div>
     </div>
     <div class="hero-inner">
+      <span class="sticker sticker--orange reveal">We shape demand</span>
       <h1 class="hero-title" id="heroTitle" aria-label="For brands that refuse to blend in">
         <span class="line"><span class="word">For</span> <span class="word">brands</span> <span class="word">that</span></span>
         <span class="line"><span class="word">refuse</span> <span class="word">to</span> <span class="word">blend</span> <span class="word">in</span></span>
@@ -58,7 +55,7 @@
       </p>
       <div class="hero-ctas reveal">
         <a href="#contact" class="btn btn-primary magnetic" data-cursor="">Start a Project <span class="arrow">→</span></a>
-        <a href="#work" class="btn btn-ghost magnetic" data-cursor="">View Our Work</a>
+        <a href="#work" class="btn btn-ghost btn-ghost--light magnetic" data-cursor="">View Our Work</a>
       </div>
     </div>
     <div class="hero-marquee" aria-hidden="true">
@@ -73,6 +70,7 @@
   <!-- ============ FEATURES (dark) ============ -->
   <section class="features" id="about">
     <div class="features-inner">
+      <span class="sticker sticker--lavender features-sticker reveal">UX/UI Design</span>
       <p class="eyebrow reveal">Design as leverage</p>
       <h2 class="features-title reveal">We make digital products impossible to ignore</h2>
       <p class="features-sub reveal">
@@ -80,11 +78,24 @@
         they need a digital presence with taste, clarity, and commercial pull.
       </p>
       <div class="features-grid">
-        <div class="feature-item reveal"><span>01</span>User Experience</div>
-        <div class="feature-item reveal"><span>02</span>Conversion Logic</div>
-        <div class="feature-item reveal"><span>03</span>Design Strategy</div>
-        <div class="feature-item reveal"><span>04</span>Brand Consistency</div>
+        <div class="feature-item reveal">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.9 3.1-7 7-7s7 3.1 7 7"/></svg>
+          <span>01</span>User Experience
+        </div>
+        <div class="feature-item reveal">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h7M9 8h3"/></svg>
+          <span>02</span>Conversion Logic
+        </div>
+        <div class="feature-item reveal">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.6" fill="currentColor"/></svg>
+          <span>03</span>Design Strategy
+        </div>
+        <div class="feature-item reveal">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2l1.8 5.4L19 9l-5.2 1.6L12 16l-1.8-5.4L5 9l5.2-1.6z"/></svg>
+          <span>04</span>Brand Consistency
+        </div>
       </div>
+      <span class="sticker sticker--yellow features-badge reveal">Not another template agency</span>
     </div>
   </section>
 
@@ -97,7 +108,7 @@
     <div class="work-grid">
       <article class="work-card reveal" data-cursor="View">
         <div class="work-media work-media--a">
-          <img src="assets/work/fame-estate.jpg" alt="Fame Estate project" loading="lazy" onerror="this.src='https://picsum.photos/800/600?grayscale&random=1'">
+          <img src="assets/work/fame-estate.jpg" alt="Fame Estate project" loading="lazy" data-fallback="real estate,architecture">
         </div>
         <div class="work-meta">
           <h3>Fame estate</h3>
@@ -106,7 +117,7 @@
       </article>
       <article class="work-card reveal" data-cursor="View">
         <div class="work-media work-media--b">
-          <img src="assets/work/jesko-jets.jpg" alt="Jesko Jets project" loading="lazy" onerror="this.src='https://picsum.photos/800/600?grayscale&random=2'">
+          <img src="assets/work/jesko-jets.jpg" alt="Jesko Jets project" loading="lazy" data-fallback="private jet,aviation">
           <span class="work-overlay">We are movement</span>
         </div>
         <div class="work-meta">
@@ -116,7 +127,7 @@
       </article>
       <article class="work-card reveal" data-cursor="View">
         <div class="work-media work-media--c">
-          <img src="assets/work/face-to-face.jpg" alt="Face to Face project" loading="lazy" onerror="this.src='https://picsum.photos/800/600?grayscale&random=3'">
+          <img src="assets/work/face-to-face.jpg" alt="Face to Face project" loading="lazy" data-fallback="portrait,fashion">
           <span class="work-overlay">FACE TO FACE</span>
         </div>
         <div class="work-meta">
@@ -126,7 +137,7 @@
       </article>
       <article class="work-card reveal" data-cursor="View">
         <div class="work-media work-media--d">
-          <img src="assets/work/sami.jpg" alt="SAMI marketing project" loading="lazy" onerror="this.src='https://picsum.photos/800/600?grayscale&random=4'">
+          <img src="assets/work/sami.jpg" alt="SAMI marketing project" loading="lazy" data-fallback="marketing,office">
           <span class="work-overlay">SAMI</span>
         </div>
         <div class="work-meta">
