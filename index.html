@@ -14,16 +14,21 @@
 </head>
 <body>
 
+<!-- ambient texture + custom cursor -->
+<div class="grain" aria-hidden="true"></div>
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+<div class="cursor-ring" id="cursorRing" aria-hidden="true"><span id="cursorLabel"></span></div>
+
 <!-- ============ NAV ============ -->
 <header class="nav" id="nav">
   <div class="nav-inner">
-    <a href="#top" class="nav-logo">Poke Digital</a>
+    <a href="#top" class="nav-logo" data-cursor="">Poke Digital</a>
     <nav class="nav-links" id="navLinks">
-      <a href="#about">About</a>
-      <a href="#work">Work</a>
-      <a href="#contact">Contact</a>
+      <a href="#about" data-cursor="">About</a>
+      <a href="#work" data-cursor="">Work</a>
+      <a href="#contact" data-cursor="">Contact</a>
     </nav>
-    <a href="#contact" class="btn btn-primary btn-small">Start a Project</a>
+    <a href="#contact" class="btn btn-primary btn-small magnetic" data-cursor="">Start a Project</a>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
@@ -32,17 +37,31 @@
 
 <main id="top">
 
-  <!-- ============ HERO (light) ============ -->
+  <!-- ============ HERO (light, kinetic) ============ -->
   <section class="hero">
+    <div class="hero-bg" aria-hidden="true">
+      <div class="blob blob--a"></div>
+      <div class="blob blob--b"></div>
+    </div>
     <div class="hero-inner">
-      <h1 class="hero-title reveal">For brands that refuse to blend in</h1>
+      <h1 class="hero-title" id="heroTitle" aria-label="For brands that refuse to blend in">
+        <span class="line"><span class="word">For</span> <span class="word">brands</span> <span class="word">that</span></span>
+        <span class="line"><span class="word">refuse</span> <span class="word">to</span> <span class="word">blend</span> <span class="word">in</span></span>
+      </h1>
       <p class="hero-sub reveal">
         Poke Digital creates website and product experiences with the strategy, taste,
         and interface craft needed to make ambitious businesses feel unmistakable.
       </p>
       <div class="hero-ctas reveal">
-        <a href="#contact" class="btn btn-primary">Start a Project <span class="arrow">→</span></a>
-        <a href="#work" class="btn btn-ghost">View Our Work</a>
+        <a href="#contact" class="btn btn-primary magnetic" data-cursor="">Start a Project <span class="arrow">→</span></a>
+        <a href="#work" class="btn btn-ghost magnetic" data-cursor="">View Our Work</a>
+      </div>
+    </div>
+    <div class="hero-marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>DESIGNED FOR REACTION —</span><span>DESIGNED FOR REACTION —</span>
+        <span>DESIGNED FOR REACTION —</span><span>DESIGNED FOR REACTION —</span>
+        <span>DESIGNED FOR REACTION —</span><span>DESIGNED FOR REACTION —</span>
       </div>
     </div>
   </section>
@@ -62,25 +81,24 @@
         <div class="feature-item reveal"><span>03</span>Design Strategy</div>
         <div class="feature-item reveal"><span>04</span>Brand Consistency</div>
       </div>
-      <p class="features-badge reveal">Not another template agency</p>
     </div>
   </section>
 
-  <!-- ============ WORK (light) ============ -->
+  <!-- ============ WORK (light, cursor-reactive cards) ============ -->
   <section class="work" id="work">
     <div class="section-head section-head--left">
       <h2 class="section-title reveal">Selected digital work</h2>
-      <a href="#" class="view-all reveal">↳ View all work</a>
+      <a href="#" class="view-all reveal" data-cursor="">↳ View all work</a>
     </div>
     <div class="work-grid">
-      <article class="work-card reveal">
+      <article class="work-card reveal" data-cursor="View">
         <div class="work-media work-media--a"></div>
         <div class="work-meta">
           <h3>Fame estate</h3>
           <p>UX/UI Design, Website Development</p>
         </div>
       </article>
-      <article class="work-card reveal">
+      <article class="work-card reveal" data-cursor="View">
         <div class="work-media work-media--b">
           <span class="work-overlay">We are movement</span>
         </div>
@@ -89,7 +107,7 @@
           <p>UX/UI Design, Website Development</p>
         </div>
       </article>
-      <article class="work-card reveal">
+      <article class="work-card reveal" data-cursor="View">
         <div class="work-media work-media--c">
           <span class="work-overlay">FACE TO FACE</span>
         </div>
@@ -98,7 +116,7 @@
           <p>UX/UI Design, Brand Strategy, Art Direction</p>
         </div>
       </article>
-      <article class="work-card reveal">
+      <article class="work-card reveal" data-cursor="View">
         <div class="work-media work-media--d">
           <span class="work-overlay">SAMI</span>
         </div>
@@ -107,6 +125,28 @@
           <p>UX/UI Design, Website Development</p>
         </div>
       </article>
+    </div>
+  </section>
+
+  <!-- ============ STATS (dark, counted numbers) ============ -->
+  <section class="stats">
+    <div class="stats-inner">
+      <div class="stat reveal">
+        <p class="stat-number" data-count="12">0</p>
+        <p class="stat-label">Digital experiences shipped</p>
+      </div>
+      <div class="stat reveal">
+        <p class="stat-number" data-count="5">0</p>
+        <p class="stat-label">Years in the craft</p>
+      </div>
+      <div class="stat reveal">
+        <p class="stat-number" data-count="100" data-suffix="%">0</p>
+        <p class="stat-label">Client satisfaction</p>
+      </div>
+      <div class="stat reveal">
+        <p class="stat-number" data-count="1">0</p>
+        <p class="stat-label">Focused mind on every build</p>
+      </div>
     </div>
   </section>
 
@@ -123,44 +163,29 @@
       <ol class="process-list">
         <li class="process-item reveal">
           <span class="process-num">01</span>
-          <div>
-            <h3>Discover</h3>
-            <p>Understand the business, audience, product context, and growth opportunities before design begins.</p>
-          </div>
+          <div><h3>Discover</h3><p>Understand the business, audience, product context, and growth opportunities before design begins.</p></div>
         </li>
         <li class="process-item reveal">
           <span class="process-num">02</span>
-          <div>
-            <h3>Strategy</h3>
-            <p>Define priorities, user journeys, conversion paths, and the creative system that will guide the build.</p>
-          </div>
+          <div><h3>Strategy</h3><p>Define priorities, user journeys, conversion paths, and the creative system that will guide the build.</p></div>
         </li>
         <li class="process-item reveal">
           <span class="process-num">03</span>
-          <div>
-            <h3>Design</h3>
-            <p>Create high-fidelity interfaces, responsive layouts, and a refined digital visual language.</p>
-          </div>
+          <div><h3>Design</h3><p>Create high-fidelity interfaces, responsive layouts, and a refined digital visual language.</p></div>
         </li>
         <li class="process-item reveal">
           <span class="process-num">04</span>
-          <div>
-            <h3>Refine</h3>
-            <p>Test assumptions, polish interactions, and tighten the experience until it feels effortless.</p>
-          </div>
+          <div><h3>Refine</h3><p>Test assumptions, polish interactions, and tighten the experience until it feels effortless.</p></div>
         </li>
         <li class="process-item reveal">
           <span class="process-num">05</span>
-          <div>
-            <h3>Launch</h3>
-            <p>Ship with confidence and a site or product experience ready to support growth.</p>
-          </div>
+          <div><h3>Launch</h3><p>Ship with confidence and a site or product experience ready to support growth.</p></div>
         </li>
       </ol>
     </div>
   </section>
 
-  <!-- ============ CONTACT / FINAL CTA (dark) ============ -->
+  <!-- ============ CONTACT (dark) ============ -->
   <section class="contact" id="contact">
     <div class="contact-inner">
       <div class="contact-copy">
@@ -172,39 +197,23 @@
         <p class="contact-note reveal">Discovery calls for qualified projects</p>
       </div>
       <form class="contact-form reveal" id="contactForm">
-        <div class="form-row">
-          <label for="name">Name</label>
-          <input type="text" id="name" name="name" required>
-        </div>
-        <div class="form-row">
-          <label for="company">Company</label>
-          <input type="text" id="company" name="company">
-        </div>
-        <div class="form-row">
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" required>
-        </div>
+        <div class="form-row"><label for="name">Name</label><input type="text" id="name" name="name" required></div>
+        <div class="form-row"><label for="company">Company</label><input type="text" id="company" name="company"></div>
+        <div class="form-row"><label for="email">Email</label><input type="email" id="email" name="email" required></div>
         <div class="form-row">
           <label for="projectType">Project Type</label>
           <select id="projectType" name="projectType">
-            <option>Website Design</option>
-            <option>UI/UX Design</option>
-            <option>Website + UX</option>
+            <option>Website Design</option><option>UI/UX Design</option><option>Website + UX</option>
           </select>
         </div>
         <div class="form-row">
           <label for="budget">Budget</label>
           <select id="budget" name="budget">
-            <option>$5k–$10k</option>
-            <option>$10k–$25k</option>
-            <option>$25k+</option>
+            <option>$5k–$10k</option><option>$10k–$25k</option><option>$25k+</option>
           </select>
         </div>
-        <div class="form-row">
-          <label for="message">Message</label>
-          <textarea id="message" name="message" rows="4"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary btn-full">Book a Discovery Call</button>
+        <div class="form-row"><label for="message">Message</label><textarea id="message" name="message" rows="4"></textarea></div>
+        <button type="submit" class="btn btn-primary btn-full magnetic" data-cursor="">Book a Discovery Call</button>
         <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
       </form>
     </div>
@@ -217,14 +226,14 @@
   <div class="footer-inner">
     <p class="footer-logo">Poke Digital</p>
     <nav class="footer-links">
-      <a href="#top">Home</a>
-      <a href="#about">About</a>
-      <a href="#work">Work</a>
-      <a href="#contact">Contact</a>
+      <a href="#top" data-cursor="">Home</a>
+      <a href="#about" data-cursor="">About</a>
+      <a href="#work" data-cursor="">Work</a>
+      <a href="#contact" data-cursor="">Contact</a>
     </nav>
     <div class="footer-contact">
-      <a href="mailto:hello@pokedigital.com">hello@pokedigital.com</a>
-      <a href="#contact" class="footer-cta">Book a Discovery Call</a>
+      <a href="mailto:hello@pokedigital.com" data-cursor="">hello@pokedigital.com</a>
+      <a href="#contact" class="footer-cta" data-cursor="">Book a Discovery Call</a>
     </div>
   </div>
   <div class="footer-bottom">
