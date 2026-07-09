@@ -1,448 +1,195 @@
-// ============================================
-// POKE DIGITAL — IMMERSIVE WEBGL + GSAP ENGINE
-// ============================================
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Poke Digital — Premium Website and UI/UX Design</title>
+<meta name="description" content="Poke Digital designs high-performing websites and intuitive digital products for ambitious teams.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
 
-(function () {
-  'use strict';
+<!-- WebGL canvas — sits behind all HTML content -->
+<canvas class="webgl-canvas" id="webglCanvas"></canvas>
 
-  // ===== GLOBALS =====
-  const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-  let mouseX = 0, mouseY = 0;
-  let normalizedMouse = { x: 0, y: 0 };
+<!-- Film grain overlay -->
+<div class="grain" aria-hidden="true"></div>
 
-  // ===== LOADER =====
-  const loader = document.getElementById('loader');
-  const loaderBar = document.getElementById('loaderBar');
-  const loaderPct = document.getElementById('loaderPct');
-  let loadProgress = 0;
+<!-- Custom cursor -->
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+<div class="cursor-ring" id="cursorRing" aria-hidden="true"><span id="cursorLabel"></span></div>
 
-  function tickLoader() {
-    loadProgress += (100 - loadProgress) * 0.08;
-    if (loaderBar) loaderBar.style.setProperty('--w', loadProgress + '%');
-    if (loaderPct) loaderPct.textContent = Math.round(loadProgress) + '%';
-    if (loadProgress < 95) requestAnimationFrame(tickLoader);
-  }
-  tickLoader();
+<!-- Page loader -->
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader-bar" id="loaderBar"></div>
+  <span class="loader-logo">Poke Digital</span>
+  <span class="loader-pct" id="loaderPct">0%</span>
+</div>
 
-  // ==========================================
-  // THREE.JS — SCENE SETUP
-  // ==========================================
-  const canvas = document.getElementById('webglCanvas');
-  const scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(0x0a0a0a, 0.035);
+<!-- ============ NAV ============ -->
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#top" class="nav-logo magnetic" data-cursor="">Poke Digital</a>
+    <nav class="nav-links" id="navLinks">
+      <a href="about.html" data-cursor="">About</a>
+      <a href="work.html" data-cursor="">Work</a>
+      <a href="#contact" data-cursor="">Contact</a>
+    </nav>
+    <a href="#contact" class="btn btn-primary btn-small magnetic" data-cursor="">Start a Project</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
 
-  const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 100);
-  camera.position.set(0, 1, 8);
+<!-- ============ SCROLLABLE CONTENT ============ -->
+<div class="scroll-container" id="top">
 
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.2;
+  <!-- HERO -->
+  <section class="section hero" data-section="hero">
+    <div class="hero-inner">
+      <span class="sticker sticker--orange">We shape demand</span>
+      <h1 class="hero-title split-text">
+        <span class="line"><span class="word">For brands that</span></span>
+        <span class="line"><span class="word">refuse to blend in</span></span>
+      </h1>
+      <div class="hero-ctas">
+        <a href="#contact" class="btn btn-primary magnetic" data-cursor="">Start a Project <span class="arrow">→</span></a>
+        <a href="work.html" class="btn btn-ghost magnetic" data-cursor="">View Our Work</a>
+      </div>
+    </div>
+    <div class="scroll-indicator" aria-hidden="true">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
 
-  // ===== LIGHTING =====
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.15);
-  scene.add(ambientLight);
+  <!-- ABOUT / FEATURES -->
+  <section class="section features" id="about" data-section="features">
+    <div class="features-inner">
+      <span class="sticker sticker--lavender features-sticker">UX/UI Design</span>
+      <p class="eyebrow split-text"><span class="word">Design as leverage</span></p>
+      <h2 class="features-title split-text">
+        <span class="line"><span class="word">We make digital</span></span>
+        <span class="line"><span class="word">products impossible</span></span>
+        <span class="line"><span class="word">to ignore</span></span>
+      </h2>
+      <p class="features-sub fade-in">
+        Poke Digital is a focused design partner for teams that need more than a clean website —
+        they need a digital presence with taste, clarity, and commercial pull.
+      </p>
+      <div class="features-grid">
+        <div class="feature-item fade-in">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.9 3.1-7 7-7s7 3.1 7 7"/></svg>
+          <span>01</span>User Experience
+        </div>
+        <div class="feature-item fade-in">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h7M9 8h3"/></svg>
+          <span>02</span>Conversion Logic
+        </div>
+        <div class="feature-item fade-in">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.6" fill="currentColor"/></svg>
+          <span>03</span>Design Strategy
+        </div>
+        <div class="feature-item fade-in">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 2l1.8 5.4L19 9l-5.2 1.6L12 16l-1.8-5.4L5 9l5.2-1.6z"/></svg>
+          <span>04</span>Brand Consistency
+        </div>
+      </div>
+      <span class="sticker sticker--yellow features-badge">Built to be noticed</span>
+    </div>
+  </section>
 
-  const rimLight = new THREE.DirectionalLight(0xe8623d, 0.9);
-  rimLight.position.set(5, 3, -2);
-  scene.add(rimLight);
+  <!-- WORK -->
+  <section class="section work" id="work" data-section="work">
+    <div class="section-head section-head--left">
+      <h2 class="section-title split-text"><span class="line"><span class="word">Selected digital work</span></span></h2>
+      <a href="#" class="view-all magnetic" data-cursor="">↳ View all work</a>
+    </div>
+    <div class="work-grid">
+      <article class="work-card fade-in" data-cursor="View">
+        <div class="work-media work-media--a"><img src="assets/work/fame-estate.jpg" alt="Fame Estate" loading="lazy" data-fallback="real estate,architecture"></div>
+        <div class="work-meta"><h3>Fame estate</h3><p>UX/UI Design, Website Development</p></div>
+      </article>
+      <article class="work-card fade-in" data-cursor="View">
+        <div class="work-media work-media--b"><img src="assets/work/jesko-jets.jpg" alt="Jesko Jets" loading="lazy" data-fallback="private jet,aviation"><span class="work-overlay">We are movement</span></div>
+        <div class="work-meta"><h3>Jesko Jets</h3><p>UX/UI Design, Website Development</p></div>
+      </article>
+      <article class="work-card fade-in" data-cursor="View">
+        <div class="work-media work-media--c"><img src="assets/work/face-to-face.jpg" alt="Face to Face" loading="lazy" data-fallback="portrait,fashion"><span class="work-overlay">FACE TO FACE</span></div>
+        <div class="work-meta"><h3>Face to face</h3><p>UX/UI Design, Brand Strategy, Art Direction</p></div>
+      </article>
+      <article class="work-card fade-in" data-cursor="View">
+        <div class="work-media work-media--d"><img src="assets/work/sami.jpg" alt="SAMI marketing" loading="lazy" data-fallback="marketing,office"><span class="work-overlay">SAMI</span></div>
+        <div class="work-meta"><h3>SAMI marketing</h3><p>UX/UI Design, Website Development</p></div>
+      </article>
+    </div>
+  </section>
 
-  const fillLight = new THREE.DirectionalLight(0xc9c6f7, 0.35);
-  fillLight.position.set(-4, 2, 4);
-  scene.add(fillLight);
+  <!-- STATS -->
+  <section class="section stats" data-section="stats">
+    <div class="stats-inner">
+      <div class="stat fade-in"><p class="stat-number" data-count="12">0</p><p class="stat-label">Digital experiences shipped</p></div>
+      <div class="stat fade-in"><p class="stat-number" data-count="5">0</p><p class="stat-label">Years in the craft</p></div>
+      <div class="stat fade-in"><p class="stat-number" data-count="100" data-suffix="%">0</p><p class="stat-label">Client satisfaction</p></div>
+      <div class="stat fade-in"><p class="stat-number" data-count="1">0</p><p class="stat-label">Focused mind on every build</p></div>
+    </div>
+  </section>
 
-  const pointLight = new THREE.PointLight(0xe8623d, 1.5, 12);
-  pointLight.position.set(0, 2, 3);
-  scene.add(pointLight);
+  <!-- PROCESS -->
+  <section class="section process" data-section="process">
+    <div class="process-inner">
+      <div class="section-head section-head--left">
+        <h2 class="section-title split-text"><span class="line"><span class="word">A process shaped</span></span><span class="line"><span class="word">around progress</span></span></h2>
+        <p class="process-sub fade-in">From discovery to launch, every stage reduces uncertainty and moves the product closer to measurable impact.</p>
+      </div>
+      <ol class="process-list">
+        <li class="process-item fade-in"><span class="process-num">01</span><div><h3>Discover</h3><p>Understand the business, audience, product context, and growth opportunities before design begins.</p></div></li>
+        <li class="process-item fade-in"><span class="process-num">02</span><div><h3>Strategy</h3><p>Define priorities, user journeys, conversion paths, and the creative system that will guide the build.</p></div></li>
+        <li class="process-item fade-in"><span class="process-num">03</span><div><h3>Design</h3><p>Create high-fidelity interfaces, responsive layouts, and a refined digital visual language.</p></div></li>
+        <li class="process-item fade-in"><span class="process-num">04</span><div><h3>Refine</h3><p>Test assumptions, polish interactions, and tighten the experience until it feels effortless.</p></div></li>
+        <li class="process-item fade-in"><span class="process-num">05</span><div><h3>Launch</h3><p>Ship with confidence and a site or product experience ready to support growth.</p></div></li>
+      </ol>
+    </div>
+  </section>
 
-  // ===== 3D OBJECTS =====
-  const group = new THREE.Group();
-  scene.add(group);
+  <!-- CONTACT -->
+  <section class="section contact" id="contact" data-section="contact">
+    <div class="contact-inner">
+      <div class="contact-copy">
+        <h2 class="split-text"><span class="line"><span class="word">Let's Build Something</span></span><span class="line"><span class="word">Remarkable</span></span></h2>
+        <p class="fade-in">Tell us what you're building, improving, or rethinking. We'll respond with a clear next step for a discovery call.</p>
+        <p class="contact-note fade-in">Discovery calls for qualified projects</p>
+      </div>
+      <form class="contact-form fade-in" id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <div class="form-row"><label for="name">Name</label><input type="text" id="name" name="name" required></div>
+        <div class="form-row"><label for="company">Company</label><input type="text" id="company" name="company"></div>
+        <div class="form-row"><label for="email">Email</label><input type="email" id="email" name="email" required></div>
+        <div class="form-row"><label for="projectType">Project Type</label><select id="projectType" name="projectType"><option>Website Design</option><option>UI/UX Design</option><option>Website + UX</option></select></div>
+        <div class="form-row"><label for="budget">Budget</label><select id="budget" name="budget"><option>$5k–$10k</option><option>$10k–$25k</option><option>$25k+</option></select></div>
+        <div class="form-row"><label for="message">Message</label><textarea id="message" name="message" rows="4"></textarea></div>
+        <button type="submit" class="btn btn-primary btn-full magnetic" data-cursor="">Book a Discovery Call</button>
+        <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
 
-  // Main torus — hero focal point
-  const torusGeo = new THREE.TorusGeometry(1.4, 0.45, 64, 128);
-  const torusMat = new THREE.MeshStandardMaterial({
-    color: 0x111111,
-    metalness: 0.95,
-    roughness: 0.12,
-    envMapIntensity: 1.2
-  });
-  const torus = new THREE.Mesh(torusGeo, torusMat);
-  torus.position.set(3, 0.5, 0);
-  torus.rotation.x = Math.PI * 0.35;
-  group.add(torus);
+</div>
 
-  // Secondary sphere — features section
-  const sphereGeo = new THREE.SphereGeometry(0.9, 64, 64);
-  const sphereMat = new THREE.MeshStandardMaterial({
-    color: 0xe8623d,
-    metalness: 0.7,
-    roughness: 0.25
-  });
-  const sphere = new THREE.Mesh(sphereGeo, sphereMat);
-  sphere.position.set(-3, -4, -2);
-  group.add(sphere);
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <p class="footer-logo">Poke Digital</p>
+    <nav class="footer-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="work.html">Work</a><a href="#contact">Contact</a></nav>
+    <div class="footer-contact"><a href="mailto:hello@pokedigital.com">hello@pokedigital.com</a><a href="#contact" class="footer-cta">Book a Discovery Call</a></div>
+  </div>
+  <div class="footer-bottom"><p>&copy; <span id="year"></span> Poke Digital. All rights reserved.</p><p>Digital experiences that drive growth.</p></div>
+</footer>
 
-  // Icosahedron cluster — work section
-  const icoGeo = new THREE.IcosahedronGeometry(0.65, 0);
-  const icoMat = new THREE.MeshStandardMaterial({
-    color: 0xc9c6f7,
-    metalness: 0.85,
-    roughness: 0.15,
-    flatShading: true
-  });
-
-  const ico1 = new THREE.Mesh(icoGeo, icoMat);
-  ico1.position.set(4, -9, -1);
-  group.add(ico1);
-
-  const ico2 = new THREE.Mesh(icoGeo, icoMat.clone());
-  ico2.material.color.setHex(0xf5dc6e);
-  ico2.position.set(3, -9.8, 0.5);
-  ico2.scale.setScalar(0.5);
-  group.add(ico2);
-
-  // ===== PARTICLE FIELD =====
-  const particleCount = 600;
-  const positions = new Float32Array(particleCount * 3);
-  for (let i = 0; i < particleCount; i++) {
-    positions[i * 3] = (Math.random() - 0.5) * 30;
-    positions[i * 3 + 1] = (Math.random() - 0.5) * 40;
-    positions[i * 3 + 2] = (Math.random() - 0.5) * 20;
-  }
-  const particlesGeo = new THREE.BufferGeometry();
-  particlesGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-  const particlesMat = new THREE.PointsMaterial({ color: 0xe8623d, size: 0.03, sizeAttenuation: true, transparent: true, opacity: 0.6 });
-  const particles = new THREE.Points(particlesGeo, particlesMat);
-  scene.add(particles);
-
-  // ===== RESIZE =====
-  window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-  });
-
-  // ===== MOUSE TRACKING =====
-  window.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    normalizedMouse.x = (e.clientX / window.innerWidth) * 2 - 1;
-    normalizedMouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
-  });
-
-  // ===== RENDER LOOP =====
-  const clock = new THREE.Clock();
-
-  function animate() {
-    requestAnimationFrame(animate);
-    const elapsed = clock.getElapsedTime();
-
-    // Object rotations
-    torus.rotation.y = elapsed * 0.15;
-    torus.rotation.z = elapsed * 0.08;
-    sphere.rotation.y = elapsed * 0.2;
-    sphere.rotation.x = elapsed * 0.1;
-    ico1.rotation.x = elapsed * 0.25;
-    ico1.rotation.y = elapsed * 0.15;
-    ico2.rotation.z = elapsed * 0.3;
-
-    // Mouse parallax on group
-    group.rotation.y += (normalizedMouse.x * 0.08 - group.rotation.y) * 0.04;
-    group.rotation.x += (normalizedMouse.y * 0.04 - group.rotation.x) * 0.04;
-
-    // Particle drift
-    particles.rotation.y = elapsed * 0.01;
-
-    // Point light follows mouse gently
-    pointLight.position.x += (normalizedMouse.x * 4 - pointLight.position.x) * 0.03;
-    pointLight.position.y += (normalizedMouse.y * 3 - pointLight.position.y) * 0.03;
-
-    renderer.render(scene, camera);
-  }
-  animate();
-
-  // ==========================================
-  // GSAP + SCROLLTRIGGER SETUP
-  // ==========================================
-  window.addEventListener('load', () => {
-    // Finish loader
-    loadProgress = 100;
-    if (loaderBar) loaderBar.style.setProperty('--w', '100%');
-    if (loaderPct) loaderPct.textContent = '100%';
-
-    gsap.to(loader, {
-      opacity: 0,
-      duration: 0.5,
-      delay: 0.4,
-      onComplete: () => { if (loader) loader.remove(); }
-    });
-
-    gsap.registerPlugin(ScrollTrigger);
-
-    // ===== HERO WORD REVEAL =====
-    document.querySelectorAll('.hero-title .word').forEach((word, i) => {
-      gsap.to(word, {
-        y: 0, opacity: 1,
-        duration: 1,
-        delay: 0.6 + i * 0.12,
-        ease: 'power3.out'
-      });
-    });
-
-    gsap.to('.hero-ctas', { opacity: 1, y: 0, duration: 0.8, delay: 1.2, ease: 'power3.out' });
-    gsap.set('.hero-ctas', { opacity: 0, y: 30 });
-
-    gsap.to('.hero .sticker', { opacity: 1, y: 0, duration: 0.6, delay: 0.4, ease: 'power3.out' });
-    gsap.set('.hero .sticker', { opacity: 0, y: 20 });
-
-    // ===== SCROLL-TRIGGERED TEXT REVEALS =====
-    document.querySelectorAll('.section:not(.hero) .split-text .word').forEach((word) => {
-      gsap.to(word, {
-        y: 0, opacity: 1,
-        duration: 0.9,
-        ease: 'power3.out',
-        scrollTrigger: { trigger: word.closest('.split-text'), start: 'top 85%', toggleActions: 'play none none none' }
-      });
-    });
-
-    // ===== FADE-IN ELEMENTS =====
-    document.querySelectorAll('.fade-in').forEach((el, i) => {
-      gsap.to(el, {
-        opacity: 1, y: 0,
-        duration: 0.8,
-        delay: i % 4 * 0.08,
-        ease: 'power2.out',
-        scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' }
-      });
-    });
-
-    // ===== CAMERA FLY TRANSITIONS =====
-    // Hero → Features: camera drifts down and slightly left
-    gsap.to(camera.position, {
-      y: -2, x: -1, z: 6,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '[data-section="features"]',
-        start: 'top bottom',
-        end: 'top top',
-        scrub: 1.5
-      }
-    });
-
-    // Features → Work: camera orbits right
-    gsap.to(camera.position, {
-      y: -5, x: 2, z: 5,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '[data-section="work"]',
-        start: 'top bottom',
-        end: 'center center',
-        scrub: 1.5
-      }
-    });
-
-    // Work → Stats: camera pulls back
-    gsap.to(camera.position, {
-      y: -8, x: 0, z: 10,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '[data-section="stats"]',
-        start: 'top bottom',
-        end: 'top top',
-        scrub: 1.5
-      }
-    });
-
-    // Stats → Process: camera zooms in
-    gsap.to(camera.position, {
-      y: -11, x: -1.5, z: 4,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '[data-section="process"]',
-        start: 'top bottom',
-        end: 'center center',
-        scrub: 1.5
-      }
-    });
-
-    // Process → Contact: camera rises
-    gsap.to(camera.position, {
-      y: -14, x: 0, z: 7,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '[data-section="contact"]',
-        start: 'top bottom',
-        end: 'center center',
-        scrub: 1.5
-      }
-    });
-
-    // ===== 3D OBJECT SCROLL ANIMATIONS =====
-    // Sphere grows as features come into view
-    gsap.to(sphere.scale, {
-      x: 1.4, y: 1.4, z: 1.4,
-      scrollTrigger: { trigger: '[data-section="features"]', start: 'top center', end: 'bottom center', scrub: 2 }
-    });
-
-    // Torus drifts during hero
-    gsap.to(torus.position, {
-      x: 5, y: -1,
-      scrollTrigger: { trigger: '[data-section="features"]', start: 'top bottom', end: 'top top', scrub: 2 }
-    });
-
-    // Icosahedrons rotate faster during work section
-    gsap.to(ico1.rotation, {
-      z: Math.PI * 2,
-      scrollTrigger: { trigger: '[data-section="work"]', start: 'top bottom', end: 'bottom top', scrub: 1 }
-    });
-
-    // ===== STICKER REVEALS =====
-    document.querySelectorAll('.features-sticker, .features-badge').forEach((el) => {
-      gsap.set(el, { opacity: 0, scale: 0.7, y: 20 });
-      gsap.to(el, {
-        opacity: 1, scale: 1, y: 0,
-        duration: 0.6,
-        ease: 'back.out(1.7)',
-        scrollTrigger: { trigger: el, start: 'top 90%' }
-      });
-    });
-
-    // ===== COUNT-UP STATS =====
-    document.querySelectorAll('.stat-number').forEach((el) => {
-      const target = parseInt(el.dataset.count, 10) || 0;
-      const suffix = el.dataset.suffix || '+';
-      ScrollTrigger.create({
-        trigger: el,
-        start: 'top 85%',
-        once: true,
-        onEnter: () => {
-          const duration = 1400;
-          const start = performance.now();
-          function tick(now) {
-            const progress = Math.min((now - start) / duration, 1);
-            const eased = 1 - Math.pow(1 - progress, 3);
-            el.textContent = Math.round(eased * target) + (progress === 1 ? suffix : '');
-            if (progress < 1) requestAnimationFrame(tick);
-          }
-          requestAnimationFrame(tick);
-        }
-      });
-    });
-
-  }); // end window load
-
-  // ==========================================
-  // CUSTOM CURSOR
-  // ==========================================
-  const cursorDot = document.getElementById('cursorDot');
-  const cursorRing = document.getElementById('cursorRing');
-  const cursorLabel = document.getElementById('cursorLabel');
-
-  if (isFinePointer && cursorDot && cursorRing) {
-    document.body.classList.add('has-custom-cursor');
-    let ringX = 0, ringY = 0;
-
-    function animateRing() {
-      ringX += (mouseX - ringX) * 0.18;
-      ringY += (mouseY - ringY) * 0.18;
-      cursorDot.style.left = mouseX + 'px';
-      cursorDot.style.top = mouseY + 'px';
-      cursorRing.style.left = ringX + 'px';
-      cursorRing.style.top = ringY + 'px';
-      requestAnimationFrame(animateRing);
-    }
-    animateRing();
-
-    document.querySelectorAll('[data-cursor]').forEach((el) => {
-      el.addEventListener('mouseenter', () => {
-        const label = el.dataset.cursor;
-        if (label) {
-          cursorRing.classList.add('is-label');
-          cursorLabel.textContent = label;
-        } else {
-          cursorRing.classList.add('is-hover');
-        }
-      });
-      el.addEventListener('mouseleave', () => {
-        cursorRing.classList.remove('is-hover', 'is-label');
-        cursorLabel.textContent = '';
-      });
-    });
-  } else {
-    if (cursorDot) cursorDot.style.display = 'none';
-    if (cursorRing) cursorRing.style.display = 'none';
-  }
-
-  // ==========================================
-  // MAGNETIC BUTTONS
-  // ==========================================
-  if (isFinePointer) {
-    document.querySelectorAll('.magnetic').forEach((btn) => {
-      btn.addEventListener('mousemove', (e) => {
-        const rect = btn.getBoundingClientRect();
-        const x = (e.clientX - rect.left - rect.width / 2) * 0.3;
-        const y = (e.clientY - rect.top - rect.height / 2) * 0.3;
-        btn.style.transform = 'translate(' + x + 'px,' + y + 'px)';
-      });
-      btn.addEventListener('mouseleave', () => {
-        btn.style.transform = 'translate(0,0)';
-      });
-    });
-  }
-
-  // ==========================================
-  // MOBILE NAV
-  // ==========================================
-  const nav = document.getElementById('nav');
-  const navToggle = document.getElementById('navToggle');
-  const navLinks = document.getElementById('navLinks');
-  if (navToggle && nav) {
-    navToggle.addEventListener('click', () => {
-      const isOpen = nav.classList.toggle('is-open');
-      navToggle.setAttribute('aria-expanded', String(isOpen));
-    });
-    navLinks.querySelectorAll('a').forEach((link) => {
-      link.addEventListener('click', () => {
-        nav.classList.remove('is-open');
-        navToggle.setAttribute('aria-expanded', 'false');
-      });
-    });
-  }
-
-  // ==========================================
-  // THEMED IMAGE FALLBACKS
-  // ==========================================
-  document.querySelectorAll('img[data-fallback]').forEach((img) => {
-    let stage = 0;
-    img.addEventListener('error', () => {
-      stage += 1;
-      const kw = img.dataset.fallback.split(',')[0].trim().replace(/\s+/g, '-');
-      if (stage === 1) img.src = 'https://loremflickr.com/800/600/' + kw;
-      else if (stage === 2) img.src = 'https://picsum.photos/800/600?grayscale';
-    });
-  });
-
-  // ==========================================
-  // CONTACT FORM
-  // ==========================================
-  const form = document.getElementById('contactForm');
-  const status = document.getElementById('formStatus');
-  if (form) {
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      if (!form.name.value.trim() || !form.email.value.trim()) {
-        status.textContent = 'Please fill in your name and email.';
-        return;
-      }
-      status.textContent = "Thanks — we'll be in touch shortly.";
-      form.reset();
-    });
-  }
-
-  // Footer year
-  const y = document.getElementById('year');
-  if (y) y.textContent = new Date().getFullYear();
-
-})();
+<!-- CDN: Three.js r128 + GSAP + ScrollTrigger -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
