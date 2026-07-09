@@ -83,7 +83,26 @@ document.addEventListener('DOMContentLoaded', () => {
     statEls.forEach((el) => statObserver.observe(el));
   }
 
-  // ---------- Custom cursor ----------
+  // ---------- Themed placeholder fallback for work images ----------
+  // Tries the real local asset first; if missing, loads a themed stock
+  // photo matching the project (real estate, aviation, portrait, etc.)
+  // instead of a random/irrelevant placeholder. Swap in real files at
+  // /assets/work/ and this fallback stops triggering automatically.
+  document.querySelectorAll('img[data-fallback]').forEach((img) => {
+    let stage = 0;
+    img.addEventListener('error', () => {
+      stage += 1;
+      const keywords = img.dataset.fallback.split(',')[0].trim().replace(/\s+/g, '-');
+      if (stage === 1) {
+        img.src = `https://loremflickr.com/800/600/${keywords}`;
+      } else if (stage === 2) {
+        img.src = `https://picsum.photos/800/600?grayscale`;
+      }
+      // after stage 2, leave as-is to avoid retry loops
+    });
+  });
+
+
   const cursorDot = document.getElementById('cursorDot');
   const cursorRing = document.getElementById('cursorRing');
   const cursorLabel = document.getElementById('cursorLabel');
