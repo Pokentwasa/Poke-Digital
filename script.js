@@ -7,6 +7,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const year = document.getElementById('year');
   if (year) year.textContent = new Date().getFullYear();
 
+  // ---------- Page-load wipe cleanup ----------
+  const loader = document.getElementById('loader');
+  if (loader) {
+    loader.addEventListener('animationend', () => loader.remove());
+    setTimeout(() => loader.remove(), 1400); // fallback if animationend doesn't fire
+  }
+
   // ---------- Kinetic hero word stagger ----------
   document.querySelectorAll('.hero-title .word').forEach((word, i) => {
     word.style.animationDelay = `${0.15 + i * 0.05}s`;
