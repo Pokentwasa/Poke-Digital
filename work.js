@@ -46,8 +46,7 @@
     lumina: {
       title: 'LUMINA Architects',
       year: '2026', industry: 'Architecture', services: 'Cinematic UI, GSAP Animation, Web Development',
-      video: 'assets/work/lumina.mp4',
-      poster: 'assets/work/lumina-poster.jpg',
+      video: 'assets/work/lumina.mp4', poster: 'assets/work/lumina-poster.jpg',
       slides: ['assets/work/lumina-1.jpg','assets/work/lumina-2.jpg','assets/work/lumina-3.jpg','assets/work/lumina-4.jpg','assets/work/lumina-5.jpg'],
       brief: 'A premium architecture studio needed a site as considered and cinematic as the spaces they design.',
       approach: 'Modelled on Yodezeen.com. Hero Ken Burns zoom, text lines masked behind overflow containers, GSAP ScrollTrigger pinned horizontal gallery, and a custom cursor with contextual labels. Four case study pages chain with "Next Project" full-bleed transitions.',
@@ -56,18 +55,16 @@
     valt: {
       title: 'VALT Property Studio',
       year: '2026', industry: 'Real Estate', services: 'UI/UX Design, Web Development, Lead Generation',
-      video: 'assets/work/valt.mp4',
-      poster: 'assets/work/valt-poster.jpg',
+      video: 'assets/work/valt.mp4', poster: 'assets/work/valt-poster.jpg',
       slides: ['assets/work/valt-1.jpg','assets/work/valt-2.jpg','assets/work/valt-3.jpg','assets/work/valt-4.jpg','assets/work/valt-5.jpg'],
       brief: 'A premium Cape Town property studio needed a full conversion engine with pricing, lead capture, and individual development pages.',
-      approach: 'Hero carousel with 4 developments showing price from the first frame. Four dedicated property pages with photo galleries, unit pricing tables, neighbourhood location sections, and enquiry forms with WhatsApp. Register Interest section for off-plan developments.',
+      approach: 'Hero carousel with 4 developments showing price from the first frame. Four dedicated property pages with photo galleries, unit pricing tables, neighbourhood location sections, and enquiry forms with WhatsApp.',
       result: 'The most conversion-complete property site in the portfolio.',
     },
     kanuka: {
       title: 'AA Kanuka Financial',
       year: '2026', industry: 'Financial Services', services: 'Corporate Design, Lenis Smooth Scroll, Web Development',
-      video: 'assets/work/kanuka.mp4',
-      poster: 'assets/work/kanuka-poster.jpg',
+      video: 'assets/work/kanuka.mp4', poster: 'assets/work/kanuka-poster.jpg',
       slides: ['assets/work/kanuka-1.jpg','assets/work/kanuka-2.jpg','assets/work/kanuka-3.jpg','assets/work/kanuka-4.jpg','assets/work/kanuka-5.jpg'],
       brief: 'An Eastern Cape financial services firm needed institutional credibility while remaining approachable.',
       approach: 'Rhetores-inspired corporate luxury — white background, silver accents, warm dark gradient sections. Lenis smooth scroll with GSAP ScrollTrigger proxy. Real company data throughout.',
@@ -76,8 +73,7 @@
     noir: {
       title: 'NØIR Fashion Label',
       year: '2026', industry: 'Fashion', services: 'Editorial Design, WebGL Fabric, Web Development',
-      video: 'assets/work/noir.mp4',
-      poster: 'assets/work/noir-poster.jpg',
+      video: 'assets/work/noir.mp4', poster: 'assets/work/noir-poster.jpg',
       slides: ['assets/work/noir-1.jpg','assets/work/noir-2.jpg','assets/work/noir-3.jpg','assets/work/noir-4.jpg','assets/work/noir-5.jpg'],
       brief: 'An avant-garde fashion label needed a digital presence as uncompromising as their collections.',
       approach: 'Pure black + pure white. Cormorant Garamond at extreme scale. Three.js silk fabric wave rippling from cursor. Horizontal-scroll lookbook. mix-blend-mode: difference nav.',
@@ -86,8 +82,7 @@
     nexus: {
       title: 'NEXUS Esports Guild',
       year: '2026', industry: 'Gaming / Esports', services: 'Cyber-Industrial UI, Three.js Particles, Web Development',
-      video: 'assets/work/nexus.mp4',
-      poster: 'assets/work/nexus-poster.jpg',
+      video: 'assets/work/nexus.mp4', poster: 'assets/work/nexus-poster.jpg',
       slides: ['assets/work/nexus-1.jpg','assets/work/nexus-2.jpg','assets/work/nexus-3.jpg','assets/work/nexus-4.jpg','assets/work/nexus-5.jpg'],
       brief: 'A next-gen esports collective needed a digital home matching the intensity of competitive gaming.',
       approach: '4,000-point Three.js particle sphere deforming toward cursor. Background particles warp on scroll. CRT scanline overlay. JetBrains Mono throughout.',
@@ -96,8 +91,7 @@
     clarent: {
       title: 'Clarent FinTech SaaS',
       year: '2026', industry: 'FinTech / SaaS', services: 'Swiss Minimalism, Three.js WebGL, SaaS Design',
-      video: 'assets/work/clarent.mp4',
-      poster: 'assets/work/clarent-poster.jpg',
+      video: 'assets/work/clarent.mp4', poster: 'assets/work/clarent-poster.jpg',
       slides: ['assets/work/clarent-1.jpg','assets/work/clarent-2.jpg','assets/work/clarent-3.jpg','assets/work/clarent-4.jpg','assets/work/clarent-5.jpg'],
       brief: 'A financial intelligence SaaS platform needed precision and technical credibility.',
       approach: 'Swiss typography, strict grid, stark white with electric green. Three.js torus knot morphs as you scroll. Features grid, 3-tier pricing, SOC 2 section.',
@@ -106,8 +100,7 @@
     aurelia: {
       title: 'Aurelia Boutique Hotel',
       year: '2026', industry: 'Hospitality', services: 'Editorial Minimalism, Three.js Ribbon, Hospitality Design',
-      video: 'assets/work/aurelia.mp4',
-      poster: 'assets/work/aurelia-poster.jpg',
+      video: 'assets/work/aurelia.mp4', poster: 'assets/work/aurelia-poster.jpg',
       slides: ['assets/work/aurelia-1.jpg','assets/work/aurelia-2.jpg','assets/work/aurelia-3.jpg','assets/work/aurelia-4.jpg','assets/work/aurelia-5.jpg'],
       brief: 'A Franschhoek boutique hotel needed a digital experience as considered as the stay itself.',
       approach: 'Aman/Six Senses reference. Warm sand, Playfair Display. Three.js ribbon wave with floating torus ring. GSAP camera fly-through on scroll.',
@@ -122,7 +115,6 @@
   const panelContent = document.getElementById('caseContent');
   const closeBtn = document.getElementById('caseClose');
 
-  // Open case study on card click
   document.querySelectorAll('.work-card').forEach((card) => {
     card.addEventListener('click', (e) => {
       e.preventDefault();
@@ -149,11 +141,12 @@
             <div class="cs-meta-item"><span>Services</span><span>${data.services}</span></div>
           </div>
         </div>
-        <div class="cs-strip-wrap" id="csStripWrap">
-          <div class="cs-strip" id="csStrip">
-            ${data.slides.map((s, i) => `<div class="cs-strip-slide"><img src="${s}" alt="${data.title} screenshot ${i + 1}" loading="lazy"></div>`).join('')}
+        <div class="cs-strip-pin" id="csStripPin">
+          <div class="cs-strip-sticky" id="csStripSticky">
+            <div class="cs-strip" id="csStrip">
+              ${data.slides.map((s, i) => `<div class="cs-strip-slide"><img src="${s}" alt="${data.title} screenshot ${i + 1}" loading="lazy"></div>`).join('')}
+            </div>
           </div>
-          <div class="cs-strip-dots" id="csStripDots"></div>
         </div>
         <div class="cs-section"><h3>The Brief</h3><p>${data.brief}</p></div>
         <div class="cs-section"><h3>Our Approach</h3><p>${data.approach}</p></div>
@@ -165,14 +158,15 @@
     document.body.style.overflow = 'hidden';
     panel.scrollTop = 0;
 
-    // Init the strip carousel
-    initStripCarousel();
+    // Wait for DOM to paint, then init scroll-driven strip
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        initScrollStrip();
+      });
+    });
 
-    // Animate in
     gsap.from('.cs-video-hero', { opacity: 0, duration: 0.5, ease: 'power2.out' });
     gsap.from('.cs-title', { opacity: 0, y: 30, duration: 0.7, delay: 0.15, ease: 'power3.out' });
-    gsap.from('.cs-strip-wrap', { opacity: 0, y: 40, duration: 0.7, delay: 0.3, ease: 'power2.out' });
-    gsap.from('.cs-section', { opacity: 0, y: 20, stagger: 0.1, duration: 0.5, delay: 0.4, ease: 'power2.out' });
   }
 
   function closeCase() {
@@ -184,90 +178,63 @@
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeCase(); });
 
   // ==========================================
-  // STRIP CAROUSEL — drag + dots
+  // SCROLL-DRIVEN STRIP CAROUSEL
+  // Scroll down = slides move left seamlessly
   // ==========================================
-  function initStripCarousel() {
-    const wrap = document.getElementById('csStripWrap');
+  function initScrollStrip() {
+    const pin = document.getElementById('csStripPin');
+    const sticky = document.getElementById('csStripSticky');
     const track = document.getElementById('csStrip');
-    const dotsWrap = document.getElementById('csStripDots');
-    if (!wrap || !track) return;
+    if (!pin || !track || !sticky) return;
 
     const slides = track.querySelectorAll('.cs-strip-slide');
-    let current = 0;
-    let isDragging = false;
-    let startX = 0;
-    let startTranslate = 0;
-    let currentTranslate = 0;
+    if (!slides.length) return;
 
-    // Build dots
-    dotsWrap.innerHTML = '';
-    slides.forEach((_, i) => {
-      const dot = document.createElement('button');
-      dot.className = 'cs-strip-dot' + (i === 0 ? ' is-active' : '');
-      dot.addEventListener('click', () => goTo(i));
-      dotsWrap.appendChild(dot);
-    });
+    // Calculate total scroll distance needed
+    const slideWidth = slides[0].offsetWidth + 16; // width + gap
+    const totalTravel = (slides.length - 1) * slideWidth;
+    const viewWidth = sticky.offsetWidth;
 
-    function getSlideWidth() {
-      return slides[0].offsetWidth + 16;
-    }
+    // Set the pin section tall enough to scroll through all slides
+    // Each slide gets ~60vh of scroll space
+    const scrollHeight = slides.length * window.innerHeight * 0.6;
+    pin.style.height = scrollHeight + 'px';
 
-    function goTo(index) {
-      current = Math.max(0, Math.min(index, slides.length - 1));
-      currentTranslate = -(current * getSlideWidth());
-      track.style.transform = 'translateX(' + currentTranslate + 'px)';
-      dotsWrap.querySelectorAll('.cs-strip-dot').forEach((d, i) => {
-        d.classList.toggle('is-active', i === current);
+    // Sticky container stays in view while we scroll
+    // We use the panel itself as the scroll container
+    let ticking = false;
+
+    function onPanelScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const pinRect = pin.getBoundingClientRect();
+        const panelRect = panel.getBoundingClientRect();
+
+        // How far the pin top has scrolled past the panel top
+        const scrolled = panelRect.top - pinRect.top;
+
+        // Clamp between 0 and total scroll height
+        const progress = Math.max(0, Math.min(scrolled / (scrollHeight - window.innerHeight), 1));
+
+        // Move the track
+        const translateX = -(progress * totalTravel);
+        track.style.transform = 'translateX(' + translateX + 'px)';
+
+        // Sticky positioning — keep strip visible while scrolling through pin
+        if (scrolled >= 0 && scrolled <= scrollHeight - window.innerHeight) {
+          sticky.style.position = 'sticky';
+          sticky.style.top = '0';
+        }
+
+        ticking = false;
       });
     }
 
-    // Mouse drag
-    wrap.addEventListener('mousedown', (e) => {
-      isDragging = true;
-      startX = e.clientX;
-      startTranslate = currentTranslate;
-      track.style.transition = 'none';
-      wrap.style.cursor = 'grabbing';
-    });
+    panel.addEventListener('scroll', onPanelScroll, { passive: true });
 
-    window.addEventListener('mousemove', (e) => {
-      if (!isDragging) return;
-      track.style.transform = 'translateX(' + (startTranslate + (e.clientX - startX)) + 'px)';
-    });
-
-    window.addEventListener('mouseup', (e) => {
-      if (!isDragging) return;
-      isDragging = false;
-      wrap.style.cursor = 'grab';
-      track.style.transition = '';
-      const diff = e.clientX - startX;
-      if (Math.abs(diff) > 60) {
-        goTo(diff < 0 ? current + 1 : current - 1);
-      } else {
-        goTo(current);
-      }
-    });
-
-    // Touch
-    wrap.addEventListener('touchstart', (e) => {
-      startX = e.touches[0].clientX;
-      startTranslate = currentTranslate;
-      track.style.transition = 'none';
-    }, { passive: true });
-
-    wrap.addEventListener('touchmove', (e) => {
-      track.style.transform = 'translateX(' + (startTranslate + (e.touches[0].clientX - startX)) + 'px)';
-    }, { passive: true });
-
-    wrap.addEventListener('touchend', (e) => {
-      track.style.transition = '';
-      const diff = e.changedTouches[0].clientX - startX;
-      if (Math.abs(diff) > 50) {
-        goTo(diff < 0 ? current + 1 : current - 1);
-      } else {
-        goTo(current);
-      }
-    });
+    // Initial position
+    onPanelScroll();
   }
 
   // ==========================================
