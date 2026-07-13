@@ -146,14 +146,12 @@
             <div class="cs-strip" id="csStrip">
               ${data.slides.map((s, i) => `<div class="cs-strip-slide"><img src="${s}" alt="${data.title} screenshot ${i + 1}" loading="lazy"></div>`).join('')}
             </div>
-            <div class="cs-strip-text">
-              <div class="cs-section"><h3>The Brief</h3><p>${data.brief}</p></div>
-              <div class="cs-section"><h3>Our Approach</h3><p>${data.approach}</p></div>
-              <div class="cs-section"><h3>The Result</h3><p>${data.result}</p></div>
-              <div class="cs-cta"><a href="index.html#contact">Start Your Project →</a></div>
-            </div>
           </div>
         </div>
+        <div class="cs-section"><h3>The Brief</h3><p>${data.brief}</p></div>
+        <div class="cs-section"><h3>Our Approach</h3><p>${data.approach}</p></div>
+        <div class="cs-section"><h3>The Result</h3><p>${data.result}</p></div>
+        <div class="cs-cta"><a href="index.html#contact">Start Your Project →</a></div>
       </div>`;
 
     panel.classList.add('is-open');
@@ -197,9 +195,8 @@
     const totalTravel = (slides.length - 1) * slideWidth;
     const viewWidth = sticky.offsetWidth;
 
-    // Set the pin section tall enough to scroll through all slides
-    // Each slide gets ~60vh of scroll space
-    const scrollHeight = slides.length * window.innerHeight * 0.6;
+    // Set pin height — shorter so text below is visible while slides scroll
+    const scrollHeight = slides.length * window.innerHeight * 0.35;
     pin.style.height = scrollHeight + 'px';
 
     // Sticky container stays in view while we scroll
