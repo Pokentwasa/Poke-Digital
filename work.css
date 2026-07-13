@@ -151,12 +151,6 @@
   pointer-events: none;
 }
 
-/* Text below slides — visible while scrolling through strip */
-.cs-strip-text {
-  max-width: 900px;
-  padding: 48px 48px 64px;
-}
-
 /* Case study sections */
 .cs-section { margin-bottom: 40px; }
 .cs-section h3 {
