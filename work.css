@@ -1,3 +1,12 @@
+/* Override conflicting styles from main styles.css */
+.work-list .work-media {
+  aspect-ratio: unset !important;
+  display: block !important;
+  position: static !important;
+  border-radius: 0 !important;
+}
+.work-list .work-media img { position: static !important; }
+
 /* ============================================
    POKE DIGITAL — WORK PAGE
    ============================================ */
