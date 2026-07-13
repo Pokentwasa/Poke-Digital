@@ -113,8 +113,8 @@
 .cs-meta-item span:last-child { font-size: 14px; color: rgba(255,255,255,0.8); font-weight: 500; }
 
 /* ============================================
-   SCROLL-DRIVEN SCREENSHOT STRIP
-   Lumina gallery style — 2 full + third peeking
+   HORIZONTAL SCREENSHOT STRIP
+   Drag to scroll — no scroll-jacking
    ============================================ */
 .cs-strip-pin {
   position: relative;
@@ -122,21 +122,17 @@
   left: 50%;
   transform: translateX(-50%);
   background: #080808;
-}
-
-.cs-strip-sticky {
-  position: sticky;
-  top: 0;
   overflow: hidden;
-  width: 100%;
-  background: #080808;
+  cursor: grab;
+  padding: 40px 0;
 }
+.cs-strip-pin:active { cursor: grabbing; }
 
 .cs-strip {
   display: flex;
   gap: 12px;
   will-change: transform;
-  padding: 0;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .cs-strip-slide {
