@@ -136,7 +136,7 @@
 }
 
 .cs-strip-slide {
-  flex: 0 0 70%;
+  flex: 0 0 100%;
   aspect-ratio: 16/10;
   overflow: hidden;
   border-radius: 6px;
@@ -181,5 +181,5 @@
   .work-cta { padding: 80px 24px; }
   .cs-body { padding: 48px 24px; }
   .cs-meta { flex-direction: column; gap: 16px; }
-  .cs-strip-slide { flex: 0 0 90%; }
+  .cs-strip-slide { flex: 0 0 100%; }
 }
