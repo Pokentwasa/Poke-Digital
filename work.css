@@ -114,32 +114,35 @@
 
 /* ============================================
    SCROLL-DRIVEN SCREENSHOT STRIP
-   Scroll down = slides move left seamlessly
+   Lumina gallery style — 2 full + third peeking
    ============================================ */
 .cs-strip-pin {
   position: relative;
-  /* height set dynamically by JS */
+  width: 100vw;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #080808;
 }
 
 .cs-strip-sticky {
   position: sticky;
   top: 0;
   overflow: hidden;
-  padding: 40px 0;
+  width: 100%;
+  background: #080808;
 }
 
 .cs-strip {
   display: flex;
-  gap: 16px;
+  gap: 12px;
   will-change: transform;
-  /* No transition — driven directly by scroll for instant response */
+  padding: 0;
 }
 
 .cs-strip-slide {
-  flex: 0 0 100%;
+  flex: 0 0 38%;
   aspect-ratio: 16/10;
   overflow: hidden;
-  border-radius: 6px;
   background: #111;
 }
 .cs-strip-slide img {
@@ -181,5 +184,5 @@
   .work-cta { padding: 80px 24px; }
   .cs-body { padding: 48px 24px; }
   .cs-meta { flex-direction: column; gap: 16px; }
-  .cs-strip-slide { flex: 0 0 100%; }
+  .cs-strip-slide { flex: 0 0 80%; }
 }
