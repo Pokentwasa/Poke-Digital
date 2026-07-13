@@ -142,11 +142,9 @@
           </div>
         </div>
         <div class="cs-strip-pin" id="csStripPin">
-          <div class="cs-strip-sticky" id="csStripSticky">
             <div class="cs-strip" id="csStrip">
               ${data.slides.map((s, i) => `<div class="cs-strip-slide"><img src="${s}" alt="${data.title} screenshot ${i + 1}" loading="lazy"></div>`).join('')}
             </div>
-          </div>
         </div>
         <div class="cs-section"><h3>The Brief</h3><p>${data.brief}</p></div>
         <div class="cs-section"><h3>Our Approach</h3><p>${data.approach}</p></div>
@@ -178,62 +176,39 @@
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeCase(); });
 
   // ==========================================
-  // SCROLL-DRIVEN STRIP CAROUSEL
-  // Scroll down = slides move left seamlessly
+  // DRAG STRIP — horizontal drag to scroll
   // ==========================================
   function initScrollStrip() {
-    const pin = document.getElementById('csStripPin');
-    const sticky = document.getElementById('csStripSticky');
+    const wrap = document.getElementById('csStripPin');
     const track = document.getElementById('csStrip');
-    if (!pin || !track || !sticky) return;
+    if (!wrap || !track) return;
 
     const slides = track.querySelectorAll('.cs-strip-slide');
     if (!slides.length) return;
 
-    // Calculate total scroll distance needed
-    const slideWidth = slides[0].offsetWidth + 16; // slide width + gap
-    const totalTravel = (slides.length - 1) * slideWidth;
-    const viewWidth = sticky.offsetWidth;
+    let isDragging = false;
+    let startX = 0;
+    let currentX = 0;
+    let dragX = 0;
 
-    // Set pin height — shorter so text below is visible while slides scroll
-    const scrollHeight = slides.length * window.innerHeight * 0.35;
-    pin.style.height = scrollHeight + 'px';
-
-    // Sticky container stays in view while we scroll
-    // We use the panel itself as the scroll container
-    let ticking = false;
-
-    function onPanelScroll() {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        const pinRect = pin.getBoundingClientRect();
-        const panelRect = panel.getBoundingClientRect();
-
-        // How far the pin top has scrolled past the panel top
-        const scrolled = panelRect.top - pinRect.top;
-
-        // Clamp between 0 and total scroll height
-        const progress = Math.max(0, Math.min(scrolled / (scrollHeight - window.innerHeight), 1));
-
-        // Move the track
-        const translateX = -(progress * totalTravel);
-        track.style.transform = 'translateX(' + translateX + 'px)';
-
-        // Sticky positioning — keep strip visible while scrolling through pin
-        if (scrolled >= 0 && scrolled <= scrollHeight - window.innerHeight) {
-          sticky.style.position = 'sticky';
-          sticky.style.top = '0';
-        }
-
-        ticking = false;
-      });
+    const maxDrag = () => -(track.scrollWidth - wrap.offsetWidth);
+    function clamp(val) { return Math.max(maxDrag(), Math.min(0, val)); }
+    function setPos(x, smooth) {
+      currentX = clamp(x);
+      track.style.transition = smooth ? 'transform 0.5s cubic-bezier(0.22,1,0.36,1)' : 'none';
+      track.style.transform = 'translateX(' + currentX + 'px)';
     }
 
-    panel.addEventListener('scroll', onPanelScroll, { passive: true });
+    wrap.addEventListener('mousedown', (e) => {
+      isDragging = true; startX = e.clientX; dragX = currentX;
+      track.style.transition = 'none'; wrap.style.cursor = 'grabbing';
+    });
+    window.addEventListener('mousemove', (e) => { if (isDragging) setPos(dragX + (e.clientX - startX), false); });
+    window.addEventListener('mouseup', () => { if (!isDragging) return; isDragging = false; wrap.style.cursor = 'grab'; setPos(currentX, true); });
 
-    // Initial position
-    onPanelScroll();
+    wrap.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; dragX = currentX; track.style.transition = 'none'; }, { passive: true });
+    wrap.addEventListener('touchmove', (e) => { setPos(dragX + (e.touches[0].clientX - startX), false); }, { passive: true });
+    wrap.addEventListener('touchend', () => { setPos(currentX, true); });
   }
 
   // ==========================================
