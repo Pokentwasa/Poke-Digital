@@ -146,12 +146,14 @@
             <div class="cs-strip" id="csStrip">
               ${data.slides.map((s, i) => `<div class="cs-strip-slide"><img src="${s}" alt="${data.title} screenshot ${i + 1}" loading="lazy"></div>`).join('')}
             </div>
+            <div class="cs-strip-text">
+              <div class="cs-section"><h3>The Brief</h3><p>${data.brief}</p></div>
+              <div class="cs-section"><h3>Our Approach</h3><p>${data.approach}</p></div>
+              <div class="cs-section"><h3>The Result</h3><p>${data.result}</p></div>
+              <div class="cs-cta"><a href="index.html#contact">Start Your Project →</a></div>
+            </div>
           </div>
         </div>
-        <div class="cs-section"><h3>The Brief</h3><p>${data.brief}</p></div>
-        <div class="cs-section"><h3>Our Approach</h3><p>${data.approach}</p></div>
-        <div class="cs-section"><h3>The Result</h3><p>${data.result}</p></div>
-        <div class="cs-cta"><a href="index.html#contact">Start Your Project →</a></div>
       </div>`;
 
     panel.classList.add('is-open');
