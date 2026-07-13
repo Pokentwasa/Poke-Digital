@@ -191,7 +191,7 @@
     if (!slides.length) return;
 
     // Calculate total scroll distance needed
-    const slideWidth = slides[0].offsetWidth + 16; // width + gap
+    const slideWidth = slides[0].offsetWidth + 16; // slide width + gap
     const totalTravel = (slides.length - 1) * slideWidth;
     const viewWidth = sticky.offsetWidth;
 
