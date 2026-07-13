@@ -113,27 +113,30 @@
 .cs-meta-item span:last-child { font-size: 14px; color: rgba(255,255,255,0.8); font-weight: 500; }
 
 /* ============================================
-   SCREENSHOT STRIP — horizontal drag carousel
-   Like thefirstthelast.agency/work/yodezeen
+   SCROLL-DRIVEN SCREENSHOT STRIP
+   Scroll down = slides move left seamlessly
    ============================================ */
-.cs-strip-wrap {
-  margin: 48px 0;
-  overflow: hidden;
-  cursor: grab;
+.cs-strip-pin {
   position: relative;
+  /* height set dynamically by JS */
 }
-.cs-strip-wrap:active { cursor: grabbing; }
+
+.cs-strip-sticky {
+  position: sticky;
+  top: 0;
+  overflow: hidden;
+  padding: 40px 0;
+}
 
 .cs-strip {
   display: flex;
   gap: 16px;
-  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform;
-  user-select: none;
+  /* No transition — driven directly by scroll for instant response */
 }
 
 .cs-strip-slide {
-  flex: 0 0 55%;
+  flex: 0 0 70%;
   aspect-ratio: 16/10;
   overflow: hidden;
   border-radius: 6px;
@@ -143,23 +146,6 @@
   width: 100%; height: 100%;
   object-fit: cover; object-position: top;
   pointer-events: none;
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.cs-strip-slide:hover img { transform: scale(1.03); }
-
-/* Strip dots */
-.cs-strip-dots {
-  display: flex; gap: 6px;
-  margin-top: 16px; padding-left: 4px;
-}
-.cs-strip-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: rgba(255,255,255,0.2); border: none;
-  cursor: pointer; padding: 0;
-  transition: background 0.25s, width 0.25s;
-}
-.cs-strip-dot.is-active {
-  background: #fff; width: 20px; border-radius: 3px;
 }
 
 /* Case study sections */
@@ -195,5 +181,5 @@
   .work-cta { padding: 80px 24px; }
   .cs-body { padding: 48px 24px; }
   .cs-meta { flex-direction: column; gap: 16px; }
-  .cs-strip-slide { flex: 0 0 85%; }
+  .cs-strip-slide { flex: 0 0 90%; }
 }
