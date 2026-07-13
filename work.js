@@ -202,13 +202,31 @@
     wrap.addEventListener('mousedown', (e) => {
       isDragging = true; startX = e.clientX; dragX = currentX;
       track.style.transition = 'none'; wrap.style.cursor = 'grabbing';
+      clearInterval(autoTimer);
     });
     window.addEventListener('mousemove', (e) => { if (isDragging) setPos(dragX + (e.clientX - startX), false); });
-    window.addEventListener('mouseup', () => { if (!isDragging) return; isDragging = false; wrap.style.cursor = 'grab'; setPos(currentX, true); });
+    window.addEventListener('mouseup', () => { if (!isDragging) return; isDragging = false; wrap.style.cursor = 'grab'; setPos(currentX, true); startAuto(); });
 
-    wrap.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; dragX = currentX; track.style.transition = 'none'; }, { passive: true });
+    wrap.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; dragX = currentX; track.style.transition = 'none'; clearInterval(autoTimer); }, { passive: true });
     wrap.addEventListener('touchmove', (e) => { setPos(dragX + (e.touches[0].clientX - startX), false); }, { passive: true });
-    wrap.addEventListener('touchend', () => { setPos(currentX, true); });
+    wrap.addEventListener('touchend', () => { setPos(currentX, true); startAuto(); });
+
+    // Auto-slide
+    let autoTimer = null;
+    let autoIndex = 0;
+    const slideW = () => slides[0].offsetWidth + 12;
+
+    function autoAdvance() {
+      autoIndex++;
+      if (autoIndex >= slides.length) autoIndex = 0;
+      setPos(-(autoIndex * slideW()), true);
+    }
+    function startAuto() { autoTimer = setInterval(autoAdvance, 3000); }
+
+    wrap.addEventListener('mouseenter', () => clearInterval(autoTimer));
+    wrap.addEventListener('mouseleave', () => startAuto());
+
+    startAuto();
   }
 
   // ==========================================
