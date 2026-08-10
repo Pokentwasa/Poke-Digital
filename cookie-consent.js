@@ -5,7 +5,7 @@
   'use strict';
 
   var CONSENT_KEY = 'pd_cookie_consent'; // 'accepted' | 'rejected'
-  var GA_MEASUREMENT_ID = 'G-XXXXXXXXXX'; // TODO: replace with real GA4 Measurement ID
+  var GA_MEASUREMENT_ID = 'G-P6RQSC7KQP';
 
   function loadAnalytics() {
     if (window.__pdAnalyticsLoaded) return;
