@@ -359,3 +359,6 @@ body.has-custom-cursor, body.has-custom-cursor a, body.has-custom-cursor button 
   .nav-inner { padding: 0 24px; }
   .footer { padding-left: 24px; padding-right: 24px; }
 }
+
+/* WHATSAPP FLOAT */
+.wa-float{position:fixed;bottom:28px;right:28px;z-index:300;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.35);transition:transform .25s}.wa-float:hover{transform:scale(1.1)}
