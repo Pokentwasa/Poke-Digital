@@ -122,6 +122,14 @@ body.has-custom-cursor, body.has-custom-cursor a, body.has-custom-cursor button 
 .sticker--lavender { background: var(--lavender); color: #16142B; }
 .sticker--yellow { background: var(--yellow); color: #16142B; }
 
+/* stickers used as section labels */
+.section-sticker { margin-bottom: 18px; }
+.section-head-copy { display: flex; flex-direction: column; align-items: flex-start; }
+.stats-sticker-wrap { max-width: var(--container); margin: 0 auto 28px; text-align: center; }
+/* alternate the tilt so a page of stickers doesn't look mechanical */
+.sticker--lavender { transform: rotate(3deg); }
+.sticker--yellow { transform: rotate(-2deg); }
+
 /* ============================================
    SPLIT-TEXT ANIMATION (GSAP-driven)
    ============================================ */
