@@ -427,8 +427,15 @@ html.anim-failsafe .fade-in {
   }
   .hero-title { font-size: clamp(38px, 11vw, 56px); margin-bottom: 28px; }
   .hero .sticker { margin-bottom: 18px; }
-  .hero-ctas { flex-direction: column; align-items: stretch; gap: 12px; }
-  .hero-ctas .btn { width: 100%; text-align: center; justify-content: center; }
+  /* hero CTAs: compact side-by-side pills rather than full-width slabs */
+  .hero-ctas { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 10px; }
+  .hero-ctas .btn {
+    width: auto;
+    padding: 11px 20px;
+    font-size: 13px;
+    gap: 7px;
+    min-height: 0;
+  }
 
   /* About hero: same 70vh/flex-end dead-gap problem as the home hero */
   .about-hero {
