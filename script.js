@@ -24,6 +24,60 @@
   }
   tickLoader();
 
+  /* Dismiss the loader exactly once. Previously this was gated only on
+     window 'load' — so if any single asset stalled (slow mobile data, a
+     blocked CDN, a heavy video) the loader sat at 95% forever and the
+     site was unusable. Now 'load' dismisses it, and a hard timeout
+     guarantees it never traps the visitor. */
+  let loaderDismissed = false;
+  function dismissLoader() {
+    if (loaderDismissed) return;
+    loaderDismissed = true;
+
+    loadProgress = 100;
+    if (loaderBar) loaderBar.style.setProperty('--w', '100%');
+    if (loaderPct) loaderPct.textContent = '100%';
+    if (!loader) return;
+
+    if (window.gsap) {
+      gsap.to(loader, {
+        opacity: 0,
+        duration: 0.5,
+        delay: 0.3,
+        onComplete: () => { if (loader) loader.remove(); }
+      });
+    } else {
+      loader.style.transition = 'opacity .5s ease';
+      loader.style.opacity = '0';
+      setTimeout(() => { if (loader) loader.remove(); }, 600);
+    }
+  }
+  // never let a slow/failed asset hold the page hostage
+  setTimeout(dismissLoader, 4000);
+
+  /* MOBILE NAV — bound immediately, not inside window 'load'.
+     Previously this lived in the load handler, so a stalled asset or a
+     blocked CDN left phone users with a dead hamburger and no navigation. */
+  // ==========================================
+  // MOBILE NAV
+  // ==========================================
+  const nav = document.getElementById('nav');
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  if (navToggle && nav) {
+    navToggle.addEventListener('click', () => {
+      const isOpen = nav.classList.toggle('is-open');
+      navToggle.setAttribute('aria-expanded', String(isOpen));
+    });
+    navLinks.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('is-open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
+
   // ==========================================
   // THREE.JS — SCENE SETUP
   // ==========================================
@@ -167,17 +221,11 @@
   // GSAP + SCROLLTRIGGER SETUP
   // ==========================================
   window.addEventListener('load', () => {
-    // Finish loader
-    loadProgress = 100;
-    if (loaderBar) loaderBar.style.setProperty('--w', '100%');
-    if (loaderPct) loaderPct.textContent = '100%';
+    // Finish loader (safe to call more than once)
+    dismissLoader();
 
-    gsap.to(loader, {
-      opacity: 0,
-      duration: 0.5,
-      delay: 0.4,
-      onComplete: () => { if (loader) loader.remove(); }
-    });
+    // tell the failsafe gate that animations are running normally
+    window.__pdAnimsRan = true;
 
     gsap.registerPlugin(ScrollTrigger);
 
@@ -388,25 +436,6 @@
       });
       btn.addEventListener('mouseleave', () => {
         btn.style.transform = 'translate(0,0)';
-      });
-    });
-  }
-
-  // ==========================================
-  // MOBILE NAV
-  // ==========================================
-  const nav = document.getElementById('nav');
-  const navToggle = document.getElementById('navToggle');
-  const navLinks = document.getElementById('navLinks');
-  if (navToggle && nav) {
-    navToggle.addEventListener('click', () => {
-      const isOpen = nav.classList.toggle('is-open');
-      navToggle.setAttribute('aria-expanded', String(isOpen));
-    });
-    navLinks.querySelectorAll('a').forEach((link) => {
-      link.addEventListener('click', () => {
-        nav.classList.remove('is-open');
-        navToggle.setAttribute('aria-expanded', 'false');
       });
     });
   }

@@ -30,6 +30,24 @@
 <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="assets/brand/favicon-16.png">
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
+<script>
+/* Gate the hidden animation start-states. If GSAP never initialises
+   (blocked CDN, slow mobile connection, JS error) the failsafe below
+   releases the gate so content is always readable. */
+(function () {
+  var d = document.documentElement;
+  d.classList.add('anim-ready');
+  window.addEventListener('DOMContentLoaded', function () {
+    if (!window.gsap) { d.classList.remove('anim-ready'); }
+  });
+  setTimeout(function () {
+    if (!window.__pdAnimsRan) {
+      d.classList.add('anim-failsafe');
+      d.classList.remove('anim-ready');
+    }
+  }, 5000);
+})();
+</script>
 </head>
 <body>
 
