@@ -142,10 +142,20 @@ body.has-custom-cursor, body.has-custom-cursor a, body.has-custom-cursor button 
   will-change: transform, opacity;
 }
 html.anim-ready .split-text .word {
-  transform: translateY(120%);
+  /* must clear the mask, which is now taller to allow for descenders */
+  transform: translateY(150%);
   opacity: 0;
 }
-.split-text .line { display: block; overflow: hidden; }
+/* The mask that hides words before they slide up. It must be tall enough to
+   fit glyph descenders (g, y, p, q) — with line-height < 1 the descender
+   paints outside the box and overflow:hidden was slicing it off. The padding
+   adds that room; the negative margin keeps the visual line spacing identical. */
+.split-text .line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.22em;
+  margin-bottom: -0.22em;
+}
 
 .fade-in { will-change: transform, opacity; }
 html.anim-ready .fade-in { opacity: 0; transform: translateY(32px); }
