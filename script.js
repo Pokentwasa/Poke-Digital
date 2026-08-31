@@ -474,7 +474,8 @@
           body: new FormData(form),
           headers: { 'Accept': 'application/json' }
         });
-        if (res.ok) {
+        const data = await res.json();
+        if (res.ok && data.success) {
           status.textContent = "Thanks — we'll be in touch shortly.";
           form.reset();
         } else {
