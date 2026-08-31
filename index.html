@@ -228,7 +228,10 @@
         <p class="fade-in">Tell us what you're building, improving, or rethinking. We'll respond with a clear next step for a discovery call.</p>
         <p class="contact-note fade-in">Discovery calls for qualified projects</p>
       </div>
-      <form class="contact-form fade-in" id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <form class="contact-form fade-in" id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY">
+        <input type="hidden" name="subject" value="New enquiry from Poke Digital website">
+        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
         <div class="form-row"><label for="name">Name</label><input type="text" id="name" name="name" required></div>
         <div class="form-row"><label for="company">Company</label><input type="text" id="company" name="company"></div>
         <div class="form-row"><label for="email">Email</label><input type="email" id="email" name="email" required></div>
