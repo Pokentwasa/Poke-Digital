@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ground Culture Website Concept | Poke Digital</title>
+<meta name="description" content="A website concept developed by Poke Digital for Ground Culture.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="author" content="Poke Digital">
+<link rel="canonical" href="https://www.pokedigital.co.za/groundculture">
+
+<!-- Open Graph (kept minimal — this page is not intended to be indexed or shared publicly) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Poke Digital">
+<meta property="og:title" content="Ground Culture Website Concept | Poke Digital">
+<meta property="og:description" content="A website concept developed by Poke Digital for Ground Culture.">
+<meta property="og:url" content="https://www.pokedigital.co.za/groundculture">
+<meta property="og:image" content="https://www.pokedigital.co.za/assets/brand/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_ZA">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="groundculture.css">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/brand/favicon-16.png">
+<link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
+<script>
+/* Gate the hidden animation start-states. If GSAP never initialises
+   (blocked CDN, slow mobile connection, JS error) the failsafe below
+   releases the gate so content is always readable. */
+(function () {
+  var d = document.documentElement;
+  d.classList.add('anim-ready');
+  window.addEventListener('DOMContentLoaded', function () {
+    if (!window.gsap) { d.classList.remove('anim-ready'); }
+  });
+  setTimeout(function () {
+    if (!window.__pdAnimsRan) {
+      d.classList.add('anim-failsafe');
+      d.classList.remove('anim-ready');
+    }
+  }, 5000);
+})();
+</script>
+</head>
+<body class="gc-body">
+
+<a href="#gcMain" class="gc-skip-link">Skip to content</a>
+
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ============ PRESENTATION TOP BAR ============ -->
+<header class="gc-topbar">
+  <div class="gc-topbar-inner">
+    <a href="index.html" class="gc-topbar-logo" aria-label="Poke Digital home">
+      <img src="assets/brand/logo-full.png" alt="Poke Digital">
+    </a>
+    <div class="gc-topbar-right">
+      <span class="gc-topbar-meta">Website Concept &middot; September 2026</span>
+      <a href="index.html" class="gc-topbar-link">Visit Poke Digital</a>
+    </div>
+  </div>
+</header>
+
+<main id="gcMain">
+
+  <!-- ============ HERO ============ -->
+  <section class="gc-hero">
+    <div class="gc-hero-inner">
+      <p class="eyebrow split-text"><span class="word">Website Concept</span></p>
+      <h1 class="gc-hero-title split-text">
+        <span class="line"><span class="word">Ground Culture</span></span>
+      </h1>
+      <p class="gc-hero-sub fade-in">A proposed digital direction for Ground Culture, bringing its food, culture, events, community and locations into one cohesive online experience.</p>
+    </div>
+  </section>
+
+  <!-- ============ CONCEPT VIDEO ============ -->
+  <section class="gc-showcase fade-in" aria-label="Ground Culture website concept preview">
+    <div class="gc-frame">
+      <div class="gc-frame-chrome" aria-hidden="true">
+        <span class="gc-frame-dots"><span></span><span></span><span></span></span>
+        <span class="gc-frame-url">groundculture.co.za</span>
+      </div>
+      <div class="gc-frame-screen">
+        <video
+          id="gcVideo"
+          class="gc-video"
+          muted
+          loop
+          playsinline
+          controls
+          preload="metadata"
+          aria-label="Screen recording of the Ground Culture website concept">
+          Your browser does not support embedded video.
+          <a href="#" id="gcVideoDownloadLink">Download the concept video</a> to view the Ground Culture website walkthrough.
+        </video>
+        <div class="gc-video-fallback" id="gcVideoFallback">
+          <p>The concept walkthrough is being finalised and will appear here shortly.</p>
+        </div>
+      </div>
+    </div>
+    <noscript>
+      <p class="gc-video-noscript">Enable JavaScript to view the Ground Culture concept walkthrough.</p>
+    </noscript>
+  </section>
+
+  <!-- ============ THE DIRECTION ============ -->
+  <section class="gc-direction">
+    <div class="gc-direction-inner">
+      <h2 class="gc-section-title split-text"><span class="line"><span class="word">The Direction</span></span></h2>
+      <p class="fade-in">The concept focuses on presenting Ground Culture as more than a restaurant. The experience brings together food, comedy, events, community, locations and hire opportunities while giving each part of the brand a clearer place within the customer journey.</p>
+    </div>
+  </section>
+
+  <!-- ============ KEY AREAS ============ -->
+  <section class="gc-areas">
+    <div class="gc-areas-inner">
+      <ol class="gc-areas-grid">
+        <li class="gc-area fade-in">
+          <span class="gc-area-num">01</span>
+          <h3>Brand Story</h3>
+          <p>A clearer introduction to what Ground Culture represents beyond food alone.</p>
+        </li>
+        <li class="gc-area fade-in">
+          <span class="gc-area-num">02</span>
+          <h3>Events &amp; Entertainment</h3>
+          <p>Greater prominence for comedy, live music, sport and recurring experiences.</p>
+        </li>
+        <li class="gc-area fade-in">
+          <span class="gc-area-num">03</span>
+          <h3>Food</h3>
+          <p>A stronger visual presentation of the menu, food trucks and locally rooted offering.</p>
+        </li>
+        <li class="gc-area fade-in">
+          <span class="gc-area-num">04</span>
+          <h3>Locations</h3>
+          <p>A clearer way to discover the different Ground Culture locations and what each offers.</p>
+        </li>
+        <li class="gc-area fade-in">
+          <span class="gc-area-num">05</span>
+          <h3>Hire</h3>
+          <p>Dedicated journeys for venue hire, food truck hire, private events and corporate opportunities.</p>
+        </li>
+        <li class="gc-area fade-in">
+          <span class="gc-area-num">06</span>
+          <h3>Customer Journey</h3>
+          <p>Simpler pathways around visiting, eating, attending, ordering and enquiring.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ DESIGN PRINCIPLES ============ -->
+  <section class="gc-principles">
+    <div class="gc-principles-inner">
+      <h2 class="gc-section-title split-text"><span class="line"><span class="word">Built Around the Brand</span></span></h2>
+      <div class="gc-principles-list">
+        <p class="gc-principle fade-in">Culture before convention.</p>
+        <p class="gc-principle fade-in">Movement without distraction.</p>
+        <p class="gc-principle fade-in">Strong storytelling. Clear actions.</p>
+        <p class="gc-principle fade-in">Built to feel like Ground Culture, not a template.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ OPTIONAL PDF DOWNLOAD ============ -->
+  <!-- Hidden until a PDF is configured — see GC_PDF_PATH in groundculture.js -->
+  <section class="gc-pdf" id="gcPdfSection" hidden>
+    <div class="gc-pdf-inner">
+      <a href="#" class="btn btn-ghost" id="gcPdfBtn" download>Download Concept PDF</a>
+    </div>
+  </section>
+
+  <!-- ============ CLOSING ============ -->
+  <section class="gc-closing">
+    <div class="gc-closing-inner">
+      <h2 class="gc-closing-title split-text"><span class="line"><span class="word">A starting point,</span></span><span class="line"><span class="word">not a finished answer.</span></span></h2>
+      <p class="fade-in">The concept is intended to demonstrate a possible digital direction. The final experience would be developed collaboratively around Ground Culture&rsquo;s content, business priorities and customer needs.</p>
+      <div class="gc-closing-meta fade-in">
+        <p>Poke Digital</p>
+        <p>Cape Town, South Africa</p>
+        <p><a href="https://www.pokedigital.co.za">www.pokedigital.co.za</a></p>
+      </div>
+      <a href="index.html#contact" class="btn btn-ghost fade-in">Start a Conversation</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer gc-footer">
+  <div class="footer-inner">
+    <img src="assets/brand/logo-full.png" alt="Poke Digital" class="footer-logo">
+    <nav class="footer-links"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></nav>
+    <div class="footer-contact"><a href="mailto:hello@pokedigital.co.za">hello@pokedigital.co.za</a></div>
+  </div>
+  <div class="footer-bottom"><p>&copy; <span id="year"></span> Poke Digital.</p><p>Cape Town, South Africa</p></div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="groundculture.js"></script>
+<script src="cookie-consent.js"></script>
+</body>
+</html>
