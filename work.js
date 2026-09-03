@@ -5,6 +5,14 @@
   // GSAP
   // ==========================================
   window.addEventListener('load', () => {
+    // If the GSAP CDN failed to load, skip the animation setup below rather
+    // than throwing and losing the footer-year line at the end of it.
+    if (typeof gsap === 'undefined') {
+      const yr = document.getElementById('year');
+      if (yr) yr.textContent = new Date().getFullYear();
+      return;
+    }
+
     gsap.registerPlugin(ScrollTrigger);
 
     document.querySelectorAll('.work-hero-title .word').forEach((w, i) => {
@@ -117,11 +125,26 @@
 
   document.querySelectorAll('.work-card').forEach((card) => {
     card.addEventListener('click', (e) => {
-      e.preventDefault();
+      // Let modifier-clicks (new tab, new window) and non-primary buttons
+      // fall through to the card's real href instead of hijacking them.
+      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
       const data = caseData[card.dataset.case];
-      if (!data) return;
+      if (!data) return; // no panel data — let the real href navigate
+      e.preventDefault();
       openCase(data);
+      if (window.history && window.history.pushState) {
+        window.history.pushState({ case: card.dataset.case }, '', card.getAttribute('href'));
+      }
     });
+  });
+
+  window.addEventListener('popstate', (e) => {
+    const caseKey = e.state && e.state.case;
+    if (caseKey && caseData[caseKey]) {
+      openCase(caseData[caseKey]);
+    } else if (panel.classList.contains('is-open')) {
+      closeCase();
+    }
   });
 
   function openCase(data) {
@@ -163,8 +186,10 @@
       });
     });
 
-    gsap.from('.cs-video-hero', { opacity: 0, duration: 0.5, ease: 'power2.out' });
-    gsap.from('.cs-title', { opacity: 0, y: 30, duration: 0.7, delay: 0.15, ease: 'power3.out' });
+    if (typeof gsap !== 'undefined') {
+      gsap.from('.cs-video-hero', { opacity: 0, duration: 0.5, ease: 'power2.out' });
+      gsap.from('.cs-title', { opacity: 0, y: 30, duration: 0.7, delay: 0.15, ease: 'power3.out' });
+    }
   }
 
   function closeCase() {
@@ -172,8 +197,19 @@
     document.body.style.overflow = '';
   }
 
-  if (closeBtn) closeBtn.addEventListener('click', closeCase);
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeCase(); });
+  // Explicit close (button/Escape) also unwinds the history entry pushed on
+  // open, so the address bar reflects the panel being closed; popstate above
+  // then finishes the job (also handles the browser Back button directly).
+  function requestClose() {
+    if (window.history && window.history.state && window.history.state.case) {
+      window.history.back();
+    } else {
+      closeCase();
+    }
+  }
+
+  if (closeBtn) closeBtn.addEventListener('click', requestClose);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') requestClose(); });
 
   // ==========================================
   // DRAG STRIP — horizontal drag to scroll
