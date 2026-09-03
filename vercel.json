@@ -1,4 +1,10 @@
 {
+  "rewrites": [
+    {
+      "source": "/groundculture",
+      "destination": "/groundculture.html"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
