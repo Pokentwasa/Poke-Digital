@@ -69,6 +69,15 @@
       approach: 'Hero carousel with 4 developments showing price from the first frame. Four dedicated property pages with photo galleries, unit pricing tables, neighbourhood location sections, and enquiry forms with WhatsApp.',
       result: 'The most conversion-complete property site in the portfolio.',
     },
+    wildehoek: {
+      title: 'Wildehoek',
+      year: '2026', industry: 'Restaurant / Hospitality', services: 'Web Design, UI/UX, Web Development, Creative Direction, Technical SEO',
+      video: 'assets/work/wildehoek.mp4', poster: 'assets/work/wildehoek-poster.webp',
+      slides: ['assets/work/wildehoek-2-restaurant.webp','assets/work/wildehoek-3-farm.webp','assets/work/wildehoek-4-menu-hero.webp','assets/work/wildehoek-5-terrace.webp','assets/work/wildehoek-6-menu-detail.webp','assets/work/wildehoek-7-kitchen.webp','assets/work/wildehoek-8-journal.webp'],
+      brief: 'Wildehoek needed a digital experience that felt less like a traditional restaurant website and more like an extension of the farm itself. The goal was to position the restaurant as a destination, using the landscape, seasonal produce and dining experience to build a stronger sense of place.',
+      approach: 'We created an editorial, image-led website inspired by premium hospitality and destination brands. Large-format photography, asymmetric layouts, considered typography and restrained transitions were used to give every section its own rhythm while keeping the experience calm, tactile and distinctly farm-led. The site was also developed with performance and search visibility in mind, using a crawlable content structure, semantic page architecture and technical SEO foundations without compromising the visual experience.',
+      result: 'A refined digital presence that positions Wildehoek as more than somewhere to eat. The final experience brings together the restaurant, farm, seasonal philosophy and atmosphere into one cohesive story, designed to make the destination feel worth travelling for before the guest has even arrived.',
+    },
     kanuka: {
       title: 'AA Kanuka Financial',
       year: '2026', industry: 'Financial Services', services: 'Corporate Design, Lenis Smooth Scroll, Web Development',

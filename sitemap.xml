@@ -31,6 +31,11 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://pokedigital.co.za/work/wildehoek.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://pokedigital.co.za/privacy.html</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
