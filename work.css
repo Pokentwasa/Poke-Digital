@@ -38,7 +38,8 @@
   margin: 0 auto;
   padding: 0 48px 80px;
   display: grid;
-  gap: 64px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 56px 40px;
 }
 .work-card {
   display: block;
@@ -318,7 +319,7 @@
    ============================================ */
 @media (max-width: 900px) {
   .work-hero { padding: calc(var(--nav-height) + 80px) 32px 56px; }
-  .work-list { padding: 0 32px 64px; gap: 52px; }
+  .work-list { grid-template-columns: 1fr; padding: 0 32px 64px; gap: 52px; }
   .work-cta { padding: 80px 32px 96px; }
   .cs-body { padding: 56px 32px 96px; }
   .cs-strip-slide { width: 78%; }
