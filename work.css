@@ -31,6 +31,7 @@
 }
 .work-hero-title .line { display: block; overflow: hidden; }
 .work-hero-title .word { display: inline-block; }
+.work-hero-sub { margin-top: 24px; font-size: 17px; line-height: 1.6; color: var(--text-dim); max-width: 560px; }
 
 /* ---------- WORK LIST ---------- */
 .work-list {

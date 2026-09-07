@@ -181,6 +181,13 @@ html.anim-failsafe .fade-in {
    LAYOUT HELPERS
    ============================================ */
 .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dimmer); margin-bottom: 16px; }
+/* inline text links inside body copy — used across hero/features/contact/case-study/service prose */
+.hero-sub a, .features-sub a, .contact-copy p a, .cs-section p a, .about-hero-sub a, .manifesto-body a, .svc-body a {
+  color: var(--white); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--border-dark); transition: text-decoration-color .2s;
+}
+.hero-sub a:hover, .features-sub a:hover, .contact-copy p a:hover, .cs-section p a:hover, .about-hero-sub a:hover, .manifesto-body a:hover, .svc-body a:hover {
+  text-decoration-color: var(--orange);
+}
 .section-head { max-width: 640px; margin: 0 auto 56px; padding: 0 48px; text-align: center; }
 .section-head--left { max-width: var(--container); margin: 0 auto 48px; text-align: left; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 20px; padding: 0 48px; }
 .section-title { font-family: var(--font-display); font-weight: 700; font-size: clamp(28px, 4vw, 44px); line-height: 1.15; }
@@ -216,7 +223,9 @@ html.anim-failsafe .fade-in {
 .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; padding-top: var(--nav-height); padding-bottom: 80px; }
 .hero-inner { max-width: 100%; }
 .hero .sticker { margin-bottom: 24px; }
-.hero-title { font-family: var(--font-display); font-weight: 900; font-size: clamp(48px, 6.2vw, 104px); line-height: 0.96; letter-spacing: -0.03em; margin-bottom: 44px; }
+.hero-title { font-family: var(--font-display); font-weight: 900; font-size: clamp(48px, 6.2vw, 104px); line-height: 0.96; letter-spacing: -0.03em; margin-bottom: 28px; }
+.hero-eyebrow { margin-bottom: 20px; }
+.hero-sub { color: var(--text-dim); font-size: 19px; line-height: 1.6; max-width: 640px; margin-bottom: 40px; }
 .hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; }
 .scroll-indicator { position: absolute; bottom: 24px; right: 48px; display: flex; flex-direction: column; align-items: center; gap: 8px; font-size: 11px; color: var(--text-dimmer); letter-spacing: 0.08em; text-transform: uppercase; }
 .scroll-line { width: 1px; height: 48px; background: linear-gradient(to bottom, var(--orange), transparent); animation: scrollPulse 2s ease-in-out infinite; }
@@ -314,7 +323,7 @@ html.anim-failsafe .fade-in {
 }
 
 /* FOOTER */
-.footer { position: relative; z-index: 1; border-top: 1px solid var(--border-dark); padding: 40px 48px 0; }
+.footer { position: relative; z-index: 1; border-top: 1px solid var(--border-dark); padding: 64px 48px 0; }
 .footer-inner { max-width: var(--container); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; padding-bottom: 32px; }
 .footer-logo { height: 34px; width: auto; display: block; }
 .footer-links { display: flex; gap: 24px; font-size: 14px; color: var(--text-dim); }
@@ -322,6 +331,26 @@ html.anim-failsafe .fade-in {
 .footer-contact { display: flex; align-items: center; gap: 20px; font-size: 14px; }
 .footer-cta { border: 1px solid var(--border-dark); padding: 8px 16px; border-radius: 999px; }
 .footer-bottom { max-width: var(--container); margin: 0 auto; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; padding: 20px 0; border-top: 1px solid var(--border-dark); font-size: 12px; color: var(--text-dimmer); }
+
+/* ---------- FOOTER — sitewide nav grid ---------- */
+.footer-grid { max-width: var(--container); margin: 0 auto; padding-bottom: 40px; display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px; }
+.footer-brand { display: flex; flex-direction: column; gap: 10px; }
+.footer-brand .footer-logo { margin-bottom: 4px; }
+.footer-tagline { font-size: 14px; font-weight: 600; color: var(--white); }
+.footer-location { font-size: 13px; color: var(--text-dim); }
+.footer-col { display: flex; flex-direction: column; gap: 12px; }
+.footer-col h3 { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--text-dimmer); font-weight: 600; margin-bottom: 2px; }
+.footer-col a { font-size: 14px; color: var(--text-dim); transition: color .2s; }
+.footer-col a:hover { color: var(--white); }
+.footer-col .footer-cta { display: inline-block; margin-top: 4px; }
+
+@media (max-width: 900px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px 24px; }
+}
+@media (max-width: 720px) {
+  .footer { padding-top: 48px; }
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; padding-bottom: 32px; }
+}
 
 /* ============================================
    NAV ACTIVE STATE

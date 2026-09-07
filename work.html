@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Work — Poke Digital Portfolio, Cape Town</title>
-<meta name="description" content="Explore Poke Digital's portfolio of websites and digital products built for ambitious South African brands.">
+<title>Web Design Portfolio | Poke Digital Cape Town</title>
+<meta name="description" content="Explore selected websites, digital experiences and interface projects designed and developed by Poke Digital in Cape Town.">
 <meta name="robots" content="index, follow">
 <meta name="author" content="Poke Digital">
 <link rel="canonical" href="https://pokedigital.co.za/work.html">
@@ -12,8 +12,8 @@
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Poke Digital">
-<meta property="og:title" content="Work — Poke Digital Portfolio, Cape Town">
-<meta property="og:description" content="Explore Poke Digital's portfolio of websites and digital products built for ambitious South African brands.">
+<meta property="og:title" content="Web Design Portfolio | Poke Digital Cape Town">
+<meta property="og:description" content="Explore selected websites, digital experiences and interface projects designed and developed by Poke Digital in Cape Town.">
 <meta property="og:url" content="https://pokedigital.co.za/work.html">
 <meta property="og:image" content="https://pokedigital.co.za/assets/brand/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -22,15 +22,43 @@
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Work — Poke Digital Portfolio, Cape Town">
-<meta name="twitter:description" content="Explore Poke Digital's portfolio of websites and digital products built for ambitious South African brands.">
+<meta name="twitter:title" content="Web Design Portfolio | Poke Digital Cape Town">
+<meta name="twitter:description" content="Explore selected websites, digital experiences and interface projects designed and developed by Poke Digital in Cape Town.">
 <meta name="twitter:image" content="https://pokedigital.co.za/assets/brand/og-image.png">
 
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com">
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="work.css">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="assets/brand/favicon-16.png">
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0A0A0A">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://pokedigital.co.za/"},
+    {"@type": "ListItem", "position": 2, "name": "Work", "item": "https://pokedigital.co.za/work.html"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Poke Digital — Web Design Portfolio",
+  "url": "https://pokedigital.co.za/work.html",
+  "hasPart": [
+    {"@type": "CreativeWork", "name": "SMSHD", "url": "https://pokedigital.co.za/work/smshd.html"},
+    {"@type": "CreativeWork", "name": "LUMINA Architects", "url": "https://pokedigital.co.za/work/lumina.html"},
+    {"@type": "CreativeWork", "name": "VALT Property Studio", "url": "https://pokedigital.co.za/work/valt.html"},
+    {"@type": "CreativeWork", "name": "Wildehoek", "url": "https://pokedigital.co.za/work/wildehoek.html"}
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -40,10 +68,11 @@
 
 <header class="nav" id="nav">
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo magnetic" data-cursor=""><img src="assets/brand/logo-full.png" alt="Poke Digital"></a>
+    <a href="index.html" class="nav-logo magnetic" data-cursor=""><img src="assets/brand/logo-full.png" alt="Poke Digital" width="600" height="200"></a>
     <nav class="nav-links" id="navLinks">
-      <a href="about.html" data-cursor="">About</a>
+      <a href="/services/" data-cursor="">Services</a>
       <a href="work.html" data-cursor="" class="nav-active">Work</a>
+      <a href="about.html" data-cursor="">About</a>
       <a href="index.html#contact" data-cursor="">Contact</a>
     </nav>
     <a href="index.html#contact" class="btn btn-primary btn-small magnetic" data-cursor="">Start a Project</a>
@@ -60,13 +89,14 @@
         <span class="line"><span class="word">Stuff we've</span></span>
         <span class="line"><span class="word">built.</span></span>
       </h1>
+      <p class="work-hero-sub">A selection of <a href="/services/web-design/">web design</a> and <a href="/services/web-development/">development</a> projects for hospitality, property and brand-led businesses in Cape Town and beyond.</p>
     </div>
   </section>
 
   <section class="work-list">
 
     <a href="work/smshd.html" class="work-card" data-case="smshd" data-cursor="">
-      <div class="work-card-img"><img src="assets/work/smshd-poster.webp" alt="SMSHD"></div>
+      <div class="work-card-img"><img src="assets/work/smshd-poster.webp" alt="SMSHD smash burger brand website design by Poke Digital" width="1440" height="900"></div>
       <div class="work-card-info">
         <span class="work-card-tag">Food & Beverage</span>
         <h2>SMSHD</h2>
@@ -76,7 +106,7 @@
 
 
     <a href="work/lumina.html" class="work-card" data-case="lumina" data-cursor="">
-      <div class="work-card-img"><img src="assets/work/lumina-poster.webp" alt="LUMINA Architects"></div>
+      <div class="work-card-img"><img src="assets/work/lumina-poster.webp" alt="LUMINA Architects studio website design by Poke Digital" width="1440" height="900"></div>
       <div class="work-card-info">
         <span class="work-card-tag">Architecture</span>
         <h2>LUMINA Architects</h2>
@@ -85,7 +115,7 @@
     </a>
 
     <a href="work/valt.html" class="work-card" data-case="valt" data-cursor="">
-      <div class="work-card-img"><img src="assets/work/valt-poster.webp" alt="VALT Property Studio"></div>
+      <div class="work-card-img"><img src="assets/work/valt-poster.webp" alt="VALT Property Studio real estate website design by Poke Digital" width="1440" height="900"></div>
       <div class="work-card-info">
         <span class="work-card-tag">Real Estate</span>
         <h2>VALT Property Studio</h2>
@@ -94,7 +124,7 @@
     </a>
 
     <a href="work/wildehoek.html" class="work-card" data-case="wildehoek" data-cursor="">
-      <div class="work-card-img"><img src="assets/work/wildehoek-poster.webp" alt="Wildehoek"></div>
+      <div class="work-card-img"><img src="assets/work/wildehoek-poster.webp" alt="Wildehoek restaurant and hospitality website design by Poke Digital" width="1600" height="903"></div>
       <div class="work-card-info">
         <span class="work-card-tag">Restaurant / Hospitality</span>
         <h2>Wildehoek</h2>
@@ -123,12 +153,34 @@
 </div>
 
 <footer class="footer">
-  <div class="footer-inner">
-    <img src="assets/brand/logo-full.png" alt="Poke Digital" class="footer-logo">
-    <nav class="footer-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="work.html">Work</a><a href="index.html#contact">Contact</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></nav>
-    <div class="footer-contact"><a href="mailto:hello@pokedigital.co.za">hello@pokedigital.co.za</a></div>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <img src="assets/brand/logo-full.png" alt="Poke Digital" class="footer-logo" width="600" height="200">
+      <p class="footer-tagline">Independent Web Design &amp; UI/UX Studio</p>
+      <p class="footer-location">Cape Town, South Africa</p>
+    </div>
+    <nav class="footer-col" aria-label="Services">
+      <h3>Services</h3>
+      <a href="/services/web-design/">Web Design</a>
+      <a href="/services/web-development/">Web Development</a>
+      <a href="/services/ui-ux-design/">UI/UX Design</a>
+      <a href="/services/website-redesign/">Website Redesign</a>
+      <a href="/services/cms-development/">CMS Development</a>
+    </nav>
+    <nav class="footer-col" aria-label="Company">
+      <h3>Company</h3>
+      <a href="work.html">Work</a>
+      <a href="about.html">About</a>
+      <a href="/insights/">Insights</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <div class="footer-col">
+      <h3>Get in touch</h3>
+      <a href="mailto:hello@pokedigital.co.za">hello@pokedigital.co.za</a>
+      <a href="index.html#contact" class="footer-cta">Book a Discovery Call</a>
+    </div>
   </div>
-  <div class="footer-bottom"><p>&copy; <span id="year"></span> Poke Digital.</p><p>Cape Town, South Africa</p></div>
+  <div class="footer-bottom"><p>&copy; <span id="year"></span> Poke Digital.</p><p><a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></p></div>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>

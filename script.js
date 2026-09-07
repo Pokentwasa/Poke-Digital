@@ -391,20 +391,26 @@
     });
 
     // ===== COUNT-UP STATS =====
+    // The true value (e.g. "12+") already lives in the HTML text content so
+    // search engines and no-JS clients see the real number. Here we only
+    // replace it visually: drop to 0 for the animation, then count back up
+    // to the same real value already present in the markup.
     document.querySelectorAll('.stat-number').forEach((el) => {
       const target = parseInt(el.dataset.count, 10) || 0;
-      const suffix = el.dataset.suffix || '+';
+      const suffix = el.dataset.suffix != null ? el.dataset.suffix : '';
+      const finalText = el.textContent;
       ScrollTrigger.create({
         trigger: el,
         start: 'top 85%',
         once: true,
         onEnter: () => {
+          el.textContent = '0';
           const duration = 1400;
           const start = performance.now();
           function tick(now) {
             const progress = Math.min((now - start) / duration, 1);
             const eased = 1 - Math.pow(1 - progress, 3);
-            el.textContent = Math.round(eased * target) + (progress === 1 ? suffix : '');
+            el.textContent = progress === 1 ? finalText : Math.round(eased * target) + suffix;
             if (progress < 1) requestAnimationFrame(tick);
           }
           requestAnimationFrame(tick);

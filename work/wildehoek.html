@@ -24,11 +24,15 @@
 <meta name="twitter:description" content="Wildehoek needed a digital experience that felt less like a restaurant website and more like an extension of the farm itself.">
 <meta name="twitter:image" content="https://pokedigital.co.za/assets/work/wildehoek-poster.webp">
 
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com">
 <link rel="stylesheet" href="../styles.css">
 <link rel="stylesheet" href="../work.css">
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/brand/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="../assets/brand/favicon-16.png">
 <link rel="apple-touch-icon" href="../assets/brand/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0A0A0A">
 
 <script type="application/ld+json">
 {
@@ -62,10 +66,11 @@
 
 <header class="nav" id="nav">
   <div class="nav-inner">
-    <a href="../index.html" class="nav-logo magnetic" data-cursor=""><img src="../assets/brand/logo-full.png" alt="Poke Digital"></a>
+    <a href="../index.html" class="nav-logo magnetic" data-cursor=""><img src="../assets/brand/logo-full.png" alt="Poke Digital" width="600" height="200"></a>
     <nav class="nav-links" id="navLinks">
-      <a href="../about.html" data-cursor="">About</a>
+      <a href="/services/" data-cursor="">Services</a>
       <a href="../work.html" data-cursor="" class="nav-active">Work</a>
+      <a href="../about.html" data-cursor="">About</a>
       <a href="../index.html#contact" data-cursor="">Contact</a>
     </nav>
     <a href="../index.html#contact" class="btn btn-primary btn-small magnetic" data-cursor="">Start a Project</a>
@@ -82,7 +87,7 @@
     <div class="cs-video-hero">
       <video autoplay muted loop playsinline poster="../assets/work/wildehoek-poster.webp">
         <source src="../assets/work/wildehoek.mp4" type="video/mp4">
-        <img src="../assets/work/wildehoek-poster.webp" alt="Wildehoek website hero screen — sunset over farmland with the headline From this land, around this table">
+        <img src="../assets/work/wildehoek-poster.webp" alt="Wildehoek website hero screen — sunset over farmland with the headline From this land, around this table" width="1600" height="903">
       </video>
     </div>
     <div class="cs-body">
@@ -97,13 +102,13 @@
 
       <div class="cs-strip-pin">
         <div class="cs-strip">
-          <div class="cs-strip-slide"><img src="../assets/work/wildehoek-2-restaurant.webp" alt="Wildehoek website Restaurant section — a restaurant shaped by the seasons" loading="lazy"></div>
-          <div class="cs-strip-slide"><img src="../assets/work/wildehoek-3-farm.webp" alt="Wildehoek website Our Farm section with the farm's garden shed" loading="lazy"></div>
-          <div class="cs-strip-slide"><img src="../assets/work/wildehoek-4-menu-hero.webp" alt="Wildehoek website Menu section hero — seasonal produce being prepared" loading="lazy"></div>
-          <div class="cs-strip-slide"><img src="../assets/work/wildehoek-5-terrace.webp" alt="Wildehoek website Visit section featuring the outdoor terrace" loading="lazy"></div>
-          <div class="cs-strip-slide"><img src="../assets/work/wildehoek-6-menu-detail.webp" alt="Wildehoek website detailed seasonal menu listing with pricing" loading="lazy"></div>
-          <div class="cs-strip-slide"><img src="../assets/work/wildehoek-7-kitchen.webp" alt="Wildehoek website Kitchen section with cast-iron skillet cooking" loading="lazy"></div>
-          <div class="cs-strip-slide"><img src="../assets/work/wildehoek-8-journal.webp" alt="Wildehoek website Journal section with farm story articles" loading="lazy"></div>
+          <div class="cs-strip-slide"><img src="../assets/work/wildehoek-2-restaurant.webp" alt="Wildehoek website Restaurant section — a restaurant shaped by the seasons" loading="lazy" width="1600" height="903"></div>
+          <div class="cs-strip-slide"><img src="../assets/work/wildehoek-3-farm.webp" alt="Wildehoek website Our Farm section with the farm's garden shed" loading="lazy" width="1600" height="903"></div>
+          <div class="cs-strip-slide"><img src="../assets/work/wildehoek-4-menu-hero.webp" alt="Wildehoek website Menu section hero — seasonal produce being prepared" loading="lazy" width="1600" height="905"></div>
+          <div class="cs-strip-slide"><img src="../assets/work/wildehoek-5-terrace.webp" alt="Wildehoek website Visit section featuring the outdoor terrace" loading="lazy" width="1600" height="904"></div>
+          <div class="cs-strip-slide"><img src="../assets/work/wildehoek-6-menu-detail.webp" alt="Wildehoek website detailed seasonal menu listing with pricing" loading="lazy" width="1600" height="904"></div>
+          <div class="cs-strip-slide"><img src="../assets/work/wildehoek-7-kitchen.webp" alt="Wildehoek website Kitchen section with cast-iron skillet cooking" loading="lazy" width="1600" height="905"></div>
+          <div class="cs-strip-slide"><img src="../assets/work/wildehoek-8-journal.webp" alt="Wildehoek website Journal section with farm story articles" loading="lazy" width="1600" height="902"></div>
         </div>
       </div>
 
@@ -125,6 +130,15 @@
   </article>
 
   <div class="cs-more">
+    <h2>Related services</h2>
+    <div class="cs-more-list">
+      <a href="/services/web-design/">Web Design</a>
+      <a href="/services/website-redesign/">Website Redesign</a>
+      <a href="/services/seo-ready-websites/">SEO-Ready Websites</a>
+    </div>
+  </div>
+
+  <div class="cs-more">
     <h2>More work</h2>
     <div class="cs-more-list">
       <a href="smshd.html">SMSHD</a>
@@ -136,12 +150,34 @@
 </main>
 
 <footer class="footer">
-  <div class="footer-inner">
-    <img src="../assets/brand/logo-full.png" alt="Poke Digital" class="footer-logo">
-    <nav class="footer-links"><a href="../index.html">Home</a><a href="../about.html">About</a><a href="../work.html">Work</a><a href="../index.html#contact">Contact</a><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a></nav>
-    <div class="footer-contact"><a href="mailto:hello@pokedigital.co.za">hello@pokedigital.co.za</a></div>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <img src="../assets/brand/logo-full.png" alt="Poke Digital" class="footer-logo" width="600" height="200">
+      <p class="footer-tagline">Independent Web Design &amp; UI/UX Studio</p>
+      <p class="footer-location">Cape Town, South Africa</p>
+    </div>
+    <nav class="footer-col" aria-label="Services">
+      <h3>Services</h3>
+      <a href="/services/web-design/">Web Design</a>
+      <a href="/services/web-development/">Web Development</a>
+      <a href="/services/ui-ux-design/">UI/UX Design</a>
+      <a href="/services/website-redesign/">Website Redesign</a>
+      <a href="/services/cms-development/">CMS Development</a>
+    </nav>
+    <nav class="footer-col" aria-label="Company">
+      <h3>Company</h3>
+      <a href="../work.html">Work</a>
+      <a href="../about.html">About</a>
+      <a href="/insights/">Insights</a>
+      <a href="../index.html#contact">Contact</a>
+    </nav>
+    <div class="footer-col">
+      <h3>Get in touch</h3>
+      <a href="mailto:hello@pokedigital.co.za">hello@pokedigital.co.za</a>
+      <a href="../index.html#contact" class="footer-cta">Book a Discovery Call</a>
+    </div>
   </div>
-  <div class="footer-bottom"><p>&copy; <span id="year"></span> Poke Digital.</p><p>Cape Town, South Africa</p></div>
+  <div class="footer-bottom"><p>&copy; <span id="year"></span> Poke Digital.</p><p><a href="../privacy.html">Privacy</a> · <a href="../terms.html">Terms</a></p></div>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
