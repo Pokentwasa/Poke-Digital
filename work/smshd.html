@@ -24,11 +24,15 @@
 <meta name="twitter:description" content="A premium smash burger brand needed a digital identity that matched their street-style, high-energy aesthetic.">
 <meta name="twitter:image" content="https://pokedigital.co.za/assets/work/smshd-poster.webp">
 
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com">
 <link rel="stylesheet" href="../styles.css">
 <link rel="stylesheet" href="../work.css">
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/brand/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="../assets/brand/favicon-16.png">
 <link rel="apple-touch-icon" href="../assets/brand/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0A0A0A">
 
 <script type="application/ld+json">
 {
@@ -62,10 +66,11 @@
 
 <header class="nav" id="nav">
   <div class="nav-inner">
-    <a href="../index.html" class="nav-logo magnetic" data-cursor=""><img src="../assets/brand/logo-full.png" alt="Poke Digital"></a>
+    <a href="../index.html" class="nav-logo magnetic" data-cursor=""><img src="../assets/brand/logo-full.png" alt="Poke Digital" width="600" height="200"></a>
     <nav class="nav-links" id="navLinks">
-      <a href="../about.html" data-cursor="">About</a>
+      <a href="/services/" data-cursor="">Services</a>
       <a href="../work.html" data-cursor="" class="nav-active">Work</a>
+      <a href="../about.html" data-cursor="">About</a>
       <a href="../index.html#contact" data-cursor="">Contact</a>
     </nav>
     <a href="../index.html#contact" class="btn btn-primary btn-small magnetic" data-cursor="">Start a Project</a>
@@ -82,7 +87,7 @@
     <div class="cs-video-hero">
       <video autoplay muted loop playsinline poster="../assets/work/smshd-1.webp">
         <source src="../assets/work/smshd.mp4" type="video/mp4">
-        <img src="../assets/work/smshd-1.webp" alt="SMSHD website hero screen">
+        <img src="../assets/work/smshd-1.webp" alt="SMSHD website hero screen" width="1440" height="900">
       </video>
     </div>
     <div class="cs-body">
@@ -97,13 +102,13 @@
 
       <div class="cs-strip-pin">
         <div class="cs-strip">
-          <div class="cs-strip-slide"><img src="../assets/work/smshd-2.webp" alt="SMSHD website screenshot 1" loading="lazy"></div>
-          <div class="cs-strip-slide"><img src="../assets/work/smshd-3.webp" alt="SMSHD website screenshot 2" loading="lazy"></div>
-          <div class="cs-strip-slide"><img src="../assets/work/smshd-4.webp" alt="SMSHD website screenshot 3" loading="lazy"></div>
-          <div class="cs-strip-slide"><img src="../assets/work/smshd-5.webp" alt="SMSHD website screenshot 4" loading="lazy"></div>
-          <div class="cs-strip-slide"><img src="../assets/work/smshd-6.webp" alt="SMSHD website screenshot 5" loading="lazy"></div>
-          <div class="cs-strip-slide"><img src="../assets/work/smshd-7.webp" alt="SMSHD website screenshot 6" loading="lazy"></div>
-          <div class="cs-strip-slide"><img src="../assets/work/smshd-8.webp" alt="SMSHD website screenshot 7" loading="lazy"></div>
+          <div class="cs-strip-slide"><img src="../assets/work/smshd-2.webp" alt="SMSHD website screenshot 1" loading="lazy" width="1440" height="900"></div>
+          <div class="cs-strip-slide"><img src="../assets/work/smshd-3.webp" alt="SMSHD website screenshot 2" loading="lazy" width="1440" height="900"></div>
+          <div class="cs-strip-slide"><img src="../assets/work/smshd-4.webp" alt="SMSHD website screenshot 3" loading="lazy" width="1440" height="900"></div>
+          <div class="cs-strip-slide"><img src="../assets/work/smshd-5.webp" alt="SMSHD website screenshot 4" loading="lazy" width="1440" height="900"></div>
+          <div class="cs-strip-slide"><img src="../assets/work/smshd-6.webp" alt="SMSHD website screenshot 5" loading="lazy" width="1440" height="900"></div>
+          <div class="cs-strip-slide"><img src="../assets/work/smshd-7.webp" alt="SMSHD website screenshot 6" loading="lazy" width="1440" height="900"></div>
+          <div class="cs-strip-slide"><img src="../assets/work/smshd-8.webp" alt="SMSHD website screenshot 7" loading="lazy" width="1440" height="900"></div>
         </div>
       </div>
 
@@ -124,6 +129,15 @@
   </article>
 
   <div class="cs-more">
+    <h2>Related services</h2>
+    <div class="cs-more-list">
+      <a href="/services/web-design/">Web Design</a>
+      <a href="/services/ui-ux-design/">UI/UX Design</a>
+      <a href="/services/cms-development/">CMS Development</a>
+    </div>
+  </div>
+
+  <div class="cs-more">
     <h2>More work</h2>
     <div class="cs-more-list">
       <a href="lumina.html">LUMINA Architects</a>
@@ -135,12 +149,34 @@
 </main>
 
 <footer class="footer">
-  <div class="footer-inner">
-    <img src="../assets/brand/logo-full.png" alt="Poke Digital" class="footer-logo">
-    <nav class="footer-links"><a href="../index.html">Home</a><a href="../about.html">About</a><a href="../work.html">Work</a><a href="../index.html#contact">Contact</a><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a></nav>
-    <div class="footer-contact"><a href="mailto:hello@pokedigital.co.za">hello@pokedigital.co.za</a></div>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <img src="../assets/brand/logo-full.png" alt="Poke Digital" class="footer-logo" width="600" height="200">
+      <p class="footer-tagline">Independent Web Design &amp; UI/UX Studio</p>
+      <p class="footer-location">Cape Town, South Africa</p>
+    </div>
+    <nav class="footer-col" aria-label="Services">
+      <h3>Services</h3>
+      <a href="/services/web-design/">Web Design</a>
+      <a href="/services/web-development/">Web Development</a>
+      <a href="/services/ui-ux-design/">UI/UX Design</a>
+      <a href="/services/website-redesign/">Website Redesign</a>
+      <a href="/services/cms-development/">CMS Development</a>
+    </nav>
+    <nav class="footer-col" aria-label="Company">
+      <h3>Company</h3>
+      <a href="../work.html">Work</a>
+      <a href="../about.html">About</a>
+      <a href="/insights/">Insights</a>
+      <a href="../index.html#contact">Contact</a>
+    </nav>
+    <div class="footer-col">
+      <h3>Get in touch</h3>
+      <a href="mailto:hello@pokedigital.co.za">hello@pokedigital.co.za</a>
+      <a href="../index.html#contact" class="footer-cta">Book a Discovery Call</a>
+    </div>
   </div>
-  <div class="footer-bottom"><p>&copy; <span id="year"></span> Poke Digital.</p><p>Cape Town, South Africa</p></div>
+  <div class="footer-bottom"><p>&copy; <span id="year"></span> Poke Digital.</p><p><a href="../privacy.html">Privacy</a> · <a href="../terms.html">Terms</a></p></div>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>

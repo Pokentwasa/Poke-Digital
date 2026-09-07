@@ -2,6 +2,30 @@
   'use strict';
 
   // ==========================================
+  // MOBILE NAV — bound immediately, not inside window 'load', so the
+  // hamburger works even if a CDN script stalls. (Previously missing here,
+  // leaving the header nav permanently inert on mobile for every page that
+  // loads work.js instead of script.js — work.html and all case studies.)
+  // ==========================================
+  const navEl = document.getElementById('nav');
+  const navToggleEl = document.getElementById('navToggle');
+  const navLinksEl = document.getElementById('navLinks');
+  if (navToggleEl && navEl) {
+    navToggleEl.addEventListener('click', () => {
+      const isOpen = navEl.classList.toggle('is-open');
+      navToggleEl.setAttribute('aria-expanded', String(isOpen));
+    });
+    if (navLinksEl) {
+      navLinksEl.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => {
+          navEl.classList.remove('is-open');
+          navToggleEl.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+  }
+
+  // ==========================================
   // GSAP
   // ==========================================
   window.addEventListener('load', () => {

@@ -12,15 +12,18 @@
 <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="assets/brand/favicon-16.png">
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0A0A0A">
 </head>
 <body>
 
 <header class="nav" id="nav">
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo"><img src="assets/brand/logo-full.png" alt="Poke Digital"></a>
+    <a href="index.html" class="nav-logo"><img src="assets/brand/logo-full.png" alt="Poke Digital" width="600" height="200"></a>
     <nav class="nav-links">
-      <a href="about.html">About</a>
+      <a href="/services/">Services</a>
       <a href="work.html">Work</a>
+      <a href="about.html">About</a>
       <a href="index.html#contact">Contact</a>
     </nav>
     <a href="index.html#contact" class="btn btn-primary btn-small">Start a Project</a>
@@ -85,12 +88,34 @@
 </main>
 
 <footer class="footer">
-  <div class="footer-inner">
-    <img src="assets/brand/logo-full.png" alt="Poke Digital" class="footer-logo">
-    <nav class="footer-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="work.html">Work</a><a href="index.html#contact">Contact</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></nav>
-    <div class="footer-contact"><a href="mailto:hello@pokedigital.co.za">hello@pokedigital.co.za</a></div>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <img src="assets/brand/logo-full.png" alt="Poke Digital" class="footer-logo" width="600" height="200">
+      <p class="footer-tagline">Independent Web Design &amp; UI/UX Studio</p>
+      <p class="footer-location">Cape Town, South Africa</p>
+    </div>
+    <nav class="footer-col" aria-label="Services">
+      <h3>Services</h3>
+      <a href="/services/web-design/">Web Design</a>
+      <a href="/services/web-development/">Web Development</a>
+      <a href="/services/ui-ux-design/">UI/UX Design</a>
+      <a href="/services/website-redesign/">Website Redesign</a>
+      <a href="/services/cms-development/">CMS Development</a>
+    </nav>
+    <nav class="footer-col" aria-label="Company">
+      <h3>Company</h3>
+      <a href="work.html">Work</a>
+      <a href="about.html">About</a>
+      <a href="/insights/">Insights</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <div class="footer-col">
+      <h3>Get in touch</h3>
+      <a href="mailto:hello@pokedigital.co.za">hello@pokedigital.co.za</a>
+      <a href="index.html#contact" class="footer-cta">Book a Discovery Call</a>
+    </div>
   </div>
-  <div class="footer-bottom"><p>&copy; <span id="year"></span> Poke Digital. All rights reserved.</p><p>Cape Town, South Africa</p></div>
+  <div class="footer-bottom"><p>&copy; <span id="year"></span> Poke Digital. All rights reserved.</p><p><a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></p></div>
 </footer>
 
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
