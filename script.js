@@ -7,6 +7,7 @@
 
   // ===== GLOBALS =====
   const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let mouseX = 0, mouseY = 0;
   let normalizedMouse = { x: 0, y: 0 };
 
@@ -81,102 +82,112 @@
   // ==========================================
   // THREE.JS — SCENE SETUP
   // ==========================================
+  // Guarded: if the Three.js CDN fails to load (blocked, offline, CDN
+  // outage), skip WebGL entirely instead of throwing and killing every
+  // script below it (contact form, cursor, magnetic buttons, footer year).
   const canvas = document.getElementById('webglCanvas');
-  const scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(0x0a0a0a, 0.035);
+  const webglAvailable = typeof THREE !== 'undefined' && !!canvas;
+  let scene, camera, renderer, torus, sphere, ico1, ico2, particles, pointLight, group;
 
-  const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 100);
-  camera.position.set(0, 1, 8);
+  if (webglAvailable) {
+    scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x0a0a0a, 0.035);
 
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.2;
+    camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 100);
+    camera.position.set(0, 1, 8);
 
-  // ===== LIGHTING =====
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.15);
-  scene.add(ambientLight);
-
-  const rimLight = new THREE.DirectionalLight(0xe8623d, 0.9);
-  rimLight.position.set(5, 3, -2);
-  scene.add(rimLight);
-
-  const fillLight = new THREE.DirectionalLight(0xc9c6f7, 0.35);
-  fillLight.position.set(-4, 2, 4);
-  scene.add(fillLight);
-
-  const pointLight = new THREE.PointLight(0xe8623d, 1.5, 12);
-  pointLight.position.set(0, 2, 3);
-  scene.add(pointLight);
-
-  // ===== 3D OBJECTS =====
-  const group = new THREE.Group();
-  scene.add(group);
-
-  // Main torus — hero focal point
-  const torusGeo = new THREE.TorusGeometry(1.4, 0.45, 64, 128);
-  const torusMat = new THREE.MeshStandardMaterial({
-    color: 0x111111,
-    metalness: 0.95,
-    roughness: 0.12,
-    envMapIntensity: 1.2
-  });
-  const torus = new THREE.Mesh(torusGeo, torusMat);
-  torus.position.set(3, 0.5, 0);
-  torus.rotation.x = Math.PI * 0.35;
-  group.add(torus);
-
-  // Secondary sphere — features section
-  const sphereGeo = new THREE.SphereGeometry(0.9, 64, 64);
-  const sphereMat = new THREE.MeshStandardMaterial({
-    color: 0xe8623d,
-    metalness: 0.7,
-    roughness: 0.25
-  });
-  const sphere = new THREE.Mesh(sphereGeo, sphereMat);
-  sphere.position.set(-3, -4, -2);
-  group.add(sphere);
-
-  // Icosahedron cluster — work section
-  const icoGeo = new THREE.IcosahedronGeometry(0.65, 0);
-  const icoMat = new THREE.MeshStandardMaterial({
-    color: 0xc9c6f7,
-    metalness: 0.85,
-    roughness: 0.15,
-    flatShading: true
-  });
-
-  const ico1 = new THREE.Mesh(icoGeo, icoMat);
-  ico1.position.set(4, -9, -1);
-  group.add(ico1);
-
-  const ico2 = new THREE.Mesh(icoGeo, icoMat.clone());
-  ico2.material.color.setHex(0xf5dc6e);
-  ico2.position.set(3, -9.8, 0.5);
-  ico2.scale.setScalar(0.5);
-  group.add(ico2);
-
-  // ===== PARTICLE FIELD =====
-  const particleCount = 600;
-  const positions = new Float32Array(particleCount * 3);
-  for (let i = 0; i < particleCount; i++) {
-    positions[i * 3] = (Math.random() - 0.5) * 30;
-    positions[i * 3 + 1] = (Math.random() - 0.5) * 40;
-    positions[i * 3 + 2] = (Math.random() - 0.5) * 20;
-  }
-  const particlesGeo = new THREE.BufferGeometry();
-  particlesGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-  const particlesMat = new THREE.PointsMaterial({ color: 0xe8623d, size: 0.03, sizeAttenuation: true, transparent: true, opacity: 0.6 });
-  const particles = new THREE.Points(particlesGeo, particlesMat);
-  scene.add(particles);
-
-  // ===== RESIZE =====
-  window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
+    renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
-  });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.2;
+
+    // ===== LIGHTING =====
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.15);
+    scene.add(ambientLight);
+
+    const rimLight = new THREE.DirectionalLight(0xe8623d, 0.9);
+    rimLight.position.set(5, 3, -2);
+    scene.add(rimLight);
+
+    const fillLight = new THREE.DirectionalLight(0xc9c6f7, 0.35);
+    fillLight.position.set(-4, 2, 4);
+    scene.add(fillLight);
+
+    pointLight = new THREE.PointLight(0xe8623d, 1.5, 12);
+    pointLight.position.set(0, 2, 3);
+    scene.add(pointLight);
+
+    // ===== 3D OBJECTS =====
+    group = new THREE.Group();
+    scene.add(group);
+
+    // Main torus — hero focal point
+    const torusGeo = new THREE.TorusGeometry(1.4, 0.45, 64, 128);
+    const torusMat = new THREE.MeshStandardMaterial({
+      color: 0x111111,
+      metalness: 0.95,
+      roughness: 0.12,
+      envMapIntensity: 1.2
+    });
+    torus = new THREE.Mesh(torusGeo, torusMat);
+    torus.position.set(3, 0.5, 0);
+    torus.rotation.x = Math.PI * 0.35;
+    group.add(torus);
+
+    // Secondary sphere — features section
+    const sphereGeo = new THREE.SphereGeometry(0.9, 64, 64);
+    const sphereMat = new THREE.MeshStandardMaterial({
+      color: 0xe8623d,
+      metalness: 0.7,
+      roughness: 0.25
+    });
+    sphere = new THREE.Mesh(sphereGeo, sphereMat);
+    sphere.position.set(-3, -4, -2);
+    group.add(sphere);
+
+    // Icosahedron cluster — work section
+    const icoGeo = new THREE.IcosahedronGeometry(0.65, 0);
+    const icoMat = new THREE.MeshStandardMaterial({
+      color: 0xc9c6f7,
+      metalness: 0.85,
+      roughness: 0.15,
+      flatShading: true
+    });
+
+    ico1 = new THREE.Mesh(icoGeo, icoMat);
+    ico1.position.set(4, -9, -1);
+    group.add(ico1);
+
+    ico2 = new THREE.Mesh(icoGeo, icoMat.clone());
+    ico2.material.color.setHex(0xf5dc6e);
+    ico2.position.set(3, -9.8, 0.5);
+    ico2.scale.setScalar(0.5);
+    group.add(ico2);
+
+    // ===== PARTICLE FIELD =====
+    const particleCount = 600;
+    const positions = new Float32Array(particleCount * 3);
+    for (let i = 0; i < particleCount; i++) {
+      positions[i * 3] = (Math.random() - 0.5) * 30;
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 40;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 20;
+    }
+    const particlesGeo = new THREE.BufferGeometry();
+    particlesGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    const particlesMat = new THREE.PointsMaterial({ color: 0xe8623d, size: 0.03, sizeAttenuation: true, transparent: true, opacity: 0.6 });
+    particles = new THREE.Points(particlesGeo, particlesMat);
+    scene.add(particles);
+
+    // ===== RESIZE =====
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  } else if (canvas) {
+    canvas.style.display = 'none';
+  }
 
   // ===== MOUSE TRACKING =====
   window.addEventListener('mousemove', (e) => {
@@ -187,35 +198,44 @@
   });
 
   // ===== RENDER LOOP =====
-  const clock = new THREE.Clock();
+  if (webglAvailable) {
+    const clock = new THREE.Clock();
 
-  function animate() {
-    requestAnimationFrame(animate);
-    const elapsed = clock.getElapsedTime();
+    (function animate() {
+      requestAnimationFrame(animate);
 
-    // Object rotations
-    torus.rotation.y = elapsed * 0.15;
-    torus.rotation.z = elapsed * 0.08;
-    sphere.rotation.y = elapsed * 0.2;
-    sphere.rotation.x = elapsed * 0.1;
-    ico1.rotation.x = elapsed * 0.25;
-    ico1.rotation.y = elapsed * 0.15;
-    ico2.rotation.z = elapsed * 0.3;
+      // Reduced motion: render the scene once as a static backdrop and skip
+      // the continuous rotation/parallax/drift loop entirely.
+      if (reduceMotion) {
+        renderer.render(scene, camera);
+        return;
+      }
 
-    // Mouse parallax on group
-    group.rotation.y += (normalizedMouse.x * 0.08 - group.rotation.y) * 0.04;
-    group.rotation.x += (normalizedMouse.y * 0.04 - group.rotation.x) * 0.04;
+      const elapsed = clock.getElapsedTime();
 
-    // Particle drift
-    particles.rotation.y = elapsed * 0.01;
+      // Object rotations
+      torus.rotation.y = elapsed * 0.15;
+      torus.rotation.z = elapsed * 0.08;
+      sphere.rotation.y = elapsed * 0.2;
+      sphere.rotation.x = elapsed * 0.1;
+      ico1.rotation.x = elapsed * 0.25;
+      ico1.rotation.y = elapsed * 0.15;
+      ico2.rotation.z = elapsed * 0.3;
 
-    // Point light follows mouse gently
-    pointLight.position.x += (normalizedMouse.x * 4 - pointLight.position.x) * 0.03;
-    pointLight.position.y += (normalizedMouse.y * 3 - pointLight.position.y) * 0.03;
+      // Mouse parallax on group
+      group.rotation.y += (normalizedMouse.x * 0.08 - group.rotation.y) * 0.04;
+      group.rotation.x += (normalizedMouse.y * 0.04 - group.rotation.x) * 0.04;
 
-    renderer.render(scene, camera);
+      // Particle drift
+      particles.rotation.y = elapsed * 0.01;
+
+      // Point light follows mouse gently
+      pointLight.position.x += (normalizedMouse.x * 4 - pointLight.position.x) * 0.03;
+      pointLight.position.y += (normalizedMouse.y * 3 - pointLight.position.y) * 0.03;
+
+      renderer.render(scene, camera);
+    })();
   }
-  animate();
 
   // ==========================================
   // GSAP + SCROLLTRIGGER SETUP
@@ -224,10 +244,19 @@
     // Finish loader (safe to call more than once)
     dismissLoader();
 
+    // If GSAP itself failed to load (CDN blocked/offline), bail here — the
+    // anim-ready failsafe in <head> independently reveals content, but we
+    // must not throw and take out the code below (footer year, etc.).
+    if (typeof gsap === 'undefined') return;
+
     // tell the failsafe gate that animations are running normally
     window.__pdAnimsRan = true;
 
     gsap.registerPlugin(ScrollTrigger);
+
+    // reduceMotion (declared above, near isFinePointer) gates the scroll-driven
+    // camera parallax and the invisible GSAP start-states below — one-shot
+    // scroll reveals are kept since they're harmless and confirm content loaded.
 
     // ===== HERO WORD REVEAL =====
     document.querySelectorAll('.hero-title .word').forEach((word, i) => {
@@ -240,10 +269,10 @@
     });
 
     gsap.to('.hero-ctas', { opacity: 1, y: 0, duration: 0.8, delay: 1.2, ease: 'power3.out' });
-    gsap.set('.hero-ctas', { opacity: 0, y: 30 });
+    if (!reduceMotion) gsap.set('.hero-ctas', { opacity: 0, y: 30 });
 
     gsap.to('.hero .sticker', { opacity: 1, y: 0, duration: 0.6, delay: 0.4, ease: 'power3.out' });
-    gsap.set('.hero .sticker', { opacity: 0, y: 20 });
+    if (!reduceMotion) gsap.set('.hero .sticker', { opacity: 0, y: 20 });
 
     // ===== SCROLL-TRIGGERED TEXT REVEALS =====
     document.querySelectorAll('.section:not(.hero) .split-text .word').forEach((word) => {
@@ -267,6 +296,9 @@
     });
 
     // ===== CAMERA FLY TRANSITIONS =====
+    // Scroll-scrubbed parallax — skipped under prefers-reduced-motion, and
+    // skipped entirely if the WebGL scene never initialised.
+    if (!reduceMotion && webglAvailable) {
     // Hero → Features: camera drifts down and slightly left
     gsap.to(camera.position, {
       y: -2, x: -1, z: 6,
@@ -345,10 +377,11 @@
       z: Math.PI * 2,
       scrollTrigger: { trigger: '[data-section="work"]', start: 'top bottom', end: 'bottom top', scrub: 1 }
     });
+    } // end !reduceMotion
 
     // ===== STICKER REVEALS =====
     document.querySelectorAll('.features-sticker, .features-badge').forEach((el) => {
-      gsap.set(el, { opacity: 0, scale: 0.7, y: 20 });
+      if (!reduceMotion) gsap.set(el, { opacity: 0, scale: 0.7, y: 20 });
       gsap.to(el, {
         opacity: 1, scale: 1, y: 0,
         duration: 0.6,

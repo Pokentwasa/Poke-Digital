@@ -166,6 +166,17 @@ html.anim-failsafe .fade-in {
   transition: opacity .5s ease, transform .5s ease;
 }
 
+/* Respect prefers-reduced-motion: skip the hidden start-states entirely so
+   content is present and settled immediately, instead of relying on GSAP
+   to animate it into view. */
+@media (prefers-reduced-motion: reduce) {
+  html.anim-ready .split-text .word,
+  html.anim-ready .fade-in {
+    transform: none;
+    opacity: 1;
+  }
+}
+
 /* ============================================
    LAYOUT HELPERS
    ============================================ */

@@ -5,6 +5,14 @@
   // GSAP
   // ==========================================
   window.addEventListener('load', () => {
+    // If the GSAP CDN failed to load, skip the animation setup below rather
+    // than throwing and losing the footer-year line at the end of it.
+    if (typeof gsap === 'undefined') {
+      const yr = document.getElementById('year');
+      if (yr) yr.textContent = new Date().getFullYear();
+      return;
+    }
+
     gsap.registerPlugin(ScrollTrigger);
 
     document.querySelectorAll('.work-hero-title .word').forEach((w, i) => {
@@ -60,6 +68,15 @@
       brief: 'A premium Cape Town property studio needed a full conversion engine with pricing, lead capture, and individual development pages.',
       approach: 'Hero carousel with 4 developments showing price from the first frame. Four dedicated property pages with photo galleries, unit pricing tables, neighbourhood location sections, and enquiry forms with WhatsApp.',
       result: 'The most conversion-complete property site in the portfolio.',
+    },
+    wildehoek: {
+      title: 'Wildehoek',
+      year: '2026', industry: 'Restaurant / Hospitality', services: 'Web Design, UI/UX, Web Development, Creative Direction, Technical SEO',
+      video: 'assets/work/wildehoek.mp4', poster: 'assets/work/wildehoek-poster.webp',
+      slides: ['assets/work/wildehoek-2-restaurant.webp','assets/work/wildehoek-3-farm.webp','assets/work/wildehoek-4-menu-hero.webp','assets/work/wildehoek-5-terrace.webp','assets/work/wildehoek-6-menu-detail.webp','assets/work/wildehoek-7-kitchen.webp','assets/work/wildehoek-8-journal.webp'],
+      brief: 'Wildehoek needed a digital experience that felt less like a traditional restaurant website and more like an extension of the farm itself. The goal was to position the restaurant as a destination, using the landscape, seasonal produce and dining experience to build a stronger sense of place.',
+      approach: 'We created an editorial, image-led website inspired by premium hospitality and destination brands. Large-format photography, asymmetric layouts, considered typography and restrained transitions were used to give every section its own rhythm while keeping the experience calm, tactile and distinctly farm-led. The site was also developed with performance and search visibility in mind, using a crawlable content structure, semantic page architecture and technical SEO foundations without compromising the visual experience.',
+      result: 'A refined digital presence that positions Wildehoek as more than somewhere to eat. The final experience brings together the restaurant, farm, seasonal philosophy and atmosphere into one cohesive story, designed to make the destination feel worth travelling for before the guest has even arrived.',
     },
     kanuka: {
       title: 'AA Kanuka Financial',
@@ -117,11 +134,26 @@
 
   document.querySelectorAll('.work-card').forEach((card) => {
     card.addEventListener('click', (e) => {
-      e.preventDefault();
+      // Let modifier-clicks (new tab, new window) and non-primary buttons
+      // fall through to the card's real href instead of hijacking them.
+      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
       const data = caseData[card.dataset.case];
-      if (!data) return;
+      if (!data) return; // no panel data — let the real href navigate
+      e.preventDefault();
       openCase(data);
+      if (window.history && window.history.pushState) {
+        window.history.pushState({ case: card.dataset.case }, '', card.getAttribute('href'));
+      }
     });
+  });
+
+  window.addEventListener('popstate', (e) => {
+    const caseKey = e.state && e.state.case;
+    if (caseKey && caseData[caseKey]) {
+      openCase(caseData[caseKey]);
+    } else if (panel.classList.contains('is-open')) {
+      closeCase();
+    }
   });
 
   function openCase(data) {
@@ -163,8 +195,10 @@
       });
     });
 
-    gsap.from('.cs-video-hero', { opacity: 0, duration: 0.5, ease: 'power2.out' });
-    gsap.from('.cs-title', { opacity: 0, y: 30, duration: 0.7, delay: 0.15, ease: 'power3.out' });
+    if (typeof gsap !== 'undefined') {
+      gsap.from('.cs-video-hero', { opacity: 0, duration: 0.5, ease: 'power2.out' });
+      gsap.from('.cs-title', { opacity: 0, y: 30, duration: 0.7, delay: 0.15, ease: 'power3.out' });
+    }
   }
 
   function closeCase() {
@@ -172,8 +206,19 @@
     document.body.style.overflow = '';
   }
 
-  if (closeBtn) closeBtn.addEventListener('click', closeCase);
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeCase(); });
+  // Explicit close (button/Escape) also unwinds the history entry pushed on
+  // open, so the address bar reflects the panel being closed; popstate above
+  // then finishes the job (also handles the browser Back button directly).
+  function requestClose() {
+    if (window.history && window.history.state && window.history.state.case) {
+      window.history.back();
+    } else {
+      closeCase();
+    }
+  }
+
+  if (closeBtn) closeBtn.addEventListener('click', requestClose);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') requestClose(); });
 
   // ==========================================
   // DRAG STRIP — horizontal drag to scroll
