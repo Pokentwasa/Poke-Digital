@@ -68,9 +68,9 @@
     smshd: {
       title: 'SMSHD',
       year: '2026', industry: 'Food & Beverage', services: 'UI/UX Design, Web Development, Brand Identity',
-      video: 'assets/work/smshd.mp4',
-      poster: 'assets/work/smshd-1.webp',
-      slides: ['assets/work/smshd-2.webp','assets/work/smshd-3.webp','assets/work/smshd-4.webp','assets/work/smshd-5.webp','assets/work/smshd-6.webp','assets/work/smshd-7.webp','assets/work/smshd-8.webp'],
+      video: '/assets/work/smshd.mp4',
+      poster: '/assets/work/smshd-1.webp',
+      slides: ['/assets/work/smshd-2.webp','/assets/work/smshd-3.webp','/assets/work/smshd-4.webp','/assets/work/smshd-5.webp','/assets/work/smshd-6.webp','/assets/work/smshd-7.webp','/assets/work/smshd-8.webp'],
       brief: 'A premium smash burger brand needed a digital identity that matched their street-style, high-energy aesthetic — something that felt more Joy Rush than fast food chain.',
       approach: 'Joy Rush-inspired flat design — massive Syne 800 typography, neon yellow and tomato red palette, continuous ticker marquees, and interactive menu cards that expand on click to reveal full flavour profiles. The about page features a wide cinematic process hero with dietary badges across every menu item. Google Reviews and Instagram Gallery sections add social proof.',
       result: 'A portfolio piece that shows high-energy F&B design capability — interactive, bold, and fully responsive. The dietary badge system and menu expand interaction demonstrate product-thinking beyond pure aesthetics.',
@@ -78,8 +78,8 @@
     lumina: {
       title: 'LUMINA Architects',
       year: '2026', industry: 'Architecture', services: 'Cinematic UI, GSAP Animation, Web Development',
-      video: 'assets/work/lumina.mp4', poster: 'assets/work/lumina-poster.webp',
-      slides: ['assets/work/lumina-1.webp','assets/work/lumina-2.webp','assets/work/lumina-3.webp','assets/work/lumina-4.webp','assets/work/lumina-5.webp'],
+      video: '/assets/work/lumina.mp4', poster: '/assets/work/lumina-poster.webp',
+      slides: ['/assets/work/lumina-1.webp','/assets/work/lumina-2.webp','/assets/work/lumina-3.webp','/assets/work/lumina-4.webp','/assets/work/lumina-5.webp'],
       brief: 'A premium architecture studio needed a site as considered and cinematic as the spaces they design.',
       approach: 'Modelled on Yodezeen.com. Hero Ken Burns zoom, text lines masked behind overflow containers, GSAP ScrollTrigger pinned horizontal gallery, and a custom cursor with contextual labels. Four case study pages chain with "Next Project" full-bleed transitions.',
       result: 'Seven pages of cinematic dark-luxury architecture content. The horizontal gallery pin is the hero interaction.',
@@ -87,8 +87,8 @@
     valt: {
       title: 'VALT Property Studio',
       year: '2026', industry: 'Real Estate', services: 'UI/UX Design, Web Development, Lead Generation',
-      video: 'assets/work/valt.mp4', poster: 'assets/work/valt-poster.webp',
-      slides: ['assets/work/valt-1.webp','assets/work/valt-2.webp','assets/work/valt-3.webp','assets/work/valt-4.webp','assets/work/valt-5.webp'],
+      video: '/assets/work/valt.mp4', poster: '/assets/work/valt-poster.webp',
+      slides: ['/assets/work/valt-1.webp','/assets/work/valt-2.webp','/assets/work/valt-3.webp','/assets/work/valt-4.webp','/assets/work/valt-5.webp'],
       brief: 'A premium Cape Town property studio needed a full conversion engine with pricing, lead capture, and individual development pages.',
       approach: 'Hero carousel with 4 developments showing price from the first frame. Four dedicated property pages with photo galleries, unit pricing tables, neighbourhood location sections, and enquiry forms with WhatsApp.',
       result: 'The most conversion-complete property site in the portfolio.',
@@ -96,8 +96,8 @@
     wildehoek: {
       title: 'Wildehoek',
       year: '2026', industry: 'Restaurant / Hospitality', services: 'Web Design, UI/UX, Web Development, Creative Direction, Technical SEO',
-      video: 'assets/work/wildehoek.mp4', poster: 'assets/work/wildehoek-poster.webp',
-      slides: ['assets/work/wildehoek-2-restaurant.webp','assets/work/wildehoek-3-farm.webp','assets/work/wildehoek-4-menu-hero.webp','assets/work/wildehoek-5-terrace.webp','assets/work/wildehoek-6-menu-detail.webp','assets/work/wildehoek-7-kitchen.webp','assets/work/wildehoek-8-journal.webp'],
+      video: '/assets/work/wildehoek.mp4', poster: '/assets/work/wildehoek-poster.webp',
+      slides: ['/assets/work/wildehoek-2-restaurant.webp','/assets/work/wildehoek-3-farm.webp','/assets/work/wildehoek-4-menu-hero.webp','/assets/work/wildehoek-5-terrace.webp','/assets/work/wildehoek-6-menu-detail.webp','/assets/work/wildehoek-7-kitchen.webp','/assets/work/wildehoek-8-journal.webp'],
       brief: 'Wildehoek needed a digital experience that felt less like a traditional restaurant website and more like an extension of the farm itself. The goal was to position the restaurant as a destination, using the landscape, seasonal produce and dining experience to build a stronger sense of place.',
       approach: 'We created an editorial, image-led website inspired by premium hospitality and destination brands. Large-format photography, asymmetric layouts, considered typography and restrained transitions were used to give every section its own rhythm while keeping the experience calm, tactile and distinctly farm-led. The site was also developed with performance and search visibility in mind, using a crawlable content structure, semantic page architecture and technical SEO foundations without compromising the visual experience.',
       result: 'A refined digital presence that positions Wildehoek as more than somewhere to eat. The final experience brings together the restaurant, farm, seasonal philosophy and atmosphere into one cohesive story, designed to make the destination feel worth travelling for before the guest has even arrived.',
@@ -105,8 +105,8 @@
     kanuka: {
       title: 'AA Kanuka Financial',
       year: '2026', industry: 'Financial Services', services: 'Corporate Design, Lenis Smooth Scroll, Web Development',
-      video: 'assets/work/kanuka.mp4', poster: 'assets/work/kanuka-poster.webp',
-      slides: ['assets/work/kanuka-1.webp','assets/work/kanuka-2.webp','assets/work/kanuka-3.webp','assets/work/kanuka-4.webp','assets/work/kanuka-5.webp'],
+      video: '/assets/work/kanuka.mp4', poster: '/assets/work/kanuka-poster.webp',
+      slides: ['/assets/work/kanuka-1.webp','/assets/work/kanuka-2.webp','/assets/work/kanuka-3.webp','/assets/work/kanuka-4.webp','/assets/work/kanuka-5.webp'],
       brief: 'An Eastern Cape financial services firm needed institutional credibility while remaining approachable.',
       approach: 'Rhetores-inspired corporate luxury — white background, silver accents, warm dark gradient sections. Lenis smooth scroll with GSAP ScrollTrigger proxy. Real company data throughout.',
       result: 'A professional financial services site that punches well above the typical Eastern Cape SME web presence.',
@@ -114,8 +114,8 @@
     noir: {
       title: 'NØIR Fashion Label',
       year: '2026', industry: 'Fashion', services: 'Editorial Design, WebGL Fabric, Web Development',
-      video: 'assets/work/noir.mp4', poster: 'assets/work/noir-poster.webp',
-      slides: ['assets/work/noir-1.webp','assets/work/noir-2.webp','assets/work/noir-3.webp','assets/work/noir-4.webp','assets/work/noir-5.webp'],
+      video: '/assets/work/noir.mp4', poster: '/assets/work/noir-poster.webp',
+      slides: ['/assets/work/noir-1.webp','/assets/work/noir-2.webp','/assets/work/noir-3.webp','/assets/work/noir-4.webp','/assets/work/noir-5.webp'],
       brief: 'An avant-garde fashion label needed a digital presence as uncompromising as their collections.',
       approach: 'Pure black + pure white. Cormorant Garamond at extreme scale. Three.js silk fabric wave rippling from cursor. Horizontal-scroll lookbook. mix-blend-mode: difference nav.',
       result: 'The most distinctive site in the portfolio — immediately positions Poke Digital in high-fashion editorial.',
@@ -123,8 +123,8 @@
     nexus: {
       title: 'NEXUS Esports Guild',
       year: '2026', industry: 'Gaming / Esports', services: 'Cyber-Industrial UI, Three.js Particles, Web Development',
-      video: 'assets/work/nexus.mp4', poster: 'assets/work/nexus-poster.webp',
-      slides: ['assets/work/nexus-1.webp','assets/work/nexus-2.webp','assets/work/nexus-3.webp','assets/work/nexus-4.webp','assets/work/nexus-5.webp'],
+      video: '/assets/work/nexus.mp4', poster: '/assets/work/nexus-poster.webp',
+      slides: ['/assets/work/nexus-1.webp','/assets/work/nexus-2.webp','/assets/work/nexus-3.webp','/assets/work/nexus-4.webp','/assets/work/nexus-5.webp'],
       brief: 'A next-gen esports collective needed a digital home matching the intensity of competitive gaming.',
       approach: '4,000-point Three.js particle sphere deforming toward cursor. Background particles warp on scroll. CRT scanline overlay. JetBrains Mono throughout.',
       result: 'Shows Poke Digital\'s capability at the loud end of the spectrum.',
@@ -132,8 +132,8 @@
     clarent: {
       title: 'Clarent FinTech SaaS',
       year: '2026', industry: 'FinTech / SaaS', services: 'Swiss Minimalism, Three.js WebGL, SaaS Design',
-      video: 'assets/work/clarent.mp4', poster: 'assets/work/clarent-poster.webp',
-      slides: ['assets/work/clarent-1.webp','assets/work/clarent-2.webp','assets/work/clarent-3.webp','assets/work/clarent-4.webp','assets/work/clarent-5.webp'],
+      video: '/assets/work/clarent.mp4', poster: '/assets/work/clarent-poster.webp',
+      slides: ['/assets/work/clarent-1.webp','/assets/work/clarent-2.webp','/assets/work/clarent-3.webp','/assets/work/clarent-4.webp','/assets/work/clarent-5.webp'],
       brief: 'A financial intelligence SaaS platform needed precision and technical credibility.',
       approach: 'Swiss typography, strict grid, stark white with electric green. Three.js torus knot morphs as you scroll. Features grid, 3-tier pricing, SOC 2 section.',
       result: 'The B2B SaaS entry — proves Poke Digital understands conversion architecture.',
@@ -141,8 +141,8 @@
     aurelia: {
       title: 'Aurelia Boutique Hotel',
       year: '2026', industry: 'Hospitality', services: 'Editorial Minimalism, Three.js Ribbon, Hospitality Design',
-      video: 'assets/work/aurelia.mp4', poster: 'assets/work/aurelia-poster.webp',
-      slides: ['assets/work/aurelia-1.webp','assets/work/aurelia-2.webp','assets/work/aurelia-3.webp','assets/work/aurelia-4.webp','assets/work/aurelia-5.webp'],
+      video: '/assets/work/aurelia.mp4', poster: '/assets/work/aurelia-poster.webp',
+      slides: ['/assets/work/aurelia-1.webp','/assets/work/aurelia-2.webp','/assets/work/aurelia-3.webp','/assets/work/aurelia-4.webp','/assets/work/aurelia-5.webp'],
       brief: 'A Franschhoek boutique hotel needed a digital experience as considered as the stay itself.',
       approach: 'Aman/Six Senses reference. Warm sand, Playfair Display. Three.js ribbon wave with floating torus ring. GSAP camera fly-through on scroll.',
       result: 'The luxury hospitality piece — editorial sensitivity for premium travel brands.',
@@ -205,7 +205,7 @@
         <div class="cs-section"><h3>The Brief</h3><p>${data.brief}</p></div>
         <div class="cs-section"><h3>Our Approach</h3><p>${data.approach}</p></div>
         <div class="cs-section"><h3>The Result</h3><p>${data.result}</p></div>
-        <div class="cs-cta"><a href="index.html#contact">Start Your Project →</a></div>
+        <div class="cs-cta"><a href="/index.html#contact">Start Your Project →</a></div>
       </div>`;
 
     panel.classList.add('is-open');
