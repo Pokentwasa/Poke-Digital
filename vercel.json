@@ -1,11 +1,5 @@
 {
   "redirects": [
-    {
-      "source": "/:path*",
-      "has": [{ "type": "host", "value": "www.pokedigital.co.za" }],
-      "destination": "https://pokedigital.co.za/:path*",
-      "permanent": true
-    },
     { "source": "/web-design-cape-town", "destination": "/services/web-design/", "permanent": true },
     { "source": "/web-design-cape-town/", "destination": "/services/web-design/", "permanent": true },
     { "source": "/service/:slug*", "destination": "/services/:slug*", "permanent": true }
