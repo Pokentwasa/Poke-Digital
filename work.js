@@ -205,7 +205,7 @@
         <div class="cs-section"><h3>The Brief</h3><p>${data.brief}</p></div>
         <div class="cs-section"><h3>Our Approach</h3><p>${data.approach}</p></div>
         <div class="cs-section"><h3>The Result</h3><p>${data.result}</p></div>
-        <div class="cs-cta"><a href="/index.html#contact">Start Your Project →</a></div>
+        <div class="cs-cta"><a href="/#contact">Start Your Project →</a></div>
       </div>`;
 
     panel.classList.add('is-open');

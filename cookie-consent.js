@@ -37,7 +37,7 @@
     banner.setAttribute('aria-label', 'Cookie consent');
     banner.innerHTML =
       '<div class="cookie-banner-inner">' +
-        '<p>We use cookies to understand site traffic and improve your experience. Read our <a href="privacy.html">Privacy Policy</a>.</p>' +
+        '<p>We use cookies to understand site traffic and improve your experience. Read our <a href="/privacy">Privacy Policy</a>.</p>' +
         '<div class="cookie-banner-actions">' +
           '<button type="button" class="cookie-btn cookie-btn-reject">Reject</button>' +
           '<button type="button" class="cookie-btn cookie-btn-accept">Accept</button>' +
