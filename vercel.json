@@ -2,7 +2,21 @@
   "redirects": [
     { "source": "/web-design-cape-town", "destination": "/services/web-design/", "permanent": true },
     { "source": "/web-design-cape-town/", "destination": "/services/web-design/", "permanent": true },
-    { "source": "/service/:slug*", "destination": "/services/:slug*", "permanent": true }
+    { "source": "/service/:slug*", "destination": "/services/:slug*", "permanent": true },
+    { "source": "/work/smshd.html", "destination": "/work/smshd", "permanent": true },
+    { "source": "/work/lumina.html", "destination": "/work/lumina", "permanent": true },
+    { "source": "/work/valt.html", "destination": "/work/valt", "permanent": true },
+    { "source": "/work/wildehoek.html", "destination": "/work/wildehoek", "permanent": true },
+    { "source": "/work/smshd/", "destination": "/work/smshd", "permanent": true },
+    { "source": "/work/lumina/", "destination": "/work/lumina", "permanent": true },
+    { "source": "/work/valt/", "destination": "/work/valt", "permanent": true },
+    { "source": "/work/wildehoek/", "destination": "/work/wildehoek", "permanent": true }
+  ],
+  "rewrites": [
+    { "source": "/work/smshd", "destination": "/work/smshd/index.html" },
+    { "source": "/work/lumina", "destination": "/work/lumina/index.html" },
+    { "source": "/work/valt", "destination": "/work/valt/index.html" },
+    { "source": "/work/wildehoek", "destination": "/work/wildehoek/index.html" }
   ],
   "headers": [
     {
