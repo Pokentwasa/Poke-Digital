@@ -19,7 +19,8 @@
     { "source": "/about/", "destination": "/about", "permanent": true },
     { "source": "/work/", "destination": "/work", "permanent": true },
     { "source": "/privacy/", "destination": "/privacy", "permanent": true },
-    { "source": "/terms/", "destination": "/terms", "permanent": true }
+    { "source": "/terms/", "destination": "/terms", "permanent": true },
+    { "source": "/stayhavenconcept/", "destination": "/stayhavenconcept", "permanent": true }
   ],
   "rewrites": [
     { "source": "/work/smshd", "destination": "/work/smshd/index.html" },
@@ -29,7 +30,8 @@
     { "source": "/about", "destination": "/about/index.html" },
     { "source": "/work", "destination": "/work/index.html" },
     { "source": "/privacy", "destination": "/privacy/index.html" },
-    { "source": "/terms", "destination": "/terms/index.html" }
+    { "source": "/terms", "destination": "/terms/index.html" },
+    { "source": "/stayhavenconcept", "destination": "/stayhavenconcept/index.html" }
   ],
   "headers": [
     {
@@ -71,6 +73,24 @@
         {
           "key": "Cache-Control",
           "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/stayhavenconcept",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/stayhavenconcept/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
         }
       ]
     }
