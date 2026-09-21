@@ -458,7 +458,16 @@ html.anim-failsafe .fade-in {
 .contact-copy h2 { font-family: var(--font-display); font-weight: 900; font-size: clamp(32px, 4.5vw, 52px); line-height: 1.1; margin-bottom: 24px; }
 .contact-copy p { color: var(--text-dim); font-size: 17px; line-height: 1.6; margin-bottom: 16px; max-width: 420px; }
 .contact-note { font-size: 13px !important; color: var(--text-dimmer) !important; text-transform: uppercase; letter-spacing: 0.06em; }
-.contact-form { border: 1px solid var(--border-dark); border-radius: 12px; padding: 36px; display: flex; flex-direction: column; gap: 18px; }
+.contact-form {
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-elevated);
+  display: flex; flex-direction: column; gap: 18px;
+  transition: box-shadow var(--motion-normal) var(--motion-ease);
+}
+.contact-form:focus-within { box-shadow: var(--shadow-elevated), 0 0 0 1px var(--brand-orange); }
 .form-row { display: flex; flex-direction: column; gap: 8px; }
 .form-row label { font-size: 13px; color: var(--text-dim); }
 .form-row input, .form-row select, .form-row textarea { background: transparent; border: 1px solid var(--border-dark); border-radius: var(--radius); padding: 12px 14px; font-size: 14px; color: var(--white); transition: border-color 0.2s; }
@@ -499,9 +508,19 @@ html.anim-failsafe .fade-in {
 }
 
 /* FOOTER */
-.footer { position: relative; z-index: 1; border-top: 1px solid var(--border-dark); padding: 64px 48px 0; }
+.footer { position: relative; z-index: 1; border-top: 1px solid var(--border-dark); padding: var(--space-2xl) 48px 0; }
 .footer-inner { max-width: var(--container); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; padding-bottom: 32px; }
 .footer-logo { height: 34px; width: auto; display: block; }
+/* large faint wordmark — decorative brand mark scale, not a content
+   duplicate: hidden from assistive tech since the logo/tagline above
+   already carry the real brand copy. */
+.footer-wordmark {
+  max-width: var(--container); margin: var(--space-lg) auto 0;
+  font-family: var(--font-display); font-weight: 800;
+  font-size: clamp(48px, 11vw, 160px); line-height: 0.85; letter-spacing: -0.03em;
+  color: transparent; -webkit-text-stroke: 1px var(--border-strong);
+  white-space: nowrap; overflow: hidden;
+}
 .footer-links { display: flex; gap: 24px; font-size: 14px; color: var(--text-dim); }
 .footer-links a:hover { color: var(--white); }
 .footer-contact { display: flex; align-items: center; gap: 20px; font-size: 14px; }
@@ -509,16 +528,16 @@ html.anim-failsafe .fade-in {
 .footer-bottom { max-width: var(--container); margin: 0 auto; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; padding: 20px 0; border-top: 1px solid var(--border-dark); font-size: 12px; color: var(--text-dimmer); }
 
 /* ---------- FOOTER — sitewide nav grid ---------- */
-.footer-grid { max-width: var(--container); margin: 0 auto; padding-bottom: 40px; display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px; }
+.footer-grid { max-width: var(--container); margin: 0 auto; padding-bottom: var(--space-xl); display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: var(--space-lg); }
 .footer-brand { display: flex; flex-direction: column; gap: 10px; }
 .footer-brand .footer-logo { margin-bottom: 4px; }
 .footer-tagline { font-size: 14px; font-weight: 600; color: var(--white); }
 .footer-location { font-size: 13px; color: var(--text-dim); }
-.footer-col { display: flex; flex-direction: column; gap: 12px; }
-.footer-col h3 { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--text-dimmer); font-weight: 600; margin-bottom: 2px; }
-.footer-col a { font-size: 14px; color: var(--text-dim); transition: color .2s; }
-.footer-col a:hover { color: var(--white); }
-.footer-col .footer-cta { display: inline-block; margin-top: 4px; }
+.footer-col { display: flex; flex-direction: column; gap: 4px; }
+.footer-col h3 { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--text-dimmer); font-weight: 600; margin-bottom: 10px; }
+.footer-col a { font-size: 14px; color: var(--text-dim); padding: 6px 0; transition: color var(--motion-fast) var(--motion-ease), transform var(--motion-fast) var(--motion-ease); }
+.footer-col a:hover { color: var(--white); transform: translateX(3px); }
+.footer-col .footer-cta { display: inline-block; margin-top: 8px; }
 
 @media (max-width: 900px) {
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px 24px; }
@@ -559,6 +578,19 @@ html.anim-failsafe .fade-in {
 .portfolio-info { padding: 20px 4px; }
 .portfolio-info h2 { font-family: var(--font-display); font-weight: 700; font-size: 22px; margin-bottom: 6px; }
 .portfolio-info p { color: var(--text-dim); font-size: 14px; }
+
+/* CTA surfaces — a raised, tactile panel rather than bare centred type.
+   Slightly depresses (inset shadow + tiny scale-down) on hover, as if
+   the whole card is being pressed, echoing the button press elsewhere. */
+.work-cta-inner, .about-cta-inner {
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-xl);
+  padding: var(--space-2xl) var(--space-xl);
+  box-shadow: var(--shadow-elevated);
+  transition: transform var(--motion-normal) var(--motion-ease), box-shadow var(--motion-normal) var(--motion-ease);
+}
+.work-cta-inner:hover, .about-cta-inner:hover { box-shadow: var(--shadow-inset), var(--shadow-soft); transform: scale(0.996); }
 
 .work-cta { padding-top: 60px; padding-bottom: 100px; text-align: center; }
 .work-cta-inner { max-width: 640px; margin: 0 auto; }
