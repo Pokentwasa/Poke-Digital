@@ -86,6 +86,100 @@
     window.addEventListener('scroll', setNavScrolled, { passive: true });
   }
 
+  // ==========================================
+  // WORK SLIDER — step-based (one slide active at a time), driven by
+  // arrows, keyboard, wheel, touch swipe and mouse drag. Bound immediately
+  // (not gated behind GSAP/window-load) so it works even if a CDN stalls.
+  // ==========================================
+  (function initWorkSlider() {
+    const slider = document.getElementById('workSlider');
+    if (!slider) return;
+    const slides = Array.from(slider.querySelectorAll('.work-slide'));
+    if (!slides.length) return;
+
+    const prevBtn = document.getElementById('workPrev');
+    const nextBtn = document.getElementById('workNext');
+    const titleEl = document.getElementById('workSliderTitle');
+    const tagsEl = document.getElementById('workSliderTags');
+    const currentEl = document.getElementById('workSliderCurrent');
+    const totalEl = document.getElementById('workSliderTotal');
+    const infoEl = slider.querySelector('.work-slider-info');
+
+    let index = slides.findIndex((s) => s.classList.contains('is-active'));
+    if (index < 0) index = 0;
+
+    if (totalEl) totalEl.textContent = String(slides.length).padStart(2, '0');
+
+    function render(newIndex) {
+      newIndex = ((newIndex % slides.length) + slides.length) % slides.length;
+      if (newIndex === index) return;
+      index = newIndex;
+      slides.forEach((s, i) => s.classList.toggle('is-active', i === index));
+      const active = slides[index];
+      if (infoEl) infoEl.classList.add('is-swapping');
+      setTimeout(() => {
+        if (titleEl) titleEl.textContent = active.dataset.title || '';
+        if (tagsEl) tagsEl.textContent = active.dataset.tags || '';
+        if (currentEl) currentEl.textContent = String(index + 1).padStart(2, '0');
+        if (infoEl) infoEl.classList.remove('is-swapping');
+      }, 160);
+    }
+
+    if (prevBtn) prevBtn.addEventListener('click', () => render(index - 1));
+    if (nextBtn) nextBtn.addEventListener('click', () => render(index + 1));
+
+    // Keyboard — only while the slider itself has focus/hover, so arrow
+    // keys don't hijack the rest of the page.
+    let sliderActive = false;
+    slider.addEventListener('mouseenter', () => { sliderActive = true; });
+    slider.addEventListener('mouseleave', () => { sliderActive = false; });
+    slider.addEventListener('focusin', () => { sliderActive = true; });
+    slider.addEventListener('focusout', () => { sliderActive = false; });
+    document.addEventListener('keydown', (e) => {
+      if (!sliderActive) return;
+      if (e.key === 'ArrowRight') { e.preventDefault(); render(index + 1); }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); render(index - 1); }
+    });
+
+    // Wheel — trackpad horizontal swipe or a plain vertical wheel, with a
+    // cooldown so one gesture doesn't fire a dozen slide changes.
+    let wheelLocked = false;
+    slider.addEventListener('wheel', (e) => {
+      const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+      if (Math.abs(delta) < 12 || wheelLocked) return;
+      e.preventDefault();
+      wheelLocked = true;
+      render(index + (delta > 0 ? 1 : -1));
+      setTimeout(() => { wheelLocked = false; }, 500);
+    }, { passive: false });
+
+    // Drag / touch swipe — a threshold-based swipe rather than continuous
+    // free-drag, so it can't end up in an unclamped/half-dragged state.
+    // A drag that crosses the threshold also suppresses the native click
+    // that would otherwise fire on mouseup — without this, dragging from
+    // slide A to slide B still navigates to slide A's link, because the
+    // click target is wherever the mousedown originated, not whatever is
+    // visually showing once the drag finishes.
+    let startX = 0, startY = 0, dragging = false, justDragged = false;
+    function onStart(x, y) { startX = x; startY = y; dragging = true; }
+    function onEnd(x, y) {
+      if (!dragging) return;
+      dragging = false;
+      const dx = x - startX, dy = y - startY;
+      if (Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy)) justDragged = true;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+        render(index + (dx < 0 ? 1 : -1));
+      }
+    }
+    slider.addEventListener('click', (e) => {
+      if (justDragged) { e.preventDefault(); e.stopPropagation(); justDragged = false; }
+    }, true);
+    slider.addEventListener('touchstart', (e) => onStart(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
+    slider.addEventListener('touchend', (e) => onEnd(e.changedTouches[0].clientX, e.changedTouches[0].clientY));
+    slider.addEventListener('mousedown', (e) => { onStart(e.clientX, e.clientY); e.preventDefault(); });
+    window.addEventListener('mouseup', (e) => { if (dragging) onEnd(e.clientX, e.clientY); });
+  })();
+
 
   // ==========================================
   // THREE.JS — SCENE SETUP

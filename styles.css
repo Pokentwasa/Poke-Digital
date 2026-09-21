@@ -346,19 +346,72 @@ html.anim-failsafe .fade-in {
 .intro-index-label { font-family: var(--font-display); font-weight: 700; font-size: clamp(1rem, 1.6vw, 1.25rem); color: var(--text-primary); }
 .intro-badge { align-self: flex-start; }
 
-/* WORK */
+/* WORK — art-directed horizontal slider, not a grid of identical cards.
+   Step-based (one slide active at a time) rather than free-drag: still
+   answers "drag / swipe / wheel / arrows / keyboard", but a discrete step
+   transition is far easier to get right than continuous drag physics,
+   and the per-slide clip/scale/translate treatment does the heavy
+   lifting visually either way. */
 .work { padding-top: 100px; padding-bottom: 100px; }
-.work-grid { max-width: var(--container); margin: 0 auto; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-.work-card { cursor: none; }
-.work-media { aspect-ratio: 4/3; border-radius: var(--radius); overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center; }
-.work-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--ease-out); }
-.work-card:hover .work-media img { transform: scale(1.06); }
-.work-media--b img, .work-media--d img { filter: brightness(0.55); }
-.work-overlay { position: relative; z-index: 1; font-family: var(--font-display); font-weight: 700; font-size: 22px; color: var(--white); text-transform: uppercase; }
-.work-meta { display: flex; justify-content: space-between; align-items: baseline; margin-top: 16px; }
-.work-meta h3 { font-weight: 700; font-size: 18px; }
-.work-meta p { color: var(--text-dim); font-size: 13px; }
-.work-media--a { background: #1a1a1a; } .work-media--b { background: #111; } .work-media--c { background: #1c1c1c; } .work-media--d { background: #0d0d0d; }
+.work-slider { max-width: var(--container); margin: 0 auto; outline: none; }
+.work-slider-track {
+  position: relative;
+  aspect-ratio: 16/9;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--surface-secondary);
+}
+.work-slide {
+  position: absolute; inset: 0;
+  display: block;
+  clip-path: inset(0 0 0 100%);
+  opacity: 0;
+  transform: scale(1.04) translateX(24px);
+  transition: clip-path var(--motion-slow) var(--motion-ease),
+              opacity var(--motion-slow) var(--motion-ease),
+              transform var(--motion-slow) var(--motion-ease);
+  pointer-events: none;
+}
+.work-slide.is-active { clip-path: inset(0 0 0 0); opacity: 1; transform: scale(1) translateX(0); pointer-events: auto; }
+.work-slide-media { position: relative; width: 100%; height: 100%; }
+.work-slide-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--motion-ease); }
+.work-slide:hover .work-slide-media img { transform: scale(1.04); }
+.work-media--b img { filter: brightness(0.6); }
+.work-media--a { background: #1a1a1a; } .work-media--b { background: #111; } .work-media--c { background: #1c1c1c; }
+
+/* metadata + controls float over the slider as a restrained glass strip —
+   exactly the "controls deserve glassmorphism" case from the brief */
+.work-slider-meta {
+  display: flex; align-items: flex-end; justify-content: space-between; gap: 24px;
+  flex-wrap: wrap; margin-top: var(--space-md);
+}
+.work-slider-info h3 {
+  font-family: var(--font-display); font-weight: 700; font-size: clamp(20px, 2.6vw, 28px);
+  transition: opacity var(--motion-fast) var(--motion-ease), transform var(--motion-fast) var(--motion-ease);
+}
+.work-slider-info p {
+  color: var(--text-dim); font-size: 14px; margin-top: 4px;
+  transition: opacity var(--motion-fast) var(--motion-ease), transform var(--motion-fast) var(--motion-ease);
+}
+.work-slider-info.is-swapping h3, .work-slider-info.is-swapping p { opacity: 0; transform: translateY(6px); }
+.work-slider-controls {
+  display: flex; align-items: center; gap: 16px;
+  padding: 10px 14px; border-radius: 999px;
+  background: var(--surface-glass);
+  backdrop-filter: blur(var(--blur-sm));
+  -webkit-backdrop-filter: blur(var(--blur-sm));
+  border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow-soft);
+}
+.work-slider-arrow {
+  width: 34px; height: 34px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-primary); font-size: 16px;
+  transition: background var(--motion-fast) var(--motion-ease), transform var(--motion-fast) var(--motion-press);
+}
+.work-slider-arrow:hover { background: rgba(255,255,255,0.1); }
+.work-slider-arrow:active { transform: scale(0.9); }
+.work-slider-count { font-size: 13px; color: var(--text-dim); font-variant-numeric: tabular-nums; min-width: 46px; text-align: center; }
 
 /* STATS */
 .stats { padding-top: 90px; padding-bottom: 90px; border-top: 1px solid var(--border-dark); border-bottom: 1px solid var(--border-dark); }
@@ -546,7 +599,7 @@ html.anim-failsafe .fade-in {
    RESPONSIVE
    ============================================ */
 @media (max-width: 900px) {
-  .work-grid { grid-template-columns: 1fr; }
+  .work-slider-controls { gap: 12px; padding: 8px 12px; }
   .contact-inner { grid-template-columns: 1fr; gap: 48px; }
   .intro-inner { grid-template-columns: 1fr; gap: var(--space-xl); }
   .intro-side { margin-top: 0; }
