@@ -388,7 +388,7 @@
     } // end !reduceMotion
 
     // ===== STICKER REVEALS =====
-    document.querySelectorAll('.features-sticker, .features-badge').forEach((el) => {
+    document.querySelectorAll('.intro-sticker, .intro-badge').forEach((el) => {
       if (!reduceMotion) gsap.set(el, { opacity: 0, scale: 0.7, y: 20 });
       gsap.to(el, {
         opacity: 1, scale: 1, y: 0,
