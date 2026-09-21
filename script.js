@@ -399,21 +399,36 @@
     // camera parallax and the invisible GSAP start-states below — one-shot
     // scroll reveals are kept since they're harmless and confirm content loaded.
 
-    // ===== HERO WORD REVEAL =====
+    // ===== HERO ENTRANCE CHOREOGRAPHY =====
+    // A deliberate sequence rather than "everything fades in together":
+    // nav settles first, then sticker/eyebrow, then the headline reveals
+    // through its existing word-mask, then supporting copy, then the
+    // CTAs. Total runtime ~1050ms — fast and premium, not a loading
+    // sequence, and the visitor can interact immediately regardless
+    // (nothing here blocks input).
+    gsap.to('#nav', { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' });
+    if (!reduceMotion) gsap.set('#nav', { opacity: 0, y: -10 });
+
+    gsap.to('.hero .sticker', { opacity: 1, y: 0, duration: 0.45, delay: 0.05, ease: 'power3.out' });
+    if (!reduceMotion) gsap.set('.hero .sticker', { opacity: 0, y: 20 });
+
+    gsap.to('.hero-eyebrow', { opacity: 1, y: 0, duration: 0.45, delay: 0.15, ease: 'power3.out' });
+    if (!reduceMotion) gsap.set('.hero-eyebrow', { opacity: 0, y: 16 });
+
     document.querySelectorAll('.hero-title .word').forEach((word, i) => {
       gsap.to(word, {
         y: 0, opacity: 1,
-        duration: 1,
-        delay: 0.6 + i * 0.12,
+        duration: 0.7,
+        delay: 0.25 + i * 0.1,
         ease: 'power3.out'
       });
     });
 
-    gsap.to('.hero-ctas', { opacity: 1, y: 0, duration: 0.8, delay: 1.2, ease: 'power3.out' });
-    if (!reduceMotion) gsap.set('.hero-ctas', { opacity: 0, y: 30 });
+    gsap.to('.hero-sub', { opacity: 1, y: 0, duration: 0.45, delay: 0.55, ease: 'power2.out' });
+    if (!reduceMotion) gsap.set('.hero-sub', { opacity: 0, y: 16 });
 
-    gsap.to('.hero .sticker', { opacity: 1, y: 0, duration: 0.6, delay: 0.4, ease: 'power3.out' });
-    if (!reduceMotion) gsap.set('.hero .sticker', { opacity: 0, y: 20 });
+    gsap.to('.hero-ctas', { opacity: 1, y: 0, duration: 0.4, delay: 0.68, ease: 'power3.out' });
+    if (!reduceMotion) gsap.set('.hero-ctas', { opacity: 0, y: 20 });
 
     // ===== SCROLL-TRIGGERED TEXT REVEALS =====
     document.querySelectorAll('.section:not(.hero) .split-text .word').forEach((word) => {
