@@ -25,6 +25,14 @@
     }
   }
 
+  // NAV SCROLL STATE — near-transparent over the hero, a real blurred
+  // surface once the visitor has scrolled past it.
+  if (navEl) {
+    const setNavScrolled = () => navEl.classList.toggle('is-scrolled', window.scrollY > 8);
+    setNavScrolled();
+    window.addEventListener('scroll', setNavScrolled, { passive: true });
+  }
+
   // ==========================================
   // GSAP
   // ==========================================
@@ -303,13 +311,76 @@
   // ==========================================
   const cursorDot = document.getElementById('cursorDot');
   const cursorRing = document.getElementById('cursorRing');
-  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches && cursorDot) {
+  const cursorLabel = document.getElementById('cursorLabel');
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches && cursorDot && cursorRing) {
+    document.body.classList.add('has-custom-cursor');
     let mx = 0, my = 0, rx = 0, ry = 0;
     window.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; cursorDot.style.left = mx + 'px'; cursorDot.style.top = my + 'px'; });
-    (function tick() { rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12; cursorRing.style.left = rx + 'px'; cursorRing.style.top = ry + 'px'; requestAnimationFrame(tick); })();
+    (function tick() { rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18; cursorRing.style.left = rx + 'px'; cursorRing.style.top = ry + 'px'; requestAnimationFrame(tick); })();
     document.querySelectorAll('[data-cursor]').forEach((el) => {
-      el.addEventListener('mouseenter', () => cursorRing.classList.add('is-active'));
-      el.addEventListener('mouseleave', () => cursorRing.classList.remove('is-active'));
+      el.addEventListener('mouseenter', () => {
+        const label = el.dataset.cursor;
+        if (label) {
+          cursorRing.classList.add('is-label');
+          if (cursorLabel) cursorLabel.textContent = label;
+        } else {
+          cursorRing.classList.add('is-hover');
+        }
+      });
+      el.addEventListener('mouseleave', () => {
+        cursorRing.classList.remove('is-hover', 'is-label');
+        if (cursorLabel) cursorLabel.textContent = '';
+      });
+    });
+  } else {
+    if (cursorDot) cursorDot.style.display = 'none';
+    if (cursorRing) cursorRing.style.display = 'none';
+  }
+
+  // ==========================================
+  // SERVICES STACK — active/covered states. Pure CSS position:sticky
+  // handles the shingling itself, but it has no concept of "this panel
+  // is now covered by the next one" — that has to be measured directly.
+  // A panel is "stuck" once its own rect.top equals its CSS `top` value;
+  // once panel i+1 is stuck, panel i is by definition sitting behind it,
+  // so it gets .is-covered (scale down + dim). Recomputed every scroll
+  // tick (not IntersectionObserver's enter/exit edges — those fire once
+  // at a boundary and can't tell "still covered" from "just uncovered",
+  // which briefly un-dimmed earlier panels while testing this). Desktop
+  // only: mobile drops the sticky stack entirely (see services.css).
+  // ==========================================
+  if (window.innerWidth > 720) {
+    const panels = Array.from(document.querySelectorAll('.svc-panel'));
+    if (panels.length > 1) {
+      const navHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-height')) || 76;
+      const stickyTops = panels.map((_, i) => navHeight + 20 + i * 14);
+      let ticking = false;
+      function updateCovered() {
+        ticking = false;
+        for (let i = 0; i < panels.length - 1; i++) {
+          const nextTop = panels[i + 1].getBoundingClientRect().top;
+          panels[i].classList.toggle('is-covered', nextTop <= stickyTops[i + 1] + 1);
+        }
+      }
+      window.addEventListener('scroll', () => {
+        if (!ticking) { ticking = true; requestAnimationFrame(updateCovered); }
+      }, { passive: true });
+      updateCovered();
+    }
+  }
+
+  // ==========================================
+  // CTA CURSOR-REACTIVE SURFACE — same --mx/--my spotlight technique
+  // used on the work slider (script.js), applied here to the /work
+  // page's CTA panel since it loads work.js instead of script.js.
+  // ==========================================
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    document.querySelectorAll('.work-cta-inner').forEach((el) => {
+      el.addEventListener('mousemove', (e) => {
+        const rect = el.getBoundingClientRect();
+        el.style.setProperty('--mx', ((e.clientX - rect.left) / rect.width * 100) + '%');
+        el.style.setProperty('--my', ((e.clientY - rect.top) / rect.height * 100) + '%');
+      });
     });
   }
 

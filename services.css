@@ -108,20 +108,50 @@
 }
 .svc-cta a:hover { opacity: .85; }
 
-/* ---------- SERVICES HUB ---------- */
-.svc-hub-grid { max-width: var(--container); margin: 0 auto; padding: 0 48px 100px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
-.svc-hub-card {
+/* ---------- SERVICES STACK ----------
+   Poke's own take on overlapping/stacked service panels: a "digital
+   file system" of sticky cards that shingle over each other on scroll.
+   Pure CSS position:sticky — no ScrollTrigger needed for the core
+   mechanic, which keeps it robust and battery-cheap. Disabled on
+   mobile (below) in favour of a plain stacked list. */
+.svc-stack { max-width: var(--container); margin: 0 auto; padding: 0 48px 120px; display: flex; flex-direction: column; gap: 18px; }
+.svc-panel {
   display: block;
-  border: 1px solid var(--border-dark);
-  border-radius: 12px;
-  padding: 32px;
-  transition: border-color .3s var(--ease), background .3s var(--ease);
+  position: sticky;
+  top: calc(var(--nav-height) + 20px + (var(--i, 0) * 14px));
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  padding: 36px 40px 40px;
+  box-shadow: var(--shadow-elevated);
+  transform: scale(1);
+  filter: brightness(1);
+  transition: transform var(--motion-normal) var(--motion-ease),
+              filter var(--motion-normal) var(--motion-ease),
+              border-color var(--motion-normal) var(--motion-ease),
+              box-shadow var(--motion-normal) var(--motion-ease);
 }
-.svc-hub-card:hover { border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.03); }
-.svc-hub-card-num { font-size: 12px; color: var(--text-dimmer); font-weight: 600; margin-bottom: 14px; display: block; }
-.svc-hub-card h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(20px, 2.6vw, 26px); margin-bottom: 10px; color: var(--white); }
-.svc-hub-card p { font-size: 14.5px; line-height: 1.65; color: var(--text-dim); }
-.svc-hub-card .arrow-link { display: inline-block; margin-top: 16px; font-size: 13px; font-weight: 600; color: var(--white); }
+.svc-panel:hover { transform: translateY(-6px); border-color: var(--border-strong); }
+.svc-panel:active { transform: translateY(-2px) scale(0.995); }
+/* Once the next panel has stacked over this one, it visually recedes:
+   a slight scale-down and dimming (not a dramatic shrink) so the active
+   panel above it reads as the dominant surface. Set via IntersectionObserver
+   in script.js — .is-covered only ever gets added on desktop widths where
+   the sticky stack is actually active. */
+.svc-panel.is-covered { transform: scale(0.975); filter: brightness(0.7); }
+.svc-panel.is-covered:hover { transform: scale(0.975); border-color: var(--border-soft); }
+.svc-panel-top {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-bottom: 16px; margin-bottom: 20px;
+  border-bottom: 1px solid var(--border-soft);
+  font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--brand-orange);
+}
+.svc-panel-open { color: var(--text-muted); transition: color var(--motion-fast) var(--motion-ease); }
+.svc-panel:hover .svc-panel-open { color: var(--text-primary); }
+.svc-panel h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(24px, 3.2vw, 32px); margin-bottom: 12px; color: var(--white); }
+.svc-panel p { font-size: 15.5px; line-height: 1.65; color: var(--text-dim); max-width: 62ch; }
+.svc-panel .arrow-link { display: inline-block; margin-top: 20px; font-size: 13px; font-weight: 600; color: var(--white); }
 
 /* ---------- INSIGHTS HUB ---------- */
 .insights-hero { max-width: 1000px; margin: 0 auto; padding: calc(var(--nav-height) + 60px) 48px 40px; }
@@ -133,7 +163,6 @@
 @media (max-width: 900px) {
   .svc-list { grid-template-columns: 1fr; }
   .svc-work-grid { grid-template-columns: repeat(2, 1fr); }
-  .svc-hub-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 720px) {
   .svc-breadcrumb, .svc-hero, .svc-body, .svc-cta, .insights-hero, .insights-empty { padding-left: 20px; padding-right: 20px; }
@@ -142,6 +171,13 @@
   .svc-body { padding-top: 40px; }
   .svc-section { margin-bottom: 40px; }
   .svc-work-grid { grid-template-columns: 1fr; }
-  .svc-hub-grid { padding-left: 20px; padding-right: 20px; }
   .insights-hero { padding-top: calc(var(--nav-height) + 32px); }
+
+  /* Services stack: sticky shingling reads great on desktop but fights
+     usability on a phone (too little room for the peek-reveal effect to
+     register). Drop to a plain stacked list of full panels instead of
+     trying to force the desktop mechanic to work at this width. */
+  .svc-stack { padding-left: 20px; padding-right: 20px; gap: 16px; }
+  .svc-panel { position: static; padding: 28px 24px 30px; }
+  .svc-panel:hover { transform: none; }
 }

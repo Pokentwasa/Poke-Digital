@@ -78,6 +78,147 @@
     });
   }
 
+  // NAV SCROLL STATE — near-transparent over the hero, a real blurred
+  // surface once the visitor has scrolled past it.
+  if (nav) {
+    const setNavScrolled = () => nav.classList.toggle('is-scrolled', window.scrollY > 8);
+    setNavScrolled();
+    window.addEventListener('scroll', setNavScrolled, { passive: true });
+  }
+
+  // ==========================================
+  // WORK SLIDER — step-based (one slide active at a time), driven by
+  // arrows, keyboard, wheel, touch swipe and mouse drag. Bound immediately
+  // (not gated behind GSAP/window-load) so it works even if a CDN stalls.
+  // ==========================================
+  (function initWorkSlider() {
+    const slider = document.getElementById('workSlider');
+    if (!slider) return;
+    const slides = Array.from(slider.querySelectorAll('.work-slide'));
+    if (!slides.length) return;
+
+    const prevBtn = document.getElementById('workPrev');
+    const nextBtn = document.getElementById('workNext');
+    const titleEl = document.getElementById('workSliderTitle');
+    const tagsEl = document.getElementById('workSliderTags');
+    const currentEl = document.getElementById('workSliderCurrent');
+    const totalEl = document.getElementById('workSliderTotal');
+    const infoEl = slider.querySelector('.work-slider-info');
+
+    let index = slides.findIndex((s) => s.classList.contains('is-active'));
+    if (index < 0) index = 0;
+
+    if (totalEl) totalEl.textContent = String(slides.length).padStart(2, '0');
+
+    function render(newIndex) {
+      const wrapped = ((newIndex % slides.length) + slides.length) % slides.length;
+      if (wrapped === index) return;
+      // Direction from the raw (pre-wrap) delta, since every caller only
+      // ever passes index ± 1 — this keeps "prev from slide 1" feeling
+      // like backward motion even across the wraparound boundary.
+      const dir = newIndex < index ? 'prev' : 'next';
+      slider.setAttribute('data-dir', dir);
+      // Reset first so a slide reused later starts from the idle position
+      // matching whatever direction is current, not wherever it last
+      // exited to — both idle and is-leaving are fully invisible
+      // (opacity 0, clipped away), so this reset is never seen.
+      slides.forEach((s) => s.classList.remove('is-leaving'));
+      slides[index].classList.add('is-leaving');
+      slides[index].classList.remove('is-active');
+      index = wrapped;
+      slides[index].classList.add('is-active');
+      const active = slides[index];
+      if (infoEl) infoEl.classList.add('is-swapping');
+      setTimeout(() => {
+        if (titleEl) titleEl.textContent = active.dataset.title || '';
+        if (tagsEl) tagsEl.textContent = active.dataset.tags || '';
+        if (currentEl) currentEl.textContent = String(index + 1).padStart(2, '0');
+        if (infoEl) infoEl.classList.remove('is-swapping');
+      }, 160);
+    }
+
+    if (prevBtn) prevBtn.addEventListener('click', () => render(index - 1));
+    if (nextBtn) nextBtn.addEventListener('click', () => render(index + 1));
+
+    // Keyboard — only while the slider itself has focus/hover, so arrow
+    // keys don't hijack the rest of the page.
+    let sliderActive = false;
+    slider.addEventListener('mouseenter', () => { sliderActive = true; });
+    slider.addEventListener('mouseleave', () => { sliderActive = false; });
+    slider.addEventListener('focusin', () => { sliderActive = true; });
+    slider.addEventListener('focusout', () => { sliderActive = false; });
+    document.addEventListener('keydown', (e) => {
+      if (!sliderActive) return;
+      if (e.key === 'ArrowRight') { e.preventDefault(); render(index + 1); }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); render(index - 1); }
+    });
+
+    // Wheel — trackpad horizontal swipe or a plain vertical wheel, with a
+    // cooldown so one gesture doesn't fire a dozen slide changes.
+    let wheelLocked = false;
+    slider.addEventListener('wheel', (e) => {
+      const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+      if (Math.abs(delta) < 12 || wheelLocked) return;
+      e.preventDefault();
+      wheelLocked = true;
+      render(index + (delta > 0 ? 1 : -1));
+      setTimeout(() => { wheelLocked = false; }, 500);
+    }, { passive: false });
+
+    // Drag / touch swipe — a threshold-based swipe rather than continuous
+    // free-drag, so it can't end up in an unclamped/half-dragged state.
+    // A drag that crosses the threshold also suppresses the native click
+    // that would otherwise fire on mouseup — without this, dragging from
+    // slide A to slide B still navigates to slide A's link, because the
+    // click target is wherever the mousedown originated, not whatever is
+    // visually showing once the drag finishes.
+    let startX = 0, startY = 0, dragging = false, justDragged = false;
+    function onStart(x, y) { startX = x; startY = y; dragging = true; }
+    function onEnd(x, y) {
+      if (!dragging) return;
+      dragging = false;
+      const dx = x - startX, dy = y - startY;
+      if (Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy)) justDragged = true;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+        render(index + (dx < 0 ? 1 : -1));
+      }
+    }
+    slider.addEventListener('click', (e) => {
+      if (justDragged) { e.preventDefault(); e.stopPropagation(); justDragged = false; }
+    }, true);
+    slider.addEventListener('touchstart', (e) => onStart(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
+    slider.addEventListener('touchend', (e) => onEnd(e.changedTouches[0].clientX, e.changedTouches[0].clientY));
+    slider.addEventListener('mousedown', (e) => { onStart(e.clientX, e.clientY); e.preventDefault(); });
+    window.addEventListener('mouseup', (e) => { if (dragging) onEnd(e.clientX, e.clientY); });
+
+    // Poke signature touch — a faint highlight that follows the cursor
+    // across the active slide, as if the surface is responding to touch.
+    if (isFinePointer) {
+      slides.forEach((s) => {
+        s.addEventListener('mousemove', (e) => {
+          const rect = s.getBoundingClientRect();
+          s.style.setProperty('--mx', ((e.clientX - rect.left) / rect.width * 100) + '%');
+          s.style.setProperty('--my', ((e.clientY - rect.top) / rect.height * 100) + '%');
+        });
+      });
+    }
+  })();
+
+  // ==========================================
+  // PROCESS SEQUENCE — active phase gains contrast as it crosses the
+  // viewport centre, previous/upcoming phases stay subdued. Communicates
+  // progress through the sequence rather than just decorating it.
+  // ==========================================
+  (function initProcessSequence() {
+    const items = document.querySelectorAll('.process-item');
+    if (!items.length || typeof IntersectionObserver === 'undefined') return;
+    document.documentElement.classList.add('process-observed');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => entry.target.classList.toggle('is-active', entry.isIntersecting));
+    }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+    items.forEach((item) => observer.observe(item));
+  })();
+
 
   // ==========================================
   // THREE.JS — SCENE SETUP
@@ -258,21 +399,36 @@
     // camera parallax and the invisible GSAP start-states below — one-shot
     // scroll reveals are kept since they're harmless and confirm content loaded.
 
-    // ===== HERO WORD REVEAL =====
+    // ===== HERO ENTRANCE CHOREOGRAPHY =====
+    // A deliberate sequence rather than "everything fades in together":
+    // nav settles first, then sticker/eyebrow, then the headline reveals
+    // through its existing word-mask, then supporting copy, then the
+    // CTAs. Total runtime ~1050ms — fast and premium, not a loading
+    // sequence, and the visitor can interact immediately regardless
+    // (nothing here blocks input).
+    gsap.to('#nav', { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' });
+    if (!reduceMotion) gsap.set('#nav', { opacity: 0, y: -10 });
+
+    gsap.to('.hero .sticker', { opacity: 1, y: 0, duration: 0.45, delay: 0.05, ease: 'power3.out' });
+    if (!reduceMotion) gsap.set('.hero .sticker', { opacity: 0, y: 20 });
+
+    gsap.to('.hero-eyebrow', { opacity: 1, y: 0, duration: 0.45, delay: 0.15, ease: 'power3.out' });
+    if (!reduceMotion) gsap.set('.hero-eyebrow', { opacity: 0, y: 16 });
+
     document.querySelectorAll('.hero-title .word').forEach((word, i) => {
       gsap.to(word, {
         y: 0, opacity: 1,
-        duration: 1,
-        delay: 0.6 + i * 0.12,
+        duration: 0.7,
+        delay: 0.25 + i * 0.1,
         ease: 'power3.out'
       });
     });
 
-    gsap.to('.hero-ctas', { opacity: 1, y: 0, duration: 0.8, delay: 1.2, ease: 'power3.out' });
-    if (!reduceMotion) gsap.set('.hero-ctas', { opacity: 0, y: 30 });
+    gsap.to('.hero-sub', { opacity: 1, y: 0, duration: 0.45, delay: 0.55, ease: 'power2.out' });
+    if (!reduceMotion) gsap.set('.hero-sub', { opacity: 0, y: 16 });
 
-    gsap.to('.hero .sticker', { opacity: 1, y: 0, duration: 0.6, delay: 0.4, ease: 'power3.out' });
-    if (!reduceMotion) gsap.set('.hero .sticker', { opacity: 0, y: 20 });
+    gsap.to('.hero-ctas', { opacity: 1, y: 0, duration: 0.4, delay: 0.68, ease: 'power3.out' });
+    if (!reduceMotion) gsap.set('.hero-ctas', { opacity: 0, y: 20 });
 
     // ===== SCROLL-TRIGGERED TEXT REVEALS =====
     document.querySelectorAll('.section:not(.hero) .split-text .word').forEach((word) => {
@@ -380,7 +536,7 @@
     } // end !reduceMotion
 
     // ===== STICKER REVEALS =====
-    document.querySelectorAll('.features-sticker, .features-badge').forEach((el) => {
+    document.querySelectorAll('.intro-sticker, .intro-badge').forEach((el) => {
       if (!reduceMotion) gsap.set(el, { opacity: 0, scale: 0.7, y: 20 });
       gsap.to(el, {
         opacity: 1, scale: 1, y: 0,
@@ -475,6 +631,21 @@
       });
       btn.addEventListener('mouseleave', () => {
         btn.style.transform = 'translate(0,0)';
+      });
+    });
+  }
+
+  // ==========================================
+  // CTA CURSOR-REACTIVE SURFACE — same --mx/--my spotlight technique
+  // used on the work slider, applied to whichever CTA panel exists on
+  // this page (about-cta-inner on /about, contact-form on the homepage).
+  // ==========================================
+  if (isFinePointer) {
+    document.querySelectorAll('.about-cta-inner, .contact-form').forEach((el) => {
+      el.addEventListener('mousemove', (e) => {
+        const rect = el.getBoundingClientRect();
+        el.style.setProperty('--mx', ((e.clientX - rect.left) / rect.width * 100) + '%');
+        el.style.setProperty('--my', ((e.clientY - rect.top) / rect.height * 100) + '%');
       });
     });
   }
