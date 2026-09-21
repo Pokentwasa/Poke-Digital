@@ -369,4 +369,19 @@
     }
   }
 
+  // ==========================================
+  // CTA CURSOR-REACTIVE SURFACE — same --mx/--my spotlight technique
+  // used on the work slider (script.js), applied here to the /work
+  // page's CTA panel since it loads work.js instead of script.js.
+  // ==========================================
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    document.querySelectorAll('.work-cta-inner').forEach((el) => {
+      el.addEventListener('mousemove', (e) => {
+        const rect = el.getBoundingClientRect();
+        el.style.setProperty('--mx', ((e.clientX - rect.left) / rect.width * 100) + '%');
+        el.style.setProperty('--my', ((e.clientY - rect.top) / rect.height * 100) + '%');
+      });
+    });
+  }
+
 })();

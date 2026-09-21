@@ -636,6 +636,21 @@
   }
 
   // ==========================================
+  // CTA CURSOR-REACTIVE SURFACE — same --mx/--my spotlight technique
+  // used on the work slider, applied to whichever CTA panel exists on
+  // this page (about-cta-inner on /about, contact-form on the homepage).
+  // ==========================================
+  if (isFinePointer) {
+    document.querySelectorAll('.about-cta-inner, .contact-form').forEach((el) => {
+      el.addEventListener('mousemove', (e) => {
+        const rect = el.getBoundingClientRect();
+        el.style.setProperty('--mx', ((e.clientX - rect.left) / rect.width * 100) + '%');
+        el.style.setProperty('--my', ((e.clientY - rect.top) / rect.height * 100) + '%');
+      });
+    });
+  }
+
+  // ==========================================
   // THEMED IMAGE FALLBACKS
   // ==========================================
   document.querySelectorAll('img[data-fallback]').forEach((img) => {

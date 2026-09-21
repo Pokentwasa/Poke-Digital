@@ -484,6 +484,7 @@ html:not(.process-observed) .process-item { opacity: 1; }
 .contact-copy p { color: var(--text-dim); font-size: 17px; line-height: 1.6; margin-bottom: 16px; max-width: 420px; }
 .contact-note { font-size: 13px !important; color: var(--text-dimmer) !important; text-transform: uppercase; letter-spacing: 0.06em; }
 .contact-form {
+  position: relative;
   background: var(--surface-elevated);
   border: 1px solid var(--border-soft);
   border-radius: var(--radius-lg);
@@ -493,6 +494,14 @@ html:not(.process-observed) .process-item { opacity: 1; }
   transition: box-shadow var(--motion-normal) var(--motion-ease);
 }
 .contact-form:focus-within { box-shadow: var(--shadow-elevated), 0 0 0 1px var(--brand-orange); }
+.contact-form::after {
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  border-radius: inherit;
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,0.07), transparent 45%);
+  opacity: 0; mix-blend-mode: overlay;
+  transition: opacity var(--motion-normal) var(--motion-ease);
+}
+.contact-form:hover::after { opacity: 1; }
 .form-row { display: flex; flex-direction: column; gap: 8px; }
 .form-row label { font-size: 13px; color: var(--text-dim); }
 .form-row input, .form-row select, .form-row textarea { background: transparent; border: 1px solid var(--border-dark); border-radius: var(--radius); padding: 12px 14px; font-size: 14px; color: var(--white); transition: border-color 0.2s; }
@@ -608,6 +617,8 @@ html:not(.process-observed) .process-item { opacity: 1; }
    Slightly depresses (inset shadow + tiny scale-down) on hover, as if
    the whole card is being pressed, echoing the button press elsewhere. */
 .work-cta-inner, .about-cta-inner {
+  position: relative;
+  overflow: hidden;
   background: var(--surface-elevated);
   border: 1px solid var(--border-soft);
   border-radius: var(--radius-xl);
@@ -616,6 +627,16 @@ html:not(.process-observed) .process-item { opacity: 1; }
   transition: transform var(--motion-normal) var(--motion-ease), box-shadow var(--motion-normal) var(--motion-ease);
 }
 .work-cta-inner:hover, .about-cta-inner:hover { box-shadow: var(--shadow-inset), var(--shadow-soft); transform: scale(0.996); }
+/* Cursor-reactive surface — same --mx/--my spotlight technique as the
+   work slider, set via mousemove in script.js/work.js. Restrained: a
+   faint highlight, not a visible glow. */
+.work-cta-inner::after, .about-cta-inner::after {
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,0.07), transparent 45%);
+  opacity: 0; mix-blend-mode: overlay;
+  transition: opacity var(--motion-normal) var(--motion-ease);
+}
+.work-cta-inner:hover::after, .about-cta-inner:hover::after { opacity: 1; }
 
 .work-cta { padding-top: 60px; padding-bottom: 100px; text-align: center; }
 .work-cta-inner { max-width: 640px; margin: 0 auto; }
