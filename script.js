@@ -178,6 +178,18 @@
     slider.addEventListener('touchend', (e) => onEnd(e.changedTouches[0].clientX, e.changedTouches[0].clientY));
     slider.addEventListener('mousedown', (e) => { onStart(e.clientX, e.clientY); e.preventDefault(); });
     window.addEventListener('mouseup', (e) => { if (dragging) onEnd(e.clientX, e.clientY); });
+
+    // Poke signature touch — a faint highlight that follows the cursor
+    // across the active slide, as if the surface is responding to touch.
+    if (isFinePointer) {
+      slides.forEach((s) => {
+        s.addEventListener('mousemove', (e) => {
+          const rect = s.getBoundingClientRect();
+          s.style.setProperty('--mx', ((e.clientX - rect.left) / rect.width * 100) + '%');
+          s.style.setProperty('--my', ((e.clientY - rect.top) / rect.height * 100) + '%');
+        });
+      });
+    }
   })();
 
 
