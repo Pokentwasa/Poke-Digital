@@ -124,12 +124,22 @@
   border-radius: var(--radius-lg);
   padding: 36px 40px 40px;
   box-shadow: var(--shadow-elevated);
+  transform: scale(1);
+  filter: brightness(1);
   transition: transform var(--motion-normal) var(--motion-ease),
+              filter var(--motion-normal) var(--motion-ease),
               border-color var(--motion-normal) var(--motion-ease),
               box-shadow var(--motion-normal) var(--motion-ease);
 }
 .svc-panel:hover { transform: translateY(-6px); border-color: var(--border-strong); }
 .svc-panel:active { transform: translateY(-2px) scale(0.995); }
+/* Once the next panel has stacked over this one, it visually recedes:
+   a slight scale-down and dimming (not a dramatic shrink) so the active
+   panel above it reads as the dominant surface. Set via IntersectionObserver
+   in script.js — .is-covered only ever gets added on desktop widths where
+   the sticky stack is actually active. */
+.svc-panel.is-covered { transform: scale(0.975); filter: brightness(0.7); }
+.svc-panel.is-covered:hover { transform: scale(0.975); border-color: var(--border-soft); }
 .svc-panel-top {
   display: flex; align-items: center; justify-content: space-between;
   padding-bottom: 16px; margin-bottom: 20px;

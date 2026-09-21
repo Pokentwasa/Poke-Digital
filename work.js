@@ -337,4 +337,36 @@
     if (cursorRing) cursorRing.style.display = 'none';
   }
 
+  // ==========================================
+  // SERVICES STACK — active/covered states. Pure CSS position:sticky
+  // handles the shingling itself, but it has no concept of "this panel
+  // is now covered by the next one" — that has to be measured directly.
+  // A panel is "stuck" once its own rect.top equals its CSS `top` value;
+  // once panel i+1 is stuck, panel i is by definition sitting behind it,
+  // so it gets .is-covered (scale down + dim). Recomputed every scroll
+  // tick (not IntersectionObserver's enter/exit edges — those fire once
+  // at a boundary and can't tell "still covered" from "just uncovered",
+  // which briefly un-dimmed earlier panels while testing this). Desktop
+  // only: mobile drops the sticky stack entirely (see services.css).
+  // ==========================================
+  if (window.innerWidth > 720) {
+    const panels = Array.from(document.querySelectorAll('.svc-panel'));
+    if (panels.length > 1) {
+      const navHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-height')) || 76;
+      const stickyTops = panels.map((_, i) => navHeight + 20 + i * 14);
+      let ticking = false;
+      function updateCovered() {
+        ticking = false;
+        for (let i = 0; i < panels.length - 1; i++) {
+          const nextTop = panels[i + 1].getBoundingClientRect().top;
+          panels[i].classList.toggle('is-covered', nextTop <= stickyTops[i + 1] + 1);
+        }
+      }
+      window.addEventListener('scroll', () => {
+        if (!ticking) { ticking = true; requestAnimationFrame(updateCovered); }
+      }, { passive: true });
+      updateCovered();
+    }
+  }
+
 })();
