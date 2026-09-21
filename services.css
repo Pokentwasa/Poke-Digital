@@ -255,6 +255,7 @@
   .cap-block:not(.is-in) .cap-visual--code { transform: translateX(-16px); }
   .cap-block:not(.is-in) .cap-visual--vitals { transform: translateY(-14px); }
   .cap-block:not(.is-in) .cap-visual--seo { transform: translateY(14px); }
+  .cap-block:not(.is-in) .cap-visual--headings { transform: translateX(-16px); }
 }
 
 /* Capability-specific visual artefacts — restrained, CSS-only, no
@@ -367,6 +368,12 @@
 .cap-visual--seo { flex-wrap: wrap; }
 .cap-seo-tag { padding: 8px 14px; border-radius: var(--radius-sm); background: var(--surface-secondary); border: 1px solid var(--border-soft); font-size: 12px; font-weight: 600; color: var(--orange); font-family: monospace; }
 
+.cap-visual--headings { flex-direction: column; align-items: flex-start; gap: 8px; }
+.cap-heading-row { display: flex; align-items: center; padding: 6px 12px; border-radius: var(--radius-sm); background: var(--surface-secondary); border: 1px solid var(--border-soft); font-size: 11px; font-weight: 700; color: var(--text-dimmer); }
+.cap-heading-row--h1 { background: var(--orange); border-color: var(--orange); color: var(--white); font-size: 12px; width: 70%; }
+.cap-heading-row--h2 { margin-left: 20px; width: 55%; }
+.cap-heading-row--h3 { margin-left: 40px; width: 38%; }
+
 /* ---------- SELECTED WORK FEATURE ---------- */
 .svc-work-feature { max-width: var(--container); margin: 0 auto; padding: 24px 48px 64px; }
 .svc-work-feature-head { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; margin-bottom: 24px; }
@@ -374,6 +381,7 @@
 .svc-work-feature-all { font-size: 13px; font-weight: 600; color: var(--text-dim); white-space: nowrap; }
 .svc-work-feature-all:hover { color: var(--white); }
 .svc-work-feature-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 20px; }
+.svc-work-feature-grid--single { grid-template-columns: 1fr; max-width: 720px; }
 .svc-work-primary { position: relative; display: block; border-radius: var(--radius-lg); overflow: hidden; }
 .svc-work-primary img { display: block; width: 100%; height: 100%; aspect-ratio: 16/11; object-fit: cover; transition: transform .6s var(--motion-ease); }
 .svc-work-primary:hover img { transform: scale(1.03); }
