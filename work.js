@@ -338,35 +338,53 @@
   }
 
   // ==========================================
-  // SERVICES STACK — active/covered states. Pure CSS position:sticky
-  // handles the shingling itself, but it has no concept of "this panel
-  // is now covered by the next one" — that has to be measured directly.
-  // A panel is "stuck" once its own rect.top equals its CSS `top` value;
-  // once panel i+1 is stuck, panel i is by definition sitting behind it,
-  // so it gets .is-covered (scale down + dim). Recomputed every scroll
-  // tick (not IntersectionObserver's enter/exit edges — those fire once
-  // at a boundary and can't tell "still covered" from "just uncovered",
-  // which briefly un-dimmed earlier panels while testing this). Runs at
-  // every viewport width — the sticky stack is the same on mobile as
-  // desktop, just with tighter panel padding (see services.css).
+  // SERVICES STACK — continuous scroll-scrubbed layering. Pure CSS
+  // position:sticky handles the shingling itself, but the "physically
+  // layered" feel — a panel receding as the next one arrives, not
+  // snapping through a threshold — has to be measured and applied
+  // directly. For panel i, progress toward being covered by panel i+1
+  // is how far panel i+1's live position has closed in on its own
+  // sticky lock point, clamped 0-1 over a fixed scroll window, mapped
+  // straight onto --scroll-scale/--scroll-brightness with no CSS
+  // transition backing it (see services.css) — so it tracks scroll 1:1
+  // rather than easing after a threshold crossing, which is what an
+  // earlier binary is-covered toggle did. The highest-index panel
+  // currently locked gets .is-active for a subtly deepened border.
+  // Desktop only — the 720px breakpoint in services.css reverts to a
+  // plain flow list on narrow viewports, by explicit product decision.
   // ==========================================
-  {
+  if (window.innerWidth > 720) {
     const panels = Array.from(document.querySelectorAll('.svc-panel'));
     if (panels.length > 1) {
       const navHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-height')) || 76;
-      const stickyTops = panels.map((_, i) => navHeight + 20 + i * 14);
+      const PEEK = 54;             // matches the --i * 54px offset in services.css
+      const WINDOW = 140;          // px of scroll the recede effect ramps over
+      const MIN_SCALE = 0.978;     // within the requested .975-.985 range
+      const MIN_BRIGHTNESS = 0.86; // a slight contrast reduction, not a heavy dim
+      const stickyTops = panels.map((_, i) => navHeight + 20 + i * PEEK);
       let ticking = false;
-      function updateCovered() {
+      function update() {
         ticking = false;
-        for (let i = 0; i < panels.length - 1; i++) {
-          const nextTop = panels[i + 1].getBoundingClientRect().top;
-          panels[i].classList.toggle('is-covered', nextTop <= stickyTops[i + 1] + 1);
-        }
+        let activeIndex = -1;
+        panels.forEach((p, i) => {
+          if (p.getBoundingClientRect().top <= stickyTops[i] + 1) activeIndex = i;
+        });
+        panels.forEach((p, i) => {
+          let progress = 0;
+          if (i < panels.length - 1) {
+            const nextTop = panels[i + 1].getBoundingClientRect().top;
+            const start = stickyTops[i + 1] + WINDOW;
+            progress = Math.max(0, Math.min(1, (start - nextTop) / WINDOW));
+          }
+          p.style.setProperty('--scroll-scale', String(1 - progress * (1 - MIN_SCALE)));
+          p.style.setProperty('--scroll-brightness', String(1 - progress * (1 - MIN_BRIGHTNESS)));
+          p.classList.toggle('is-active', i === activeIndex);
+        });
       }
       window.addEventListener('scroll', () => {
-        if (!ticking) { ticking = true; requestAnimationFrame(updateCovered); }
+        if (!ticking) { ticking = true; requestAnimationFrame(update); }
       }, { passive: true });
-      updateCovered();
+      update();
     }
   }
 

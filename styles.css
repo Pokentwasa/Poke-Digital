@@ -77,9 +77,20 @@
    ============================================ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: auto; /* GSAP handles smooth scroll */ }
-/* guard against any single element (e.g. the sized WebGL canvas) forcing
-   a horizontal scrollbar on narrow phones */
-html, body { max-width: 100%; overflow-x: hidden; }
+/* Guard against any single element (e.g. the sized WebGL canvas) forcing
+   a horizontal scrollbar on narrow phones. Deliberately only on <html>,
+   not <body>: per the CSS Overflow spec, when overflow-x is non-visible
+   and overflow-y is left at its initial `visible`, the visible axis gets
+   force-computed as `auto` instead — so overflow-x:hidden on BOTH html
+   and body was silently giving both elements their own overflow-y:auto
+   scroll container. That breaks position:sticky, which locks against
+   the nearest scrolling ancestor: with two competing scroll containers
+   instead of one clean viewport scroller, sticky elements never actually
+   clamp — this is exactly what was silently breaking the services-stack
+   sticky shingling. html-only still clips horizontal overflow at the
+   document root, which is all this rule was ever protecting against. */
+html { max-width: 100%; overflow-x: hidden; }
+body { max-width: 100%; }
 .webgl-canvas, .grain { max-width: 100vw; }
 
 @media (prefers-reduced-motion: reduce) {
@@ -93,7 +104,7 @@ body {
   font-size: 16px;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  /* No overflow-x here on purpose — see the html-only rule above for why. */
 }
 
 a { color: inherit; text-decoration: none; }

@@ -110,36 +110,47 @@
 
 /* ---------- SERVICES STACK ----------
    Poke's own take on overlapping/stacked service panels: a "digital
-   file system" of sticky cards that shingle over each other on scroll.
-   Pure CSS position:sticky — no ScrollTrigger needed for the core
-   mechanic, which keeps it robust and battery-cheap. Runs identically
-   at every viewport width. */
+   file system" of sticky cards that shingle over each other on scroll,
+   with a continuous scroll-scrubbed scale/dim (work.js) so a panel
+   visibly recedes in lockstep with scroll rather than snapping through
+   a canned transition once a threshold crosses. Pure CSS position:sticky
+   for the core mechanic — no ScrollTrigger needed. Desktop only; the
+   720px breakpoint below turns this back into a plain flow list. */
 .svc-stack { max-width: var(--container); margin: 0 auto; padding: 0 48px 120px; display: flex; flex-direction: column; gap: 18px; }
+/* Desktop only (see the 720px breakpoint below, which turns this back
+   into a plain flow list on narrow viewports). Three independent
+   custom properties compose into one `transform` instead of fighting
+   over it directly: --lift/--interact-scale are event-driven (hover,
+   press) with a short CSS transition; --scroll-scale is scrubbed
+   continuously by work.js in lockstep with scroll position, set with
+   no transition so it tracks 1:1 rather than easing/catching up after
+   the fact — a "canned" transition here would work against the "tied
+   to scroll progress" feel. Same reasoning for --scroll-brightness. */
 .svc-panel {
+  --lift: 0px;
+  --interact-scale: 1;
+  --scroll-scale: 1;
+  --scroll-brightness: 1;
   display: block;
   position: sticky;
-  top: calc(var(--nav-height) + 20px + (var(--i, 0) * 14px));
+  top: calc(var(--nav-height) + 20px + (var(--i, 0) * 54px));
   background: var(--surface-elevated);
   border: 1px solid var(--border-soft);
   border-radius: var(--radius-lg);
   padding: 36px 40px 40px;
   box-shadow: var(--shadow-elevated);
-  transform: scale(1);
-  filter: brightness(1);
-  transition: transform var(--motion-normal) var(--motion-ease),
-              filter var(--motion-normal) var(--motion-ease),
-              border-color var(--motion-normal) var(--motion-ease),
-              box-shadow var(--motion-normal) var(--motion-ease);
+  transform: translateY(var(--lift)) scale(calc(var(--scroll-scale) * var(--interact-scale)));
+  filter: brightness(var(--scroll-brightness));
+  transition: transform var(--motion-fast) var(--motion-press),
+              border-color var(--motion-fast) var(--motion-ease),
+              box-shadow var(--motion-fast) var(--motion-ease);
 }
-.svc-panel:hover { transform: translateY(-6px); border-color: var(--border-strong); }
-.svc-panel:active { transform: translateY(-2px) scale(0.995); }
-/* Once the next panel has stacked over this one, it visually recedes:
-   a slight scale-down and dimming (not a dramatic shrink) so the active
-   panel above it reads as the dominant surface. Set via IntersectionObserver
-   in script.js — .is-covered only ever gets added on desktop widths where
-   the sticky stack is actually active. */
-.svc-panel.is-covered { transform: scale(0.975); filter: brightness(0.7); }
-.svc-panel.is-covered:hover { transform: scale(0.975); border-color: var(--border-soft); }
+.svc-panel:hover { --lift: -4px; border-color: var(--border-strong); }
+.svc-panel:active { --lift: -2px; --interact-scale: 0.995; }
+/* The panel currently dominant at the top of the stack — deepened
+   very subtly, not a different treatment, just enough to read as the
+   "front" layer. Toggled in work.js alongside the scroll-scrub. */
+.svc-panel.is-active { border-color: var(--border-strong); box-shadow: var(--shadow-elevated), 0 0 0 1px rgba(255, 255, 255, 0.05); }
 .svc-panel-top {
   display: flex; align-items: center; justify-content: space-between;
   padding-bottom: 16px; margin-bottom: 20px;
@@ -147,9 +158,12 @@
   font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
   color: var(--brand-orange);
 }
-.svc-panel-open { color: var(--text-muted); transition: color var(--motion-fast) var(--motion-ease); }
-.svc-panel:hover .svc-panel-open { color: var(--text-primary); }
-.svc-panel h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(24px, 3.2vw, 32px); margin-bottom: 12px; color: var(--white); }
+.svc-panel-top > span:first-child { display: inline-block; opacity: 0.82; transition: opacity var(--motion-fast) var(--motion-ease); }
+.svc-panel:hover .svc-panel-top > span:first-child { opacity: 1; }
+.svc-panel-open { display: inline-block; color: var(--text-muted); transition: color var(--motion-fast) var(--motion-ease), transform var(--motion-fast) var(--motion-ease); }
+.svc-panel:hover .svc-panel-open { color: var(--text-primary); transform: translateX(3px); }
+.svc-panel h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(24px, 3.2vw, 32px); margin-bottom: 12px; color: var(--white); transition: transform var(--motion-fast) var(--motion-ease); }
+.svc-panel:hover h2 { transform: translateX(2px); }
 .svc-panel p { font-size: 15.5px; line-height: 1.65; color: var(--text-dim); max-width: 62ch; }
 .svc-panel .arrow-link { display: inline-block; margin-top: 20px; font-size: 13px; font-weight: 600; color: var(--white); }
 
@@ -173,9 +187,10 @@
   .svc-work-grid { grid-template-columns: 1fr; }
   .insights-hero { padding-top: calc(var(--nav-height) + 32px); }
 
-  /* Services stack keeps the sticky shingling on mobile too — same
-     mechanic as desktop, just tighter padding/gap for the narrower
-     viewport. */
+  /* Services stack: the sticky/scroll-scrubbed layering is desktop
+     only — on a narrow viewport, back to a plain readable stacked
+     list. Explicit product decision, not a technical limitation. */
   .svc-stack { padding-left: 20px; padding-right: 20px; gap: 16px; }
-  .svc-panel { padding: 28px 24px 30px; }
+  .svc-panel { position: static; padding: 28px 24px 30px; }
+  .svc-panel:hover { --lift: 0px; }
 }
