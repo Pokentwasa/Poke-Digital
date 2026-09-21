@@ -37,6 +37,47 @@
 .svc-hero-intro { font-size: 18px; line-height: 1.7; color: var(--text-dim); max-width: 66ch; }
 .svc-hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 32px; }
 
+/* ---------- HERO INTERFACE VISUAL ----------
+   A restrained browser-frame artefact next to the hero copy — the page
+   demonstrating interface design rather than just describing it. Pure
+   CSS/markup, no image asset, no random gradients. */
+.svc-hero-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 72px); align-items: center; }
+.hero-frame {
+  position: relative;
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-elevated);
+  overflow: hidden;
+  transform: rotate(0.6deg);
+}
+.hero-frame-chrome { display: flex; align-items: center; gap: 6px; padding: 14px 16px; border-bottom: 1px solid var(--border-soft); }
+.hero-frame-chrome span:not(.hero-frame-url) { width: 8px; height: 8px; border-radius: 50%; background: var(--border-strong); }
+.hero-frame-chrome span:nth-child(1) { background: var(--orange); }
+.hero-frame-url { flex: 1; height: 16px; margin-left: 10px; border-radius: 999px; background: var(--surface-secondary); }
+.hero-frame-body { padding: 22px 22px 26px; }
+.hero-frame-nav { display: flex; align-items: center; gap: 12px; padding-bottom: 18px; margin-bottom: 20px; border-bottom: 1px solid var(--border-soft); }
+.hero-frame-logo { width: 22px; height: 22px; border-radius: 6px; background: var(--orange); }
+.hero-frame-link { width: 34px; height: 8px; border-radius: 999px; background: var(--border-strong); }
+.hero-frame-pill { margin-left: auto; width: 52px; height: 18px; border-radius: 999px; background: var(--white); }
+.hero-frame-hero { margin-bottom: 22px; }
+.hero-frame-line { display: block; height: 12px; border-radius: 4px; background: var(--border-strong); margin-bottom: 10px; }
+.hero-frame-line--lg { width: 78%; height: 18px; }
+.hero-frame-line--md { width: 52%; }
+.hero-frame-cta { display: inline-block; width: 96px; height: 26px; border-radius: 999px; background: var(--orange); margin-top: 6px; }
+.hero-frame-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.hero-frame-card { display: block; aspect-ratio: 1 / 0.8; border-radius: var(--radius-sm); background: var(--surface-secondary); border: 1px solid var(--border-soft); }
+.hero-frame-pointer { position: absolute; right: 14%; bottom: 20%; display: flex; align-items: center; justify-content: center; animation: heroPointer 4.5s var(--motion-ease) infinite; }
+.hero-frame-pointer-ring { position: absolute; width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--orange); opacity: 0.5; }
+.hero-frame-pointer-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 0 5px rgba(232, 98, 61, 0.16); }
+@keyframes heroPointer {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-10px, -8px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-frame-pointer { animation: none; }
+}
+
 .svc-body { max-width: 1000px; margin: 0 auto; padding: 56px 48px 0; }
 .svc-section { margin-bottom: 52px; }
 .svc-section h2 {
@@ -108,6 +149,172 @@
 }
 .svc-cta a:hover { opacity: .85; }
 
+/* ---------- CAPABILITY EXPLORER ----------
+   Used on the UI/UX Design service page. Left column: sticky numbered
+   index of capabilities. Right column: real, always-in-DOM content
+   blocks in normal flow — each with its own copy (unchanged) and a
+   capability-specific visual artefact. The "active" feel comes from a
+   sticky index whose current item is tracked against scroll position
+   (work.js), not from swapping DOM content in and out — every capability's
+   full copy is present, crawlable and readable with JS disabled. Mobile
+   collapses each block into an accordion via a real <button> with
+   aria-expanded/aria-controls; desktop ignores that state and always
+   shows every block open. */
+.cap-explorer {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 64px 48px;
+  display: grid;
+  grid-template-columns: minmax(200px, 260px) 1fr;
+  gap: clamp(32px, 5vw, 72px);
+  border-top: 1px solid var(--border-dark);
+}
+.cap-index { position: sticky; top: calc(var(--nav-height) + 32px); align-self: start; display: flex; flex-direction: column; height: max-content; }
+.cap-index-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--text-dimmer); margin-bottom: 18px; }
+.cap-index-item {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 12px 0;
+  border-top: 1px solid var(--border-soft);
+  color: var(--text-dimmer);
+  transition: color var(--motion-fast) var(--motion-ease), padding-left var(--motion-fast) var(--motion-ease);
+}
+.cap-index-item:last-of-type { border-bottom: 1px solid var(--border-soft); }
+.cap-index-item:hover { color: var(--text-dim); padding-left: 4px; }
+.cap-index-num { font-size: 12px; font-variant-numeric: tabular-nums; font-weight: 600; color: inherit; }
+.cap-index-label { font-family: var(--font-display); font-weight: 700; font-size: 14.5px; letter-spacing: -0.005em; color: inherit; }
+.cap-index-item.is-active {
+  color: var(--white);
+  padding-left: 8px;
+  border-top-color: var(--orange);
+}
+.cap-index-item.is-active .cap-index-num { color: var(--orange); }
+
+.cap-list { display: flex; flex-direction: column; gap: 6px; }
+.cap-block { padding: 30px 0; border-bottom: 1px solid var(--border-soft); scroll-margin-top: calc(var(--nav-height) + 24px); }
+.cap-block:first-child { padding-top: 0; }
+.cap-block:last-child { border-bottom: none; padding-bottom: 4px; }
+.cap-heading { margin: 0; }
+.cap-toggle {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0 0 16px;
+  font: inherit;
+  text-align: left;
+  cursor: default;
+  color: var(--white);
+}
+.cap-toggle-num { font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--orange); }
+.cap-toggle-text { font-family: var(--font-display); font-weight: 700; font-size: clamp(22px, 3vw, 30px); letter-spacing: -0.01em; }
+.cap-toggle-icon { display: none; }
+
+.cap-panel { max-height: 900px; overflow: hidden; opacity: 1; transition: max-height var(--motion-slow) var(--motion-ease), opacity var(--motion-normal) var(--motion-ease); }
+.cap-panel p { font-size: 16px; line-height: 1.75; color: var(--text-dim); max-width: 62ch; margin-bottom: 26px; }
+
+/* Text-entrance: a restrained translate-only reveal as each block scrolls
+   into view, applied once via .is-in (work.js), not a scroll-tied repeat.
+   Deliberately never touches opacity/clip-path/visibility on real copy —
+   text stays fully present and readable at every point (no-JS, JS-disabled
+   crawl, or a stalled script all render full text immediately), only its
+   position animates a few pixels into place. */
+.cap-block .cap-toggle-text, .cap-block > .cap-panel > p { transform: translateY(0); }
+@media (prefers-reduced-motion: no-preference) {
+  .cap-block:not(.is-in) .cap-toggle-text { transform: translateY(14px); }
+  .cap-block:not(.is-in) > .cap-panel > p { transform: translateY(10px); }
+  .cap-block .cap-toggle-text { transition: transform var(--motion-slow) var(--motion-ease); }
+  .cap-block > .cap-panel > p { transition: transform var(--motion-normal) var(--motion-ease) 80ms; }
+
+  /* The visual artefacts are decorative (aria-hidden) so, unlike the
+     copy above, they're free to also use opacity — and each capability
+     gets a distinct micro-transition rather than one repeated fade. */
+  .cap-visual { transition: opacity var(--motion-slow) var(--motion-ease) 120ms, transform var(--motion-slow) var(--motion-ease) 120ms; }
+  .cap-block:not(.is-in) .cap-visual { opacity: 0; }
+  .cap-block:not(.is-in) .cap-visual--journey { transform: translateX(-16px); }
+  .cap-block:not(.is-in) .cap-visual--ia { transform: translateY(-14px); }
+  .cap-block:not(.is-in) .cap-visual--interaction { transform: scale(0.94); }
+  .cap-block:not(.is-in) .cap-visual--responsive { transform: translateX(16px); }
+  .cap-block:not(.is-in) .cap-visual--funnel { transform: translateY(14px); }
+  .cap-block:not(.is-in) .cap-visual--prototyping { transform: translateX(-16px); }
+  .cap-block:not(.is-in) .cap-visual--usability { transform: scale(0.94); }
+}
+
+/* Capability-specific visual artefacts — restrained, CSS-only, no
+   gradients or generic illustration. */
+.cap-visual { display: flex; align-items: center; gap: 10px; padding: 22px 20px; background: var(--surface-elevated); border: 1px solid var(--border-soft); border-radius: var(--radius); max-width: 62ch; }
+
+.cap-visual--journey { flex-wrap: wrap; }
+.cap-journey-node { display: flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; background: var(--surface-secondary); border: 1px solid var(--border-soft); font-size: 13px; font-weight: 600; color: var(--text-dim); }
+.cap-journey-node em { font-style: normal; width: 18px; height: 18px; border-radius: 50%; background: var(--border-strong); color: var(--black); font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.cap-journey-node--end { background: var(--orange); color: var(--white); border-color: var(--orange); }
+.cap-journey-node--end em { background: var(--white); color: var(--orange); }
+.cap-journey-line { flex: 1 1 20px; min-width: 20px; height: 1px; background: var(--border-strong); }
+
+.cap-visual--ia { flex-direction: column; align-items: center; gap: 0; padding-top: 26px; }
+.cap-ia-root { padding: 8px 18px; border-radius: var(--radius-sm); background: var(--orange); color: var(--white); font-size: 13px; font-weight: 700; }
+.cap-ia-branch { position: relative; display: flex; gap: 10px; margin-top: 22px; padding-top: 16px; }
+.cap-ia-branch::before { content: ''; position: absolute; top: 0; left: 8%; right: 8%; height: 1px; background: var(--border-strong); }
+.cap-ia-leaf { position: relative; padding: 7px 12px; border-radius: var(--radius-sm); background: var(--surface-secondary); border: 1px solid var(--border-soft); font-size: 12px; font-weight: 600; color: var(--text-dim); }
+.cap-ia-leaf::before { content: ''; position: absolute; top: -16px; left: 50%; width: 1px; height: 16px; background: var(--border-strong); }
+
+.cap-visual--interaction { gap: 14px; }
+.cap-state-btn { padding: 10px 16px; border-radius: 999px; font-size: 12.5px; font-weight: 700; border: 1px solid var(--border-soft); color: var(--text-dim); background: var(--surface-secondary); }
+.cap-state-btn--hover { color: var(--white); border-color: var(--border-strong); box-shadow: 0 0 0 3px rgba(255,255,255,0.06); transform: translateY(-2px); }
+.cap-state-btn--active { color: var(--white); background: var(--orange); border-color: var(--orange); transform: translateY(1px) scale(0.97); }
+
+.cap-visual--responsive { align-items: flex-end; gap: 16px; }
+.cap-device { display: flex; flex-direction: column; gap: 6px; padding: 8px; border-radius: var(--radius-sm); background: var(--surface-secondary); border: 1px solid var(--border-soft); }
+.cap-device span { display: block; height: 5px; border-radius: 2px; background: var(--border-strong); }
+.cap-device--desktop { width: 120px; }
+.cap-device--desktop span:first-child { width: 90%; }
+.cap-device--desktop span:last-child { width: 60%; }
+.cap-device--tablet { width: 74px; }
+.cap-device--mobile { width: 44px; }
+.cap-device--tablet span, .cap-device--mobile span { width: 100%; }
+
+.cap-visual--funnel { flex-direction: column; align-items: stretch; gap: 8px; }
+.cap-funnel-bar { width: var(--w); min-width: 90px; padding: 8px 14px; border-radius: var(--radius-sm); background: var(--surface-secondary); border: 1px solid var(--border-soft); font-size: 12.5px; font-weight: 600; color: var(--text-dim); }
+.cap-funnel-bar--end { background: var(--orange); border-color: var(--orange); color: var(--white); }
+
+.cap-visual--prototyping { gap: 10px; }
+.cap-proto-frame { padding: 14px 16px; border-radius: var(--radius-sm); font-size: 11.5px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; text-align: center; }
+.cap-proto-frame--wire { border: 1px dashed var(--border-strong); color: var(--text-dimmer); }
+.cap-proto-frame--ui { border: 1px solid var(--orange); color: var(--orange); }
+.cap-proto-frame--final { background: var(--orange); color: var(--white); }
+.cap-proto-arrow { color: var(--text-dimmer); font-size: 14px; }
+
+.cap-visual--usability { flex-wrap: wrap; }
+.cap-usability-chip { padding: 9px 14px; border-radius: var(--radius-sm); font-size: 12px; font-weight: 600; border: 1px solid var(--border-soft); color: var(--text-dim); background: var(--surface-secondary); }
+.cap-usability-chip--contrast { color: var(--white); }
+.cap-usability-chip--focus { outline: 2px solid var(--orange); outline-offset: 2px; }
+.cap-usability-chip--error { border-color: var(--orange); color: var(--orange); }
+
+/* ---------- SELECTED WORK FEATURE ---------- */
+.svc-work-feature { max-width: var(--container); margin: 0 auto; padding: 24px 48px 64px; }
+.svc-work-feature-head { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; margin-bottom: 24px; }
+.svc-work-feature-head h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(22px, 3vw, 30px); letter-spacing: -0.01em; color: var(--white); }
+.svc-work-feature-all { font-size: 13px; font-weight: 600; color: var(--text-dim); white-space: nowrap; }
+.svc-work-feature-all:hover { color: var(--white); }
+.svc-work-feature-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 20px; }
+.svc-work-primary { position: relative; display: block; border-radius: var(--radius-lg); overflow: hidden; }
+.svc-work-primary img { display: block; width: 100%; height: 100%; aspect-ratio: 16/11; object-fit: cover; transition: transform .6s var(--motion-ease); }
+.svc-work-primary:hover img { transform: scale(1.03); }
+.svc-work-primary-meta {
+  position: absolute; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 22px; gap: 16px;
+  background: linear-gradient(to top, rgba(0,0,0,0.78), rgba(0,0,0,0));
+}
+.svc-work-primary-meta span:first-child { font-family: var(--font-display); font-weight: 700; font-size: 20px; color: var(--white); }
+.svc-work-primary-meta .arrow-link { font-size: 13px; font-weight: 600; color: var(--text-dim); }
+.svc-work-primary:hover .arrow-link { color: var(--white); }
+.svc-work-secondary { display: flex; flex-direction: column; gap: 20px; }
+.svc-work-secondary .svc-work-card img { aspect-ratio: 16/10; }
+
 /* ---------- SERVICES STACK ----------
    Poke's own take on overlapping/stacked service panels: a "digital
    file system" of sticky cards that shingle over each other on scroll,
@@ -177,6 +384,15 @@
 @media (max-width: 900px) {
   .svc-list { grid-template-columns: 1fr; }
   .svc-work-grid { grid-template-columns: repeat(2, 1fr); }
+  .svc-hero-grid { grid-template-columns: 1fr; gap: 40px; }
+  .hero-frame { max-width: 480px; }
+  .cap-explorer { grid-template-columns: 1fr; }
+  .cap-index { position: static; flex-direction: row; flex-wrap: wrap; gap: 8px 20px; padding-bottom: 8px; margin-bottom: 8px; border-bottom: 1px solid var(--border-dark); }
+  .cap-index-eyebrow { width: 100%; margin-bottom: 4px; }
+  .cap-index-item { border-top: none; padding: 6px 0; }
+  .cap-index-item:last-of-type { border-bottom: none; }
+  .svc-work-feature-grid { grid-template-columns: 1fr; }
+  .svc-work-secondary { flex-direction: row; }
 }
 @media (max-width: 720px) {
   .svc-breadcrumb, .svc-hero, .svc-body, .svc-cta, .insights-hero, .insights-empty { padding-left: 20px; padding-right: 20px; }
@@ -186,6 +402,7 @@
   .svc-section { margin-bottom: 40px; }
   .svc-work-grid { grid-template-columns: 1fr; }
   .insights-hero { padding-top: calc(var(--nav-height) + 32px); }
+  .hero-frame { display: none; }
 
   /* Services stack: the sticky/scroll-scrubbed layering is desktop
      only — on a narrow viewport, back to a plain readable stacked
@@ -193,4 +410,32 @@
   .svc-stack { padding-left: 20px; padding-right: 20px; gap: 16px; }
   .svc-panel { position: static; padding: 28px 24px 30px; }
   .svc-panel:hover { --lift: 0px; }
+
+  /* Capability explorer: sticky index becomes a plain accordion. Each
+     block is a real <button> (aria-expanded/aria-controls, toggled in
+     work.js) collapsing/expanding its panel — content stays in the DOM
+     either way, just visually collapsed via max-height. */
+  .cap-explorer { padding: 40px 20px; grid-template-columns: 1fr; gap: 4px; }
+  .cap-index { display: none; }
+  .cap-block { padding: 4px 0; }
+  .cap-block:first-child { padding-top: 4px; }
+  .cap-toggle { cursor: pointer; padding: 20px 0; margin: 0; }
+  .cap-toggle-text { font-size: clamp(19px, 5.5vw, 23px); }
+  .cap-toggle-icon {
+    display: block; margin-left: auto; flex-shrink: 0; width: 20px; height: 20px; position: relative;
+  }
+  .cap-toggle-icon::before, .cap-toggle-icon::after {
+    content: ''; position: absolute; top: 50%; left: 50%; background: var(--text-dim);
+    transition: transform var(--motion-fast) var(--motion-ease);
+  }
+  .cap-toggle-icon::before { width: 12px; height: 1.5px; transform: translate(-50%, -50%); }
+  .cap-toggle-icon::after { width: 1.5px; height: 12px; transform: translate(-50%, -50%); }
+  .cap-toggle[aria-expanded="true"] .cap-toggle-icon::after { transform: translate(-50%, -50%) rotate(90deg); opacity: 0; }
+  .cap-panel { max-height: 0; opacity: 0; }
+  .cap-block.is-open .cap-panel { max-height: 900px; opacity: 1; padding-bottom: 24px; }
+  .cap-block:not(.is-in) .cap-toggle-text, .cap-block:not(.is-in) > .cap-panel > p { transform: none; }
+
+  .svc-work-feature { padding: 24px 20px 48px; }
+  .svc-work-feature-grid { grid-template-columns: 1fr; gap: 16px; }
+  .svc-work-secondary { flex-direction: column; gap: 16px; }
 }

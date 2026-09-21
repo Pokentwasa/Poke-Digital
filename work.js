@@ -389,6 +389,104 @@
   }
 
   // ==========================================
+  // CAPABILITY EXPLORER — UI/UX Design service page. Every capability's
+  // copy lives in normal document flow at all times (nothing is ever
+  // swapped in/out of the DOM); this only (a) tracks which block is
+  // under a fixed "activation line" to highlight the matching sticky
+  // left-index item on desktop, using the same rect-based approach as
+  // the services stack above rather than ScrollTrigger, (b) turns a
+  // click on an index item into a smooth scroll to the real #anchor
+  // it already points to, (c) reveals each block once via a one-shot
+  // IntersectionObserver class (never removed, so it doesn't replay on
+  // re-scroll), and (d) on mobile only, drives a real button/aria-expanded
+  // accordion. Desktop ignores the open/closed state entirely — CSS keeps
+  // every panel fully expanded there regardless of aria-expanded.
+  // ==========================================
+  (function () {
+    const blocks = Array.from(document.querySelectorAll('.cap-block'));
+    if (!blocks.length) return;
+
+    const indexItems = Array.from(document.querySelectorAll('.cap-index-item'));
+    const toggles = Array.from(document.querySelectorAll('.cap-toggle'));
+    const isDesktop = () => window.innerWidth > 720;
+
+    if ('IntersectionObserver' in window) {
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-in');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { rootMargin: '0px 0px -10% 0px', threshold: 0.15 });
+      blocks.forEach((b) => revealObserver.observe(b));
+    } else {
+      blocks.forEach((b) => b.classList.add('is-in'));
+    }
+
+    function updateActiveIndex() {
+      if (!isDesktop() || !indexItems.length) return;
+      const line = window.innerHeight * 0.35;
+      let active = null;
+      blocks.forEach((b) => {
+        const rect = b.getBoundingClientRect();
+        if (rect.top <= line && rect.bottom > line) active = b;
+      });
+      if (!active) {
+        let bestDist = Infinity;
+        blocks.forEach((b) => {
+          const rect = b.getBoundingClientRect();
+          const dist = line - rect.top;
+          if (dist >= 0 && dist < bestDist) { bestDist = dist; active = b; }
+        });
+      }
+      indexItems.forEach((item) => {
+        item.classList.toggle('is-active', !!active && active.id === item.getAttribute('data-cap-link'));
+      });
+    }
+
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) { ticking = true; requestAnimationFrame(() => { ticking = false; updateActiveIndex(); }); }
+    }, { passive: true });
+    updateActiveIndex();
+
+    indexItems.forEach((link) => {
+      link.addEventListener('click', (e) => {
+        const target = document.getElementById(link.getAttribute('data-cap-link'));
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        history.replaceState(null, '', '#' + target.id);
+      });
+    });
+
+    toggles.forEach((btn) => {
+      const block = btn.closest('.cap-block');
+      if (block && btn.getAttribute('aria-expanded') === 'true') block.classList.add('is-open');
+      btn.addEventListener('click', () => {
+        if (isDesktop() || !block) return;
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!expanded));
+        block.classList.toggle('is-open', !expanded);
+      });
+    });
+
+    function syncExpandedForViewport() {
+      toggles.forEach((btn) => {
+        const block = btn.closest('.cap-block');
+        if (isDesktop()) btn.setAttribute('aria-expanded', 'true');
+        else if (block) btn.setAttribute('aria-expanded', String(block.classList.contains('is-open')));
+      });
+    }
+    syncExpandedForViewport();
+    window.addEventListener('resize', () => {
+      syncExpandedForViewport();
+      updateActiveIndex();
+    }, { passive: true });
+  })();
+
+  // ==========================================
   // CTA CURSOR-REACTIVE SURFACE — same --mx/--my spotlight technique
   // used on the work slider (script.js), applied here to the /work
   // page's CTA panel since it loads work.js instead of script.js.
