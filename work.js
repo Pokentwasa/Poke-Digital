@@ -346,10 +346,11 @@
   // so it gets .is-covered (scale down + dim). Recomputed every scroll
   // tick (not IntersectionObserver's enter/exit edges — those fire once
   // at a boundary and can't tell "still covered" from "just uncovered",
-  // which briefly un-dimmed earlier panels while testing this). Desktop
-  // only: mobile drops the sticky stack entirely (see services.css).
+  // which briefly un-dimmed earlier panels while testing this). Runs at
+  // every viewport width — the sticky stack is the same on mobile as
+  // desktop, just with tighter panel padding (see services.css).
   // ==========================================
-  if (window.innerWidth > 720) {
+  {
     const panels = Array.from(document.querySelectorAll('.svc-panel'));
     if (panels.length > 1) {
       const navHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-height')) || 76;

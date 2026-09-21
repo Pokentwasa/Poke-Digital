@@ -112,8 +112,8 @@
    Poke's own take on overlapping/stacked service panels: a "digital
    file system" of sticky cards that shingle over each other on scroll.
    Pure CSS position:sticky — no ScrollTrigger needed for the core
-   mechanic, which keeps it robust and battery-cheap. Disabled on
-   mobile (below) in favour of a plain stacked list. */
+   mechanic, which keeps it robust and battery-cheap. Runs identically
+   at every viewport width. */
 .svc-stack { max-width: var(--container); margin: 0 auto; padding: 0 48px 120px; display: flex; flex-direction: column; gap: 18px; }
 .svc-panel {
   display: block;
@@ -173,11 +173,9 @@
   .svc-work-grid { grid-template-columns: 1fr; }
   .insights-hero { padding-top: calc(var(--nav-height) + 32px); }
 
-  /* Services stack: sticky shingling reads great on desktop but fights
-     usability on a phone (too little room for the peek-reveal effect to
-     register). Drop to a plain stacked list of full panels instead of
-     trying to force the desktop mechanic to work at this width. */
+  /* Services stack keeps the sticky shingling on mobile too — same
+     mechanic as desktop, just tighter padding/gap for the narrower
+     viewport. */
   .svc-stack { padding-left: 20px; padding-right: 20px; gap: 16px; }
-  .svc-panel { position: static; padding: 28px 24px 30px; }
-  .svc-panel:hover { transform: none; }
+  .svc-panel { padding: 28px 24px 30px; }
 }
