@@ -192,6 +192,21 @@
     }
   })();
 
+  // ==========================================
+  // PROCESS SEQUENCE — active phase gains contrast as it crosses the
+  // viewport centre, previous/upcoming phases stay subdued. Communicates
+  // progress through the sequence rather than just decorating it.
+  // ==========================================
+  (function initProcessSequence() {
+    const items = document.querySelectorAll('.process-item');
+    if (!items.length || typeof IntersectionObserver === 'undefined') return;
+    document.documentElement.classList.add('process-observed');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => entry.target.classList.toggle('is-active', entry.isIntersecting));
+    }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+    items.forEach((item) => observer.observe(item));
+  })();
+
 
   // ==========================================
   // THREE.JS — SCENE SETUP
