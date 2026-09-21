@@ -25,6 +25,14 @@
     }
   }
 
+  // NAV SCROLL STATE — near-transparent over the hero, a real blurred
+  // surface once the visitor has scrolled past it.
+  if (navEl) {
+    const setNavScrolled = () => navEl.classList.toggle('is-scrolled', window.scrollY > 8);
+    setNavScrolled();
+    window.addEventListener('scroll', setNavScrolled, { passive: true });
+  }
+
   // ==========================================
   // GSAP
   // ==========================================
@@ -303,14 +311,30 @@
   // ==========================================
   const cursorDot = document.getElementById('cursorDot');
   const cursorRing = document.getElementById('cursorRing');
-  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches && cursorDot) {
+  const cursorLabel = document.getElementById('cursorLabel');
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches && cursorDot && cursorRing) {
+    document.body.classList.add('has-custom-cursor');
     let mx = 0, my = 0, rx = 0, ry = 0;
     window.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; cursorDot.style.left = mx + 'px'; cursorDot.style.top = my + 'px'; });
-    (function tick() { rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12; cursorRing.style.left = rx + 'px'; cursorRing.style.top = ry + 'px'; requestAnimationFrame(tick); })();
+    (function tick() { rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18; cursorRing.style.left = rx + 'px'; cursorRing.style.top = ry + 'px'; requestAnimationFrame(tick); })();
     document.querySelectorAll('[data-cursor]').forEach((el) => {
-      el.addEventListener('mouseenter', () => cursorRing.classList.add('is-active'));
-      el.addEventListener('mouseleave', () => cursorRing.classList.remove('is-active'));
+      el.addEventListener('mouseenter', () => {
+        const label = el.dataset.cursor;
+        if (label) {
+          cursorRing.classList.add('is-label');
+          if (cursorLabel) cursorLabel.textContent = label;
+        } else {
+          cursorRing.classList.add('is-hover');
+        }
+      });
+      el.addEventListener('mouseleave', () => {
+        cursorRing.classList.remove('is-hover', 'is-label');
+        if (cursorLabel) cursorLabel.textContent = '';
+      });
     });
+  } else {
+    if (cursorDot) cursorDot.style.display = 'none';
+    if (cursorRing) cursorRing.style.display = 'none';
   }
 
 })();

@@ -78,6 +78,14 @@
     });
   }
 
+  // NAV SCROLL STATE — near-transparent over the hero, a real blurred
+  // surface once the visitor has scrolled past it.
+  if (nav) {
+    const setNavScrolled = () => nav.classList.toggle('is-scrolled', window.scrollY > 8);
+    setNavScrolled();
+    window.addEventListener('scroll', setNavScrolled, { passive: true });
+  }
+
 
   // ==========================================
   // THREE.JS — SCENE SETUP
