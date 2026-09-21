@@ -252,6 +252,9 @@
   .cap-block:not(.is-in) .cap-visual--audit { transform: translateX(16px); }
   .cap-block:not(.is-in) .cap-visual--rebuild { transform: scale(0.94); }
   .cap-block:not(.is-in) .cap-visual--redirect { transform: translateX(-16px); }
+  .cap-block:not(.is-in) .cap-visual--code { transform: translateX(-16px); }
+  .cap-block:not(.is-in) .cap-visual--vitals { transform: translateY(-14px); }
+  .cap-block:not(.is-in) .cap-visual--seo { transform: translateY(14px); }
 }
 
 /* Capability-specific visual artefacts — restrained, CSS-only, no
@@ -352,6 +355,17 @@
 .cap-redirect-url { padding: 9px 14px; border-radius: var(--radius-sm); background: var(--surface-secondary); border: 1px solid var(--border-soft); font-size: 12.5px; font-weight: 600; color: var(--text-dimmer); font-family: monospace; }
 .cap-redirect-url--new { color: var(--white); border-color: var(--border-strong); }
 .cap-redirect-code { font-size: 11px; font-weight: 700; color: var(--orange); padding: 4px 8px; border: 1px solid var(--orange); border-radius: 999px; }
+
+.cap-visual--code { flex-direction: column; align-items: stretch; gap: 9px; }
+.cap-code-line { display: block; width: var(--w); height: 10px; border-radius: 3px; background: var(--surface-secondary); border: 1px solid var(--border-soft); }
+.cap-code-line--kw { background: rgba(232, 98, 61, 0.18); border-color: var(--orange); }
+
+.cap-visual--vitals { flex-wrap: wrap; }
+.cap-vital-chip { display: flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; background: var(--surface-secondary); border: 1px solid var(--border-soft); font-size: 12.5px; font-weight: 600; color: var(--text-dim); font-variant-numeric: tabular-nums; }
+.cap-vital-chip i { width: 7px; height: 7px; border-radius: 50%; background: #4CAF6D; flex-shrink: 0; }
+
+.cap-visual--seo { flex-wrap: wrap; }
+.cap-seo-tag { padding: 8px 14px; border-radius: var(--radius-sm); background: var(--surface-secondary); border: 1px solid var(--border-soft); font-size: 12px; font-weight: 600; color: var(--orange); font-family: monospace; }
 
 /* ---------- SELECTED WORK FEATURE ---------- */
 .svc-work-feature { max-width: var(--container); margin: 0 auto; padding: 24px 48px 64px; }
