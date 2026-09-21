@@ -111,10 +111,22 @@
     if (totalEl) totalEl.textContent = String(slides.length).padStart(2, '0');
 
     function render(newIndex) {
-      newIndex = ((newIndex % slides.length) + slides.length) % slides.length;
-      if (newIndex === index) return;
-      index = newIndex;
-      slides.forEach((s, i) => s.classList.toggle('is-active', i === index));
+      const wrapped = ((newIndex % slides.length) + slides.length) % slides.length;
+      if (wrapped === index) return;
+      // Direction from the raw (pre-wrap) delta, since every caller only
+      // ever passes index ± 1 — this keeps "prev from slide 1" feeling
+      // like backward motion even across the wraparound boundary.
+      const dir = newIndex < index ? 'prev' : 'next';
+      slider.setAttribute('data-dir', dir);
+      // Reset first so a slide reused later starts from the idle position
+      // matching whatever direction is current, not wherever it last
+      // exited to — both idle and is-leaving are fully invisible
+      // (opacity 0, clipped away), so this reset is never seen.
+      slides.forEach((s) => s.classList.remove('is-leaving'));
+      slides[index].classList.add('is-leaving');
+      slides[index].classList.remove('is-active');
+      index = wrapped;
+      slides[index].classList.add('is-active');
       const active = slides[index];
       if (infoEl) infoEl.classList.add('is-swapping');
       setTimeout(() => {

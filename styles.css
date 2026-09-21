@@ -372,6 +372,15 @@ html.anim-failsafe .fade-in {
   overflow: hidden;
   background: var(--surface-secondary);
 }
+/* Direction-aware transition: going "next", the outgoing slide exits
+   toward the left while the incoming one enters from the right (not a
+   mirror of each other — both converge toward centre like a conveyor,
+   per the brief). Going "prev" mirrors it. Three states per slide:
+   idle (waiting off to one side), is-active (centred), is-leaving (just
+   lost active, animating off to the other side). script.js resets
+   is-leaving on every slide before each transition so a slide re-used
+   later starts from the correct idle position for whatever direction
+   is current, rather than wherever it last exited to. */
 .work-slide {
   position: absolute; inset: 0;
   display: block;
@@ -384,6 +393,13 @@ html.anim-failsafe .fade-in {
   pointer-events: none;
 }
 .work-slide.is-active { clip-path: inset(0 0 0 0); opacity: 1; transform: scale(1) translateX(0); pointer-events: auto; }
+.work-slide.is-leaving { clip-path: inset(0 100% 0 0); opacity: 0; transform: scale(0.97) translateX(-24px); }
+.work-slider[data-dir="prev"] .work-slide:not(.is-active):not(.is-leaving) {
+  clip-path: inset(0 100% 0 0); transform: scale(1.04) translateX(-24px);
+}
+.work-slider[data-dir="prev"] .work-slide.is-leaving {
+  clip-path: inset(0 0 0 100%); transform: scale(0.97) translateX(24px);
+}
 .work-slide-media { position: relative; width: 100%; height: 100%; }
 .work-slide-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--motion-ease); }
 .work-slide:hover .work-slide-media img { transform: scale(1.04); }
