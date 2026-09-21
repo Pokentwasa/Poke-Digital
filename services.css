@@ -216,6 +216,7 @@
 
 .cap-panel { max-height: 900px; overflow: hidden; opacity: 1; transition: max-height var(--motion-slow) var(--motion-ease), opacity var(--motion-normal) var(--motion-ease); }
 .cap-panel p { font-size: 16px; line-height: 1.75; color: var(--text-dim); max-width: 62ch; margin-bottom: 26px; }
+.cap-panel .svc-list { margin-top: 0; margin-bottom: 26px; }
 
 /* Text-entrance: a restrained translate-only reveal as each block scrolls
    into view, applied once via .is-in (work.js), not a scroll-tied repeat.
@@ -223,12 +224,12 @@
    text stays fully present and readable at every point (no-JS, JS-disabled
    crawl, or a stalled script all render full text immediately), only its
    position animates a few pixels into place. */
-.cap-block .cap-toggle-text, .cap-block > .cap-panel > p { transform: translateY(0); }
+.cap-block .cap-toggle-text, .cap-block > .cap-panel > p, .cap-block > .cap-panel > ul { transform: translateY(0); }
 @media (prefers-reduced-motion: no-preference) {
   .cap-block:not(.is-in) .cap-toggle-text { transform: translateY(14px); }
-  .cap-block:not(.is-in) > .cap-panel > p { transform: translateY(10px); }
+  .cap-block:not(.is-in) > .cap-panel > p, .cap-block:not(.is-in) > .cap-panel > ul { transform: translateY(10px); }
   .cap-block .cap-toggle-text { transition: transform var(--motion-slow) var(--motion-ease); }
-  .cap-block > .cap-panel > p { transition: transform var(--motion-normal) var(--motion-ease) 80ms; }
+  .cap-block > .cap-panel > p, .cap-block > .cap-panel > ul { transition: transform var(--motion-normal) var(--motion-ease) 80ms; }
 
   /* The visual artefacts are decorative (aria-hidden) so, unlike the
      copy above, they're free to also use opacity — and each capability
@@ -242,6 +243,11 @@
   .cap-block:not(.is-in) .cap-visual--funnel { transform: translateY(14px); }
   .cap-block:not(.is-in) .cap-visual--prototyping { transform: translateX(-16px); }
   .cap-block:not(.is-in) .cap-visual--usability { transform: scale(0.94); }
+  .cap-block:not(.is-in) .cap-visual--content-card { transform: translateY(-14px); }
+  .cap-block:not(.is-in) .cap-visual--content-types { transform: translateX(16px); }
+  .cap-block:not(.is-in) .cap-visual--template { transform: translateY(-14px); }
+  .cap-block:not(.is-in) .cap-visual--dashboard { transform: translateX(-16px); }
+  .cap-block:not(.is-in) .cap-visual--foundation { transform: translateY(14px); }
 }
 
 /* Capability-specific visual artefacts — restrained, CSS-only, no
@@ -293,6 +299,37 @@
 .cap-usability-chip--contrast { color: var(--white); }
 .cap-usability-chip--focus { outline: 2px solid var(--orange); outline-offset: 2px; }
 .cap-usability-chip--error { border-color: var(--orange); color: var(--orange); }
+
+.cap-visual--content-card { flex-direction: column; align-items: stretch; gap: 8px; }
+.cap-cc-field { display: flex; align-items: center; gap: 10px; }
+.cap-cc-field em { font-style: normal; width: 44px; flex-shrink: 0; font-size: 11px; font-weight: 600; color: var(--text-dimmer); }
+.cap-cc-field i { flex: 1; height: 26px; border-radius: var(--radius-sm); background: var(--surface-secondary); border: 1px solid var(--border-soft); }
+.cap-cc-field--photo i { background: repeating-linear-gradient(135deg, var(--surface-secondary), var(--surface-secondary) 6px, var(--border-dark) 6px, var(--border-dark) 7px); }
+
+.cap-visual--content-types { flex-wrap: wrap; }
+.cap-type-chip { padding: 8px 14px; border-radius: 999px; background: var(--surface-secondary); border: 1px solid var(--border-soft); font-size: 12.5px; font-weight: 600; color: var(--text-dim); }
+.cap-type-chip:nth-child(3n+1) { border-color: var(--orange); color: var(--orange); }
+
+.cap-visual--template { flex-direction: column; align-items: center; gap: 0; padding-top: 26px; }
+.cap-template-root { padding: 8px 18px; border-radius: var(--radius-sm); background: var(--orange); color: var(--white); font-size: 13px; font-weight: 700; }
+.cap-template-branch { position: relative; display: flex; gap: 10px; margin-top: 22px; padding-top: 16px; }
+.cap-template-branch::before { content: ''; position: absolute; top: 0; left: 8%; right: 8%; height: 1px; background: var(--border-strong); }
+.cap-template-leaf { position: relative; width: 44px; height: 32px; border-radius: var(--radius-sm); background: var(--surface-secondary); border: 1px dashed var(--border-strong); }
+.cap-template-leaf::before { content: ''; position: absolute; top: -16px; left: 50%; width: 1px; height: 16px; background: var(--border-strong); }
+
+.cap-visual--dashboard { flex-direction: column; align-items: stretch; gap: 14px; }
+.cap-dash-nav { display: flex; gap: 8px; }
+.cap-dash-nav i { width: 40px; height: 10px; border-radius: 4px; background: var(--surface-secondary); border: 1px solid var(--border-soft); }
+.cap-dash-nav i:first-child { background: var(--orange); border-color: var(--orange); }
+.cap-dash-rows { display: flex; flex-direction: column; gap: 6px; }
+.cap-dash-rows i { display: block; height: 14px; border-radius: 4px; background: var(--surface-secondary); border: 1px solid var(--border-soft); }
+.cap-dash-rows i:nth-child(1) { width: 100%; }
+.cap-dash-rows i:nth-child(2) { width: 82%; }
+.cap-dash-rows i:nth-child(3) { width: 60%; }
+
+.cap-visual--foundation { flex-direction: column; align-items: stretch; gap: 4px; }
+.cap-foundation-layer { padding: 10px 14px; border-radius: var(--radius-sm); background: var(--surface-secondary); border: 1px solid var(--border-soft); font-size: 12px; font-weight: 600; color: var(--text-dim); text-align: center; }
+.cap-foundation-layer:first-child { background: var(--orange); border-color: var(--orange); color: var(--white); }
 
 /* ---------- SELECTED WORK FEATURE ---------- */
 .svc-work-feature { max-width: var(--container); margin: 0 auto; padding: 24px 48px 64px; }
@@ -433,7 +470,7 @@
   .cap-toggle[aria-expanded="true"] .cap-toggle-icon::after { transform: translate(-50%, -50%) rotate(90deg); opacity: 0; }
   .cap-panel { max-height: 0; opacity: 0; }
   .cap-block.is-open .cap-panel { max-height: 900px; opacity: 1; padding-bottom: 24px; }
-  .cap-block:not(.is-in) .cap-toggle-text, .cap-block:not(.is-in) > .cap-panel > p { transform: none; }
+  .cap-block:not(.is-in) .cap-toggle-text, .cap-block:not(.is-in) > .cap-panel > p, .cap-block:not(.is-in) > .cap-panel > ul { transform: none; }
 
   .svc-work-feature { padding: 24px 20px 48px; }
   .svc-work-feature-grid { grid-template-columns: 1fr; gap: 16px; }
