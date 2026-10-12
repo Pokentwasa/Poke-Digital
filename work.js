@@ -8,22 +8,6 @@
   // loads work.js instead of script.js — work.html and all case studies.)
   // ==========================================
   const navEl = document.getElementById('nav');
-  const navToggleEl = document.getElementById('navToggle');
-  const navLinksEl = document.getElementById('navLinks');
-  if (navToggleEl && navEl) {
-    navToggleEl.addEventListener('click', () => {
-      const isOpen = navEl.classList.toggle('is-open');
-      navToggleEl.setAttribute('aria-expanded', String(isOpen));
-    });
-    if (navLinksEl) {
-      navLinksEl.querySelectorAll('a').forEach((link) => {
-        link.addEventListener('click', () => {
-          navEl.classList.remove('is-open');
-          navToggleEl.setAttribute('aria-expanded', 'false');
-        });
-      });
-    }
-  }
 
   // NAV SCROLL STATE — near-transparent over the hero, a real blurred
   // surface once the visitor has scrolled past it.
