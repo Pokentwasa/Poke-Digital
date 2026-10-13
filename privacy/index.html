@@ -87,24 +87,36 @@
   </div>
 </main>
 
-<footer class="site-footer">
-  <div class="sf-inner">
-    <a class="sf-mail" href="mailto:hello@pokedigital.co.za">hello@pokedigital.co.za</a>
-    <div class="sf-row">
-      <a class="sf-logo" href="/" aria-label="Poke Digital home"><img src="/assets/brand/logo-full-tight.png" alt="Poke Digital" width="575" height="139"></a>
-      <nav class="sf-links" aria-label="Footer">
-        <a href="/services/">Services</a>
-        <a href="/work">Work</a>
-        <a href="/about">About</a>
-        <a href="/insights/">Insights</a>
-        <a href="/#contact">Contact</a>
-      </nav>
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <img src="/assets/brand/logo-full.png" alt="Poke Digital" class="footer-logo" width="600" height="200">
+      <p class="footer-tagline">Independent Web Design &amp; UI/UX Studio</p>
+      <p class="footer-location">Cape Town, South Africa</p>
     </div>
-    <div class="sf-legal">
-      <p>&copy; <span id="year"></span> Poke Digital, Cape Town</p>
-      <p><a href="/privacy">Privacy</a><a href="/terms">Terms</a></p>
+    <nav class="footer-col" aria-label="Services">
+      <h3>Services</h3>
+      <a href="/services/web-design/">Web Design</a>
+      <a href="/services/web-development/">Web Development</a>
+      <a href="/services/ui-ux-design/">UI/UX Design</a>
+      <a href="/services/website-redesign/">Website Redesign</a>
+      <a href="/services/cms-development/">CMS Development</a>
+    </nav>
+    <nav class="footer-col" aria-label="Company">
+      <h3>Company</h3>
+      <a href="/work">Work</a>
+      <a href="/about">About</a>
+      <a href="/insights/">Insights</a>
+      <a href="/#contact">Contact</a>
+    </nav>
+    <div class="footer-col">
+      <h3>Get in touch</h3>
+      <a href="mailto:hello@pokedigital.co.za">hello@pokedigital.co.za</a>
+      <a href="/#contact" class="footer-cta">Book a Discovery Call</a>
     </div>
   </div>
+  <p class="footer-wordmark" aria-hidden="true">POKE DIGITAL</p>
+  <div class="footer-bottom"><p>&copy; <span id="year"></span> Poke Digital. All rights reserved.</p><p><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></p></div>
 </footer>
 
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
