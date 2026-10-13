@@ -31,6 +31,7 @@
     tiles[i].focus();
   });
   dlg.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') e.stopPropagation(); // dialog still closes natively; keeps page-level Esc handlers out of it
     if (e.key === 'ArrowLeft') show(i - 1);
     if (e.key === 'ArrowRight') show(i + 1);
   });
